@@ -1,5 +1,5 @@
 // @ts-check
-/* FLORA AI 홈페이지 — 모바일 메뉴, 현재 섹션 메뉴 표시, 사양서 다운로드 안내 */
+/* SPOT AI 홈페이지 — 모바일 메뉴, 현재 섹션 메뉴 표시, 사양서 다운로드 안내 */
 
 (function () {
   "use strict";
@@ -103,7 +103,7 @@
           document.body.appendChild(a);
           a.click();
           a.remove();
-          showToast("플로라 AI 기술 사양서(PDF) 다운로드가 시작됩니다.");
+          showToast("SPOT AI 기술 사양서(PDF) 다운로드가 시작됩니다.");
         })
         .catch(function () {
           showToast("기술 사양서(PDF)는 현재 준비 중입니다.");
