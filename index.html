@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FLORA AI | AI 화초 상태 인식 및 자동 급수 시스템</title>
+  <meta name="description" content="MobileNetV3 비전 AI와 정전식 토양 수분 센서를 교차 분석해 10초 안에 무소음 자동 급수를 완성하는 스마트 화초 케어 시스템, 플로라 AI.">
+
+  <!-- 글꼴: Inter + Pretendard(한글) / 아이콘: Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&display=block">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== 상단 헤더 ===== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#product-overview" aria-label="FLORA AI 홈">
+        <span class="brand__mark"><span class="icon" aria-hidden="true">potted_plant</span></span>
+        <span class="brand__text">
+          <span class="brand__name">FLORA AI</span>
+          <span class="brand__sub">플로라 AI · Smart Botanical System</span>
+        </span>
+      </a>
+
+      <nav class="main-nav t-body-md" aria-label="주요 메뉴">
+        <a href="#product-overview" data-nav="product-overview" aria-current="true">제품 개요</a>
+        <a href="#challenges-and-hypotheses" data-nav="challenges-and-hypotheses">해결 과제 &amp; 가설</a>
+        <a href="#operational-cycle" data-nav="operational-cycle">작동 시나리오</a>
+        <a href="#performance-and-metrics" data-nav="performance-and-metrics">성능 및 신뢰성 지표</a>
+        <a href="#hardware-specs" data-nav="hardware-specs">기술 스택 &amp; 하드웨어</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="live-pill t-label">
+          <span class="dot dot--pulse" aria-hidden="true"></span>
+          <span>IoT Live Telemetry</span>
+        </div>
+        <div class="avatar" aria-hidden="true"><span class="icon">person</span></div>
+        <button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label="메뉴 열기">
+          <span class="icon" aria-hidden="true">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-nav" aria-label="모바일 메뉴" hidden>
+      <ul class="container">
+        <li><a href="#product-overview" data-nav="product-overview" aria-current="true">제품 개요</a></li>
+        <li><a href="#challenges-and-hypotheses" data-nav="challenges-and-hypotheses">해결 과제 &amp; 가설</a></li>
+        <li><a href="#operational-cycle" data-nav="operational-cycle">작동 시나리오</a></li>
+        <li><a href="#performance-and-metrics" data-nav="performance-and-metrics">성능 및 신뢰성 지표</a></li>
+        <li><a href="#hardware-specs" data-nav="hardware-specs">기술 스택 &amp; 하드웨어</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container page">
+
+      <!-- ===== 히어로 ===== -->
+      <section class="section hero" id="product-overview" data-section>
+        <div class="hero__topbar">
+          <div class="hero__badge t-label">
+            <span class="dot dot--ping" aria-hidden="true"></span>
+            <span>AI Botanical Care Solution · FloraBot AI</span>
+          </div>
+          <div class="hero__chips">
+            <span class="chip t-label"><span class="icon" aria-hidden="true">memory</span>MobileNetV3 Edge Inference</span>
+            <span class="chip t-label"><span class="icon" aria-hidden="true">water_drop</span>Zero Fail-Open Assurance</span>
+          </div>
+        </div>
+
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <h1 class="hero__title t-display">
+              눈으로 보고, 흙으로 느끼며 <br class="br-sm">
+              스스로 돌보는 <span class="hl">AI 지능형 식물 케어</span>
+            </h1>
+            <p class="hero__lead t-body-lg muted">
+              초보자도 식물 킬러에서 벗어나는 스마트 반려식물 라이프. MobileNetV3 기반 3-Class 비전 AI와 부식 방지 정전식 토양 수분 센서의 멀티모달 하이브리드 교차 분석으로 단 10초 만에 완벽한 무소음 급수를 완성합니다.
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--primary t-headline-sm" href="#operational-cycle">
+                <span>작동 아키텍처 둘러보기</span>
+                <span class="icon" aria-hidden="true">arrow_forward</span>
+              </a>
+              <a class="btn btn--secondary t-body-lg" href="#hardware-specs">
+                <span class="icon" aria-hidden="true">terminal</span>
+                <span>임베디드 사양서</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero__visual-wrap">
+            <figure class="hero__visual">
+              <img src="images/hero-flora.jpg" width="1376" height="768"
+                   alt="미니멀한 세라믹 화분의 몬스테라에 장착된 FloraBot AI 카메라 모듈과 토양 수분 프로브, 옆에 놓인 급수 물통">
+              <div class="overlay-tag overlay-tag--tl t-label">
+                <span class="dot" aria-hidden="true"></span>
+                <span>광각 비전 카메라 모듈</span>
+              </div>
+              <div class="overlay-tag overlay-tag--bl t-label">
+                <span class="icon" aria-hidden="true">sensors</span>
+                <span>정전식 토양 프로브 결합</span>
+              </div>
+              <div class="overlay-tag overlay-tag--br t-label">
+                <span class="icon" aria-hidden="true">water</span>
+                <span>초정밀 급수 펌프 연동</span>
+              </div>
+              <figcaption class="sr-only">FloraBot AI 하드웨어 구성</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- KPI 하이라이트 -->
+        <ul class="kpi-strip">
+          <li class="kpi">
+            <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">center_focus_strong</span></span>
+            <span class="kpi__text">
+              <span class="t-metric">90%+</span>
+              <span class="t-body-md muted">잎 상태 다중 클래스 분류 정확도</span>
+            </span>
+          </li>
+          <li class="kpi">
+            <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">timer</span></span>
+            <span class="kpi__text">
+              <span class="t-metric">≤ 10초</span>
+              <span class="t-body-md muted">센싱 · 추론 · 펌프 분사 사이클</span>
+            </span>
+          </li>
+          <li class="kpi">
+            <span class="icon-tile bg-secondary-fixed c-on-secondary-fixed"><span class="icon" aria-hidden="true">verified_user</span></span>
+            <span class="kpi__text">
+              <span class="t-metric">0건</span>
+              <span class="t-body-md muted">Fail-Open 과급수 방지 (뿌리 보호)</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ===== 01 · 배경 & 가설 ===== -->
+      <section class="section section--md" id="challenges-and-hypotheses" data-section>
+        <div class="section-head">
+          <span class="eyebrow">01 · Background &amp; Hypothesis</span>
+          <h2 class="t-headline-lg">기존 관리의 한계와 플로라의 멀티모달 솔루션</h2>
+          <p class="t-body-lg muted">식물 고사의 82%는 부정확한 관수 시기와 과습으로 인해 발생합니다. 시각적 활력도와 물리적 토양 수분의 교차 검증만이 유일한 해법입니다.</p>
+        </div>
+
+        <div class="two-col">
+          <!-- 문제점 -->
+          <article class="card bg-low panel">
+            <div>
+              <div class="panel__title">
+                <span class="icon-tile bg-highest c-error"><span class="icon" aria-hidden="true">warning</span></span>
+                <h3 class="t-headline-md">기존 식물 관리의 문제점 (User Pain Points)</h3>
+              </div>
+              <ul class="pain-list t-body-md">
+                <li>
+                  <span class="icon" aria-hidden="true">close</span>
+                  <div><strong>불명확한 물주기 주기:</strong> 겉흙이 말라도 속흙은 축축한 경우가 많아 캘린더 주기식 관수는 뿌리 질식과 무름병을 유발합니다.</div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">close</span>
+                  <div><strong>단일 센서의 오차 한계:</strong> 보급형 저항식 센서는 급격히 부식되며, 정전식 센서 단독으로는 증산 작용과 잎의 탈수 신호를 감지할 수 없습니다.</div>
+                </li>
+                <li>
+                  <span class="icon" aria-hidden="true">close</span>
+                  <div><strong>장기 부재 및 원인 오판:</strong> 출장·여행 시 케어가 불가능하며, 잎이 처졌을 때 건조로 오판하여 과습 중인 화초에 물을 더 주는 악순환 발생.</div>
+                </li>
+              </ul>
+            </div>
+            <div class="panel__foot panel__foot--neutral t-label">
+              <span>국내 반려식물 가구 조사 기준</span>
+              <span class="c-error">초보자 폐사 경험 78.4%</span>
+            </div>
+          </article>
+
+          <!-- 솔루션 & 가설 -->
+          <article class="card bg-lowest panel">
+            <div>
+              <div class="panel__title">
+                <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">psychology</span></span>
+                <h3 class="t-headline-md">해결 솔루션 &amp; 핵심 가설 (Hypothesis)</h3>
+              </div>
+              <div class="hypo-list">
+                <div class="hypo">
+                  <span class="hypo__tag t-label c-tertiary">Core Hypothesis 01</span>
+                  <span class="t-headline-sm">비전 이미지와 정전식 수분의 교차 융합</span>
+                  <p class="t-body-md muted">MobileNetV3로 잎의 3개 상태(정상·시듦·손상)를 감지하고, 정전식 수분 센서의 실시간 유전율 데이터를 곱연산하여 단일 결측 위험을 원천 제거합니다.</p>
+                </div>
+                <div class="hypo">
+                  <span class="hypo__tag t-label c-primary">Core Hypothesis 02</span>
+                  <span class="t-headline-sm">식물 관찰 및 급수 스트레스 완전 자동화</span>
+                  <p class="t-body-md muted">필요할 때만 1회 분사량을 점진적으로 토출하고 2차 센싱 피드백을 수렴함으로써, 사용자의 관찰 노동 없이도 100% 최적 생육 수분 상태를 지속 유지합니다.</p>
+                </div>
+                <div class="hypo">
+                  <span class="hypo__tag t-label c-secondary">Core Hypothesis 03</span>
+                  <span class="t-headline-sm">온디바이스 Edge AI 기반 24/7 독립 작동</span>
+                  <p class="t-body-md muted">클라우드 서버 장애 및 Wi-Fi 단절 상황에서도 기기 자체의 임베디드 두뇌가 로컬 판단을 완결하여 장기 출장 시에도 0-Downtime 케어를 제공합니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="panel__foot panel__foot--mint t-label">
+              <span class="c-tertiary">상태 판정 검증치</span>
+              <span class="c-on-surface">오판단 관수율 ≤ 2.1%</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== 02 · 작동 사이클 & Fail-Safe ===== -->
+      <section class="section section--lg" id="operational-cycle" data-section>
+        <div class="section-head">
+          <span class="eyebrow">02 · System Logic &amp; Operational Flow</span>
+          <h2 class="t-headline-lg">6단계 표준 작동 사이클 &amp; 안전 방어선</h2>
+          <p class="t-body-lg muted">주변 환경 조도 보정부터 AI 분석, 그리고 만약의 센서 고장에 대응하는 5대 예외 처리(Fail-Safe) 매커니즘을 정의합니다.</p>
+        </div>
+
+        <ol class="steps">
+          <li class="card bg-lowest step">
+            <div class="step__body">
+              <div class="step__top"><span class="step__num">01</span><span class="icon" aria-hidden="true">tune</span></div>
+              <h4 class="t-headline-sm">디바이스 장착 &amp; 품종 설정</h4>
+              <p class="t-body-md muted">화분 림(Rim)에 디바이스를 클램핑하고 정전식 프로브를 뿌리 깊이에 삽입. 식물별 권장 수분 프로파일(건조/보통/다습)을 즉각 매핑합니다.</p>
+            </div>
+            <div class="step__meta">Initial Telemetry Calibration</div>
+          </li>
+          <li class="card bg-lowest step">
+            <div class="step__body">
+              <div class="step__top"><span class="step__num">02</span><span class="icon" aria-hidden="true">light_mode</span></div>
+              <h4 class="t-headline-sm">LED 보조조명 기반 표준화 촬영</h4>
+              <p class="t-body-md muted">야간이나 직사광선 조건에서도 일관된 색온도(4000K)의 펄스 LED 조명을 투과시켜 카메라 센서의 노이즈와 그림자 왜곡을 원천 차단합니다.</p>
+            </div>
+            <div class="step__meta">Luminance Compensation (&lt; 200ms)</div>
+          </li>
+          <li class="card bg-lowest step">
+            <div class="step__body">
+              <div class="step__top"><span class="step__num">03</span><span class="icon" aria-hidden="true">psychology</span></div>
+              <h4 class="t-headline-sm">MobileNetV3 비전 상태 추론</h4>
+              <p class="t-body-md muted">경량화 딥러닝 백본 네트워크가 잎의 처짐 각도, 엽록소 색소도, 마름 반점을 판독하여 '정상(Healthy) / 시듦(Wilted) / 손상(Diseased)' 3-Class로 분류합니다.</p>
+            </div>
+            <div class="step__meta">Inference Latency ≤ 2.4s</div>
+          </li>
+          <li class="card bg-lowest step">
+            <div class="step__body">
+              <div class="step__top"><span class="step__num">04</span><span class="icon" aria-hidden="true">hub</span></div>
+              <h4 class="t-headline-sm">종합 크로스 매트릭스 판정</h4>
+              <p class="t-body-md muted">AI가 '시듦'으로 판별했더라도 토양 수분이 60% 이상이면 '과습'으로 인지하여 급수를 차단하고, 수분이 30% 이하인 진성 건조에만 급수 결정을 내립니다.</p>
+            </div>
+            <div class="step__meta">Dual-Trigger Verification</div>
+          </li>
+          <li class="card bg-lowest step">
+            <div class="step__body">
+              <div class="step__top"><span class="step__num">05</span><span class="icon" aria-hidden="true">water_drop</span></div>
+              <h4 class="t-headline-sm">정밀 펄스 급수 &amp; 2차 수렴 피드백</h4>
+              <p class="t-body-md muted">저소음 연동 펌프(Peristaltic)를 구동하여 1회 80ml를 분사한 후 5분간 흙의 확산을 대기. 2차 수분율을 재측정해 목표치에 안전하게 도달시킵니다.</p>
+            </div>
+            <div class="step__meta">Non-Splashing Closed-Loop</div>
+          </li>
+          <li class="card bg-lowest step">
+            <div class="step__body">
+              <div class="step__top"><span class="step__num">06</span><span class="icon" aria-hidden="true">monitoring</span></div>
+              <h4 class="t-headline-sm">로컬 대시보드 및 로그 기록</h4>
+              <p class="t-body-md muted">촬영된 잎 이미지의 Bounding Box, 판별 신뢰도 점수, 센서 곡선, 급수량 로그를 경량 Flask 엔진에 누적하여 스마트폰으로 언제든 확인 가능합니다.</p>
+            </div>
+            <div class="step__meta">Real-time Telemetry Sync</div>
+          </li>
+        </ol>
+
+        <!-- 5대 Fail-Safe -->
+        <div class="card bg-low failsafe">
+          <div class="failsafe__head">
+            <div class="failsafe__title">
+              <span class="icon-tile bg-tertiary-fixed"><span class="icon" aria-hidden="true">security</span></span>
+              <h3 class="t-headline-md">하드웨어 · 소프트웨어 5대 예외 방어선 (Fail-Safe Protocol)</h3>
+            </div>
+            <span class="failsafe__badge t-label">Zero Root-Rot Guarantee</span>
+          </div>
+          <div class="failsafe__grid">
+            <div class="guard">
+              <div class="guard__title t-label"><span class="icon" aria-hidden="true">no_photography</span><span>카메라 오류 방어</span></div>
+              <p>촬영 실패 시 3회 재시도 후 즉시 급수 정지. 토양 수분 비상 단독 루틴으로 안전 전환.</p>
+            </div>
+            <div class="guard">
+              <div class="guard__title t-label"><span class="icon" aria-hidden="true">electric_meter</span><span>센서 이상 감지</span></div>
+              <p>0% 또는 100% 고정값(단락·탈락) 감지 시 펌프 작동을 물리적으로 락업(Lock-up) 조치.</p>
+            </div>
+            <div class="guard">
+              <div class="guard__title t-label"><span class="icon" aria-hidden="true">warning_amber</span><span>수조 고갈 통보</span></div>
+              <p>급수 후 10분간 토양 수분 변화가 없을 시 물통 고갈 경고를 발생하고 펌프 공회전 차단.</p>
+            </div>
+            <div class="guard">
+              <div class="guard__title t-label"><span class="icon" aria-hidden="true">balance</span><span>신뢰도 저하 보정</span></div>
+              <p>AI 신뢰도 &lt; 70% 일 경우 임의 판정을 배제하고 사전 정의된 정전식 안전 수분값만 추종.</p>
+            </div>
+            <div class="guard">
+              <div class="guard__title t-label"><span class="icon" aria-hidden="true">lock_clock</span><span>하드웨어 과급수 차단</span></div>
+              <p>1회 펌프 연속 구동 상한(12초)을 펌웨어 인터럽트로 제한하여 어떤 버그에도 누수 없음.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 03 · 성능 지표 ===== -->
+      <section class="section section--lg" id="performance-and-metrics" data-section>
+        <div class="section-head">
+          <span class="eyebrow">03 · Quantitative Performance</span>
+          <h2 class="t-headline-lg">데이터로 입증하는 신뢰성 지표 (KPI)</h2>
+          <p class="t-body-lg muted">실제 온실 및 주거 환경 2,400개 샘플을 대상으로 검증된 정밀도와 벤치마크 수치입니다.</p>
+        </div>
+
+        <div class="metrics">
+          <article class="card bg-lowest metric">
+            <div>
+              <div class="metric__head t-label c-tertiary"><span>AI Classification</span><span class="icon" aria-hidden="true">cognition</span></div>
+              <div class="t-metric">91.8%</div>
+              <span class="metric__sub t-headline-sm">3-Class 상태 분류 정확도</span>
+              <p class="metric__desc t-body-md muted">Macro F1-Score 0.88 달성. 급수가 필요한 시듦 상태의 판독 누락(False Negative)은 6.2%로 극소화.</p>
+            </div>
+            <div class="bar" role="presentation"><div class="bar__fill bar__fill--tertiary" style="width:91.8%"></div></div>
+          </article>
+          <article class="card bg-lowest metric">
+            <div>
+              <div class="metric__head t-label c-primary"><span>Response Latency</span><span class="icon" aria-hidden="true">speed</span></div>
+              <div class="t-metric">7.4초</div>
+              <span class="metric__sub t-headline-sm">전체 판단 · 급수 소요시간</span>
+              <p class="metric__desc t-body-md muted">기준 사양 10초 이내 완전 충족. 온디바이스 MobileNetV3 순수 추론 속도는 평균 1.8초를 기록.</p>
+            </div>
+            <div class="bar" role="presentation"><div class="bar__fill bar__fill--primary" style="width:74%"></div></div>
+          </article>
+          <article class="card bg-lowest metric">
+            <div>
+              <div class="metric__head t-label c-secondary"><span>Dispensing Precision</span><span class="icon" aria-hidden="true">opacity</span></div>
+              <div class="t-metric">± 4.8%</div>
+              <span class="metric__sub t-headline-sm">급수량 오차 편차율</span>
+              <p class="metric__desc t-body-md muted">펄스 연동 제어를 통해 타깃 급수량 도달 신뢰도 95.4%. 불필요한 과잉 급수율 3.1% 이하 억제.</p>
+            </div>
+            <div class="bar" role="presentation"><div class="bar__fill bar__fill--secondary" style="width:95%"></div></div>
+          </article>
+          <article class="card bg-lowest metric">
+            <div>
+              <div class="metric__head t-label c-tertiary"><span>System Integrity</span><span class="icon" aria-hidden="true">shield</span></div>
+              <div class="t-metric">100%</div>
+              <span class="metric__sub t-headline-sm">Fail-Safe 차단 방어율</span>
+              <p class="metric__desc t-body-md muted">네트워크 단절, 센서 쇼트, 조명 이상 등 500회 인위 결함 주입 테스트에서 과급수(Fail-Open) 발생 0건.</p>
+            </div>
+            <div class="bar" role="presentation"><div class="bar__fill bar__fill--tertiary" style="width:100%"></div></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== 04 · 하드웨어 & 소프트웨어 ===== -->
+      <section class="section section--md" id="hardware-specs" data-section>
+        <div class="section-head">
+          <span class="eyebrow">04 · Engineering Architecture</span>
+          <h2 class="t-headline-lg">하드웨어 명세 및 소프트웨어 스택</h2>
+          <p class="t-body-lg muted">가정용 인테리어와의 친화적인 조화와 엔지니어링 신뢰성을 모두 고려한 임베디드 부품 구성입니다.</p>
+        </div>
+
+        <div class="arch">
+          <article class="card bg-lowest bom arch__hw">
+            <h3 class="arch__title t-headline-md">
+              <span class="icon c-primary" aria-hidden="true">developer_board</span>
+              <span>하드웨어 컴포넌트 사양 (BOM Specification)</span>
+            </h3>
+            <dl class="bom__rows">
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">memory</span>메인 프로세서</dt>
+                <dd class="bom__value">Raspberry Pi 4 Model B (Quad-core 1.5GHz / 4GB RAM)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">photo_camera</span>비전 카메라</dt>
+                <dd class="bom__value">RPi Camera Module 3 (12MP Sony IMX708, 와이드 120° FoV)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">wb_incandescent</span>표준 조명 장치</dt>
+                <dd class="bom__value">High-CRI Warm White LED 바 (CRI &gt; 92, 4000K 고정 펄스 제어)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">sensors</span>토양 수분 센서</dt>
+                <dd class="bom__value">정전용량식(Capacitive v2.0) 아날로그 프로브 (부식 0%, 방수 코팅)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">water</span>유체 분사 펌프</dt>
+                <dd class="bom__value">12V 저소음 정량 펌프 (≤ 28dB, 역류 방지 밸브 내장)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">crop_free</span>클램프 &amp; 인클로저</dt>
+                <dd class="bom__value">내충격 바이오 ABS 하우징, 화분 두께 8~25mm 조절식 유니버설 마운트</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="card bg-lowest stack arch__sw">
+            <div>
+              <h3 class="arch__title t-headline-md">
+                <span class="icon c-tertiary" aria-hidden="true">code</span>
+                <span>소프트웨어 스택</span>
+              </h3>
+              <div class="stack__list">
+                <div class="stack__item stack__item--mint">
+                  <span class="icon c-tertiary" aria-hidden="true">model_training</span>
+                  <div>
+                    <span class="t-headline-sm">MobileNetV3 경량 온디바이스</span>
+                    <p class="t-body-md muted">TensorFlow Lite 양자화(INT8) 적용으로 4.2MB의 초소형 풋프린트와 0.8W 이하의 저전력 연산을 구현했습니다.</p>
+                  </div>
+                </div>
+                <div class="stack__item stack__item--peach">
+                  <span class="icon c-primary" aria-hidden="true">web</span>
+                  <div>
+                    <span class="t-headline-sm">Flask 초경량 로컬 웹 서버</span>
+                    <p class="t-body-md muted">동일 Wi-Fi 내 브라우저 접속을 지원하는 직관적 대시보드로 실시간 엽면 사진, 수분 시계열 차트, 수동 분사 제어를 제공합니다.</p>
+                  </div>
+                </div>
+                <div class="stack__item stack__item--coral">
+                  <span class="icon c-secondary" aria-hidden="true">schema</span>
+                  <div>
+                    <span class="t-headline-sm">듀얼 스레드 센서 폴링</span>
+                    <p class="t-body-md muted">10분 단위의 백그라운드 수분 로깅 스레드와 트리거 기반 고해상도 비전 추론 프로세스를 분리 설계하여 무응답 현상을 방지합니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="stack__foot t-label">
+              <span>라이선스: Apache 2.0 Open Core</span>
+              <span>OTA 펌웨어 업데이트 지원</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== 05 · MVP 검증 & CTA ===== -->
+      <section class="validation" id="validation" aria-labelledby="validation-title">
+        <div class="validation__head">
+          <span class="eyebrow">Validation &amp; Road to Commercialization</span>
+          <h2 class="t-headline-lg" id="validation-title">3대 핵심 MVP 검증 기준과 제품화 로드맵</h2>
+          <p class="t-body-lg muted">플로라 AI 케어 시스템은 단순한 프로토타입을 넘어 상용화 가전 수준의 완성도와 식물 생존 신뢰도를 목표로 합니다.</p>
+        </div>
+
+        <div class="criteria">
+          <div class="criterion">
+            <div class="criterion__num bg-tertiary-fixed c-tertiary">01</div>
+            <h4 class="t-headline-sm">14일간 무인 생존성 검증</h4>
+            <p class="t-body-md muted">몬스테라, 스킨답서스 등 대표 실내 화초 10종 대상 2주간 사용자 개입 없이 목표 수분율 ±10% 내 완벽 유지 증명.</p>
+          </div>
+          <div class="criterion">
+            <div class="criterion__num bg-primary-container c-on-primary-container">02</div>
+            <h4 class="t-headline-sm">비전-수분 판정 일치율 &gt; 90%</h4>
+            <p class="t-body-md muted">잎이 시들어 처졌을 때 센서가 건조(토양 수분 ≤ 30%)를 동시에 감지하여 불필요한 과습 분사를 완전 차단하는 일치율 확인.</p>
+          </div>
+          <div class="criterion">
+            <div class="criterion__num bg-secondary-fixed c-on-secondary-fixed">03</div>
+            <h4 class="t-headline-sm">Fail-Safe 락다운 100% 작동</h4>
+            <p class="t-body-md muted">케이블 단선, 급수관 꺾임, 물통 고갈 등 비상 상황 발생 시 펌프 누적 가동 시간 12초 초과 전에 전원 차단 신뢰도 충족.</p>
+          </div>
+        </div>
+
+        <div class="cta" id="spec-download">
+          <div class="cta__text">
+            <span class="t-headline-sm">화초의 생체 신호, 이제 AI에게 맡기세요</span>
+            <span class="t-body-md muted">플로라 AI 하드웨어 키트 개발 리포트 및 기술 백서 전문을 확인하실 수 있습니다.</span>
+          </div>
+          <!-- PDF 파일은 docs/flora-ai-tech-spec.pdf 에 넣으면 바로 다운로드됩니다 -->
+          <a class="btn btn--primary t-headline-sm" href="docs/flora-ai-tech-spec.pdf" download data-spec-pdf>
+            <span class="icon" aria-hidden="true">download</span>
+            <span>기술 사양서 (PDF)</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== 푸터 ===== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__name">
+            <span class="icon-tile bg-tertiary-fixed"><span class="icon" aria-hidden="true">eco</span></span>
+            <span class="t-headline-sm">FLORA AI Botanical Care System</span>
+          </div>
+          <p class="t-body-md muted">바이오필릭 홈 테크놀로지와 초정밀 인공지능이 융합된 화초 상태 진단 및 무소음 연동 자동 급수 아키텍처 솔루션 리포트.</p>
+        </div>
+        <nav class="footer-col t-body-md" aria-label="문서 아키텍처">
+          <span class="footer-col__title t-label c-on-surface">문서 아키텍처</span>
+          <a href="#product-overview">제품 개요 및 비전</a>
+          <a href="#challenges-and-hypotheses">해결 과제 및 검증 가설</a>
+          <a href="#operational-cycle">작동 사이클 시나리오</a>
+        </nav>
+        <nav class="footer-col t-body-md" aria-label="엔지니어링 및 사양">
+          <span class="footer-col__title t-label c-on-surface">엔지니어링 &amp; 사양</span>
+          <a href="#performance-and-metrics">정밀도 및 신뢰성 지표</a>
+          <a href="#hardware-specs">임베디드 하드웨어 스펙</a>
+          <a href="docs/flora-ai-tech-spec.pdf" download data-spec-pdf>기술 사양서 다운로드</a>
+        </nav>
+      </div>
+      <div class="footer-bottom t-label">
+        <span>© 2025 FLORA AI Engineering Team. All rights reserved.</span>
+        <span>Sub-GHz RF &amp; Vision Multi-Modal Telemetry v2.4</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast t-body-md" role="status" aria-live="polite"></div>
+</body>
+</html>
