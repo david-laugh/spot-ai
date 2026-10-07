@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SPOT AI | AI 화초 상태 인식 및 자동 급수 시스템</title>
-  <meta name="description" content="MobileNetV3 비전 AI와 정전식 토양 수분 센서를 교차 분석해 10초 안에 무소음 자동 급수를 완성하는 스마트 화초 케어 시스템, SPOT AI.">
+  <meta name="description" content="경량 CNN(Lightweight CNN) 비전 AI와 정전식 토양 수분 센서를 교차 분석해 10초 안에 무소음 자동 급수를 완성하는 스마트 화초 케어 시스템, SPOT AI.">
 
   <!-- 글꼴: Inter + Pretendard(한글) / 아이콘: Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,7 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
+  <script src="js/model-test.js" defer></script>
 </head>
 <body>
 
@@ -33,6 +34,7 @@
         <a href="#product-overview" data-nav="product-overview" aria-current="true">제품 개요</a>
         <a href="#challenges-and-hypotheses" data-nav="challenges-and-hypotheses">해결 과제 &amp; 가설</a>
         <a href="#operational-cycle" data-nav="operational-cycle">작동 시나리오</a>
+        <a href="#image-pipeline" data-nav="image-pipeline">이미지 전처리</a>
         <a href="#performance-and-metrics" data-nav="performance-and-metrics">성능 및 신뢰성 지표</a>
         <a href="#hardware-specs" data-nav="hardware-specs">기술 스택 &amp; 하드웨어</a>
       </nav>
@@ -54,6 +56,7 @@
         <li><a href="#product-overview" data-nav="product-overview" aria-current="true">제품 개요</a></li>
         <li><a href="#challenges-and-hypotheses" data-nav="challenges-and-hypotheses">해결 과제 &amp; 가설</a></li>
         <li><a href="#operational-cycle" data-nav="operational-cycle">작동 시나리오</a></li>
+        <li><a href="#image-pipeline" data-nav="image-pipeline">이미지 전처리</a></li>
         <li><a href="#performance-and-metrics" data-nav="performance-and-metrics">성능 및 신뢰성 지표</a></li>
         <li><a href="#hardware-specs" data-nav="hardware-specs">기술 스택 &amp; 하드웨어</a></li>
       </ul>
@@ -71,7 +74,7 @@
             <span>AI Botanical Care Solution · SPOT AI</span>
           </div>
           <div class="hero__chips">
-            <span class="chip t-label"><span class="icon" aria-hidden="true">memory</span>MobileNetV3 Edge Inference</span>
+            <span class="chip t-label"><span class="icon" aria-hidden="true">memory</span>Lightweight CNN · ONNX Runtime</span>
             <span class="chip t-label"><span class="icon" aria-hidden="true">water_drop</span>Zero Fail-Open Assurance</span>
           </div>
         </div>
@@ -83,7 +86,7 @@
               스스로 돌보는 <span class="hl">AI 지능형 식물 케어</span>
             </h1>
             <p class="hero__lead t-body-lg muted">
-              초보자도 식물 킬러에서 벗어나는 스마트 반려식물 라이프. MobileNetV3 기반 3-Class 비전 AI와 부식 방지 정전식 토양 수분 센서의 멀티모달 하이브리드 교차 분석으로 단 10초 만에 완벽한 무소음 급수를 완성합니다.
+              초보자도 식물 킬러에서 벗어나는 스마트 반려식물 라이프. Lightweight CNN 기반 3-Class 비전 AI와 부식 방지 정전식 토양 수분 센서의 멀티모달 하이브리드 교차 분석으로 단 10초 만에 완벽한 무소음 급수를 완성합니다.
             </p>
             <div class="hero__actions">
               <a class="btn btn--primary t-headline-sm" href="#operational-cycle">
@@ -192,7 +195,7 @@
                 <div class="hypo">
                   <span class="hypo__tag t-label c-tertiary">Core Hypothesis 01</span>
                   <span class="t-headline-sm">비전 이미지와 정전식 수분의 교차 융합</span>
-                  <p class="t-body-md muted">MobileNetV3로 잎의 3개 상태(정상·시듦·손상)를 감지하고, 정전식 수분 센서의 실시간 유전율 데이터를 곱연산하여 단일 결측 위험을 원천 제거합니다.</p>
+                  <p class="t-body-md muted">Separable Convolution 기반 Lightweight CNN으로 토양 이미지의 수분 상태(Dry·Moderate·Wet)를 분류하고, 정전식 수분 센서의 실시간 유전율 데이터를 곱연산하여 단일 결측 위험을 원천 제거합니다.</p>
                 </div>
                 <div class="hypo">
                   <span class="hypo__tag t-label c-primary">Core Hypothesis 02</span>
@@ -242,8 +245,8 @@
           <li class="card bg-lowest step">
             <div class="step__body">
               <div class="step__top"><span class="step__num">03</span><span class="icon" aria-hidden="true">psychology</span></div>
-              <h4 class="t-headline-sm">MobileNetV3 비전 상태 추론</h4>
-              <p class="t-body-md muted">경량화 딥러닝 백본 네트워크가 잎의 처짐 각도, 엽록소 색소도, 마름 반점을 판독하여 '정상(Healthy) / 시듦(Wilted) / 손상(Diseased)' 3-Class로 분류합니다.</p>
+              <h4 class="t-headline-sm">Lightweight CNN 토양 이미지 추론</h4>
+              <p class="t-body-md muted">Separable Convolution 기반 경량 CNN이 160 × 160 RGB 토양 이미지를 'Dry / Moderate / Wet' 3-Class로 분류합니다. 현재는 공개 데이터셋 기반 Pre-validation Model입니다.</p>
             </div>
             <div class="step__meta">Inference Latency ≤ 2.4s</div>
           </li>
@@ -307,10 +310,775 @@
         </div>
       </section>
 
-      <!-- ===== 03 · 성능 지표 ===== -->
+      <!-- ===== 03 · 이미지 전처리 파이프라인 ===== -->
+      <section class="section pp" id="image-pipeline" data-section>
+
+        <!-- 소개 -->
+        <div class="pp-block">
+          <div class="section-head">
+            <span class="eyebrow">03 · How Soil Images Become AI Input</span>
+            <h2 class="t-headline-lg">토양 이미지가 AI 입력이 되기까지: 이미지 전처리 파이프라인</h2>
+            <p class="t-body-lg muted">카메라로 촬영한 Raw Image가 어떤 과정을 거쳐 <strong class="c-on-surface fw-600">160 × 160 × 3</strong> 크기의 모델 입력으로 바뀌는지 단계별로 설명합니다. 여기서 다루는 모델은 공개 데이터셋으로 전처리와 Edge AI 배포 가능성을 확인하기 위한 <strong class="c-on-surface fw-600">사전 검증(Pre-validation) 모델</strong>이며, 최종 제품 모델이 아닙니다.</p>
+            <div class="pp-chips">
+              <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">science</span>Pre-validation Model</span>
+              <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">dataset</span>Public Dataset · Dry / Moderate / Wet</span>
+              <span class="chip t-label"><span class="icon c-primary" aria-hidden="true">flag</span>최종 제품 · 수분율 35% 기준 Dry / Wet</span>
+            </div>
+          </div>
+
+          <div class="criteria">
+            <div class="criterion">
+              <div class="criterion__num bg-tertiary-fixed c-tertiary">01</div>
+              <h4 class="t-headline-sm">적게 수정하고, 변동은 줄인다</h4>
+              <p class="t-body-md muted">전처리의 목적은 이미지를 많이 수정하는 것이 아니라, 토양 수분 상태와 관계없는 변동을 줄이는 것입니다.</p>
+            </div>
+            <div class="criterion">
+              <div class="criterion__num bg-primary-container c-on-primary-container">02</div>
+              <h4 class="t-headline-sm">색과 밝기는 Noise가 아닌 Signal</h4>
+              <p class="t-body-md muted">토양의 색상과 밝기는 제거해야 할 Noise가 아니라 수분 상태를 판단하기 위한 중요한 Signal일 수 있습니다.</p>
+            </div>
+            <div class="criterion">
+              <div class="criterion__num bg-secondary-fixed c-on-secondary-fixed">03</div>
+              <h4 class="t-headline-sm">최종 모델은 제품 환경 데이터로 재학습</h4>
+              <p class="t-body-md muted">학습 환경과 실제 제품 환경의 차이를 줄이기 위해 최종 모델은 실제 제품 환경에서 수집한 데이터로 다시 학습 및 검증합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 전체 파이프라인 구조도 -->
+        <div class="card bg-low failsafe pp-flow" role="group" aria-labelledby="pp-flow-title">
+          <div class="failsafe__head">
+            <div class="failsafe__title">
+              <span class="icon-tile bg-tertiary-fixed"><span class="icon" aria-hidden="true">account_tree</span></span>
+              <h3 class="t-headline-md" id="pp-flow-title">Full Preprocessing Pipeline</h3>
+            </div>
+            <span class="failsafe__badge t-label">12 Stages · Raw Image → Edge AI</span>
+          </div>
+
+          <div class="pp-lane">
+            <div class="pp-lane__head t-label"><span class="pp-lane__idx">A</span>Data Preparation · 데이터 준비</div>
+            <ol class="pp-lane__nodes">
+              <li><a class="pp-node" href="#pp-raw"><span class="pp-node__num">01</span><span class="icon" aria-hidden="true">photo_camera</span><span class="pp-node__text"><span class="pp-node__title">Raw RGB Image</span><span class="pp-node__meta">원본 · 보정 없음</span></span></a></li>
+              <li><a class="pp-node" href="#pp-meta"><span class="pp-node__num">02</span><span class="icon" aria-hidden="true">sell</span><span class="pp-node__text"><span class="pp-node__title">Ground Truth / Metadata</span><span class="pp-node__meta">라벨 · 촬영 정보 확인</span></span></a></li>
+              <li><a class="pp-node" href="#pp-quality"><span class="pp-node__num">03</span><span class="icon" aria-hidden="true">fact_check</span><span class="pp-node__text"><span class="pp-node__title">Image Quality Check</span><span class="pp-node__meta">Blur · Exposure · Clipping</span></span></a></li>
+              <li><a class="pp-node" href="#pp-split"><span class="pp-node__num">04</span><span class="icon" aria-hidden="true">call_split</span><span class="pp-node__text"><span class="pp-node__title">Train / Validation / Test Split</span><span class="pp-node__meta">70 / 15 / 15</span></span></a></li>
+            </ol>
+          </div>
+
+          <div class="pp-flow__link t-label"><span class="icon" aria-hidden="true">arrow_downward</span><span>Split 이후 각 Set에 동일한 변환 적용</span></div>
+
+          <div class="pp-lane pp-lane--b">
+            <div class="pp-lane__head t-label"><span class="pp-lane__idx">B</span>Image Transform · 이미지 변환</div>
+            <ol class="pp-lane__nodes">
+              <li><a class="pp-node" href="#pp-roi"><span class="pp-node__num">05</span><span class="icon" aria-hidden="true">crop</span><span class="pp-node__text"><span class="pp-node__title">Soil ROI Crop</span><span class="pp-node__meta">Fixed ROI</span></span></a></li>
+              <li><a class="pp-node" href="#pp-resize"><span class="pp-node__num">06</span><span class="icon" aria-hidden="true">aspect_ratio</span><span class="pp-node__text"><span class="pp-node__title">Resize 160 × 160</span><span class="pp-node__meta">INTER_AREA</span></span></a></li>
+              <li><a class="pp-node" href="#pp-rgb"><span class="pp-node__num">07</span><span class="icon" aria-hidden="true">swap_horiz</span><span class="pp-node__text"><span class="pp-node__title">BGR → RGB</span><span class="pp-node__meta">채널 순서 변환</span></span></a></li>
+              <li><a class="pp-node" href="#pp-norm"><span class="pp-node__num">08</span><span class="icon" aria-hidden="true">linear_scale</span><span class="pp-node__text"><span class="pp-node__title">Normalization [0, 1]</span><span class="pp-node__meta">float32</span></span></a></li>
+              <li><a class="pp-node pp-node--train" href="#pp-augment"><span class="pp-node__num">09</span><span class="icon" aria-hidden="true">shuffle</span><span class="pp-node__text"><span class="pp-node__title">Data Augmentation</span><span class="pp-node__meta">Training Data Only</span></span></a></li>
+            </ol>
+          </div>
+
+          <div class="pp-flow__link t-label"><span class="icon" aria-hidden="true">arrow_downward</span><span>Train Set → 학습 · Validation / Test Set → 평가</span></div>
+
+          <div class="pp-lane pp-lane--c">
+            <div class="pp-lane__head t-label"><span class="pp-lane__idx">C</span>Train &amp; Deploy · 학습 및 배포</div>
+            <ol class="pp-lane__nodes">
+              <li><a class="pp-node" href="#pp-training"><span class="pp-node__num">10</span><span class="icon" aria-hidden="true">model_training</span><span class="pp-node__text"><span class="pp-node__title">Model Training</span><span class="pp-node__meta">Lightweight CNN</span></span></a></li>
+              <li><a class="pp-node" href="#pp-deploy"><span class="pp-node__num">11</span><span class="icon" aria-hidden="true">deployed_code</span><span class="pp-node__text"><span class="pp-node__title">ONNX</span><span class="pp-node__meta">Model Conversion</span></span></a></li>
+              <li><a class="pp-node" href="#pp-deploy"><span class="pp-node__num">12</span><span class="icon" aria-hidden="true">memory</span><span class="pp-node__text"><span class="pp-node__title">Edge AI Inference</span><span class="pp-node__meta">On-device 추론</span></span></a></li>
+            </ol>
+          </div>
+
+          <div class="pp-flow__legend t-label">
+            <span class="pp-legend"><span class="pp-legend__swatch pp-legend__swatch--train" aria-hidden="true"></span>점선 단계: Training Dataset에만 적용</span>
+            <span class="pp-legend"><span class="icon" aria-hidden="true">touch_app</span>각 단계를 누르면 상세 설명으로 이동합니다</span>
+          </div>
+        </div>
+
+        <!-- 01 Raw / 02 Ground Truth -->
+        <div class="two-col">
+          <article class="card bg-lowest pp-card" id="pp-raw">
+            <div class="panel__title">
+              <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">photo_camera</span></span>
+              <div>
+                <span class="eyebrow">Step 01</span>
+                <h3 class="t-headline-sm">Raw RGB Image</h3>
+              </div>
+            </div>
+            <p class="t-body-md muted">카메라로 촬영한 원본 토양 이미지입니다. 이 단계에서는 이미지에 별도의 보정을 적용하지 않습니다. 토양의 실제 색상, 밝기, 질감 정보를 최대한 유지하는 것이 중요합니다.</p>
+            <div class="pp-params">
+              <span class="pp-param"><span>보정</span><strong>적용하지 않음</strong></span>
+              <span class="pp-param"><span>유지 정보</span><strong>Color · Brightness · Texture</strong></span>
+            </div>
+          </article>
+
+          <article class="card bg-lowest pp-card" id="pp-meta">
+            <div class="panel__title">
+              <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">sell</span></span>
+              <div>
+                <span class="eyebrow">Step 02</span>
+                <h3 class="t-headline-sm">Ground Truth / Metadata</h3>
+              </div>
+            </div>
+            <p class="t-body-md muted">각 이미지의 라벨 및 촬영 정보를 확인합니다.</p>
+            <div class="pp-meta-grid">
+              <div class="pp-subbox">
+                <span class="pp-sublabel t-label">현재 · 공개 데이터셋 클래스</span>
+                <div class="pp-classes">
+                  <span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>Dry</span>
+                  <span class="chip t-label"><span class="pp-dot pp-dot--mid" aria-hidden="true"></span>Moderate</span>
+                  <span class="chip t-label"><span class="pp-dot pp-dot--wet" aria-hidden="true"></span>Wet</span>
+                </div>
+              </div>
+              <div class="pp-subbox">
+                <span class="pp-sublabel t-label">실제 제품 데이터 · 관리 예정 메타데이터</span>
+                <pre class="pp-code"><code>image_id
+pot_id
+session_id
+moisture_percent
+label</code></pre>
+              </div>
+            </div>
+            <div class="pp-subbox">
+              <span class="pp-sublabel t-label">최종 제품 Ground Truth</span>
+              <div class="pp-rule">
+                <div class="pp-rule__row"><code>moisture_percent &lt;= 35</code><span class="icon" aria-hidden="true">arrow_forward</span><span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>Dry</span></div>
+                <div class="pp-rule__row"><code>moisture_percent &gt; 35</code><span class="icon" aria-hidden="true">arrow_forward</span><span class="chip t-label"><span class="pp-dot pp-dot--wet" aria-hidden="true"></span>Wet</span></div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 03 Quality Check -->
+        <div class="pp-block" id="pp-quality">
+          <div class="section-head">
+            <span class="eyebrow">Step 03 · Image Quality Check</span>
+            <h3 class="t-headline-md">학습 전에 품질이 지나치게 낮은 이미지를 확인합니다</h3>
+          </div>
+          <article class="card bg-lowest pp-card pp-split-card">
+            <div class="pp-card__col">
+              <span class="pp-sublabel t-label">주요 검사 항목</span>
+              <div class="pp-params">
+                <span class="chip t-label"><span class="icon" aria-hidden="true">blur_on</span>Blur</span>
+                <span class="chip t-label"><span class="icon" aria-hidden="true">brightness_low</span>Under Exposure</span>
+                <span class="chip t-label"><span class="icon" aria-hidden="true">brightness_high</span>Over Exposure</span>
+                <span class="chip t-label"><span class="icon" aria-hidden="true">contrast</span>Dark Pixel Clipping</span>
+                <span class="chip t-label"><span class="icon" aria-hidden="true">contrast</span>Bright Pixel Clipping</span>
+              </div>
+              <span class="pp-sublabel t-label">사용한 초기 검사 기준</span>
+              <div class="pp-params">
+                <span class="pp-param"><span>Blur · Variance of Laplacian</span><strong>≈ 80</strong></span>
+                <span class="pp-param"><span>Mean Brightness</span><strong>40 ~ 230</strong></span>
+                <span class="pp-param"><span>Dark / Bright Clipped Pixel</span><strong>약 5% 이하</strong></span>
+              </div>
+              <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">info</span><span>이 Threshold는 <strong>최종 제품의 절대 기준이 아닙니다.</strong> 실제 카메라 데이터 분포를 확보한 후 다시 조정해야 합니다.</span></p>
+            </div>
+            <div class="pp-card__col">
+              <div class="pp-pairs">
+                <div class="pp-pair">
+                  <span class="pp-sublabel t-label">Sharpness</span>
+                  <div class="pp-samples">
+                    <figure class="pp-sample">
+                      <div class="pp-sample__img"><div class="pp-soil"></div></div>
+                      <figcaption class="pp-sample__label t-label"><span class="icon c-tertiary" aria-hidden="true">check_circle</span>Sharp Image</figcaption>
+                    </figure>
+                    <figure class="pp-sample">
+                      <div class="pp-sample__img"><div class="pp-soil pp-soil--blur"></div></div>
+                      <figcaption class="pp-sample__label t-label"><span class="icon c-error" aria-hidden="true">cancel</span>Blur Image</figcaption>
+                    </figure>
+                  </div>
+                </div>
+                <div class="pp-pair">
+                  <span class="pp-sublabel t-label">Exposure</span>
+                  <div class="pp-samples">
+                    <figure class="pp-sample">
+                      <div class="pp-sample__img"><div class="pp-soil"></div></div>
+                      <figcaption class="pp-sample__label t-label"><span class="icon c-tertiary" aria-hidden="true">check_circle</span>Normal Exposure</figcaption>
+                    </figure>
+                    <figure class="pp-sample">
+                      <div class="pp-sample__img"><div class="pp-soil pp-soil--over"></div></div>
+                      <figcaption class="pp-sample__label t-label"><span class="icon c-error" aria-hidden="true">cancel</span>Over Exposure</figcaption>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+              <p class="pp-caption">※ CSS로 만든 개념 예시이며 실제 촬영 이미지가 아닙니다.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- 05 Soil ROI -->
+        <div class="pp-block" id="pp-roi">
+          <div class="section-head">
+            <span class="eyebrow">Step 05 · Soil ROI Crop</span>
+            <h3 class="t-headline-md">전체 이미지에서 실제 분류 대상인 토양 영역만 추출합니다</h3>
+          </div>
+          <article class="card bg-lowest pp-card">
+            <!-- ROI 예시 장면 (재사용용 SVG 심볼) -->
+            <svg width="0" height="0" class="pp-defs" aria-hidden="true" focusable="false">
+              <symbol id="pp-scene" viewBox="0 0 200 150">
+                <rect width="200" height="150" fill="#efeded"/>
+                <rect y="112" width="200" height="38" fill="#e4e2e2"/>
+                <rect x="160" y="88" width="22" height="27" rx="3" fill="#c7e0db"/>
+                <path d="M182 94 q8 0 8 8 q0 8 -8 8" fill="none" stroke="#c7e0db" stroke-width="3"/>
+                <path d="M54 70 L146 70 L134 132 L66 132 Z" fill="#ffd1b8"/>
+                <path d="M120 70 L146 70 L134 132 L118 132 Z" fill="#f4bfa3"/>
+                <ellipse cx="100" cy="70" rx="46" ry="19" fill="#f0b896"/>
+                <ellipse cx="100" cy="71" rx="40" ry="16" fill="#6b4a35"/>
+                <path d="M118 66 Q120 50 124 34" fill="none" stroke="#4c635f" stroke-width="2"/>
+                <path d="M118 66 Q112 52 104 40" fill="none" stroke="#4c635f" stroke-width="2"/>
+                <ellipse cx="128" cy="30" rx="9" ry="20" transform="rotate(32 128 30)" fill="#4c635f"/>
+                <ellipse cx="102" cy="34" rx="7" ry="17" transform="rotate(-24 102 34)" fill="#5f7a75"/>
+                <ellipse cx="140" cy="50" rx="6" ry="14" transform="rotate(62 140 50)" fill="#5f7a75"/>
+              </symbol>
+            </svg>
+            <div class="pp-roi">
+              <figure>
+                <div class="pp-frame"><svg viewBox="0 0 200 150" role="img" aria-label="화분, 잎, 배경, 주변 사물이 함께 담긴 원본 이미지 예시"><use href="#pp-scene"/></svg></div>
+                <figcaption class="t-label"><span class="pp-step-tag">1</span>Original Image</figcaption>
+              </figure>
+              <figure>
+                <div class="pp-frame">
+                  <svg viewBox="0 0 200 150" role="img" aria-label="토양 영역만 점선 박스로 강조하고 나머지는 어둡게 처리한 예시">
+                    <use href="#pp-scene"/>
+                    <path d="M0 0 H200 V150 H0 Z M68 62 h36 v18 h-36 Z" fill="rgba(27,28,28,0.5)" fill-rule="evenodd"/>
+                    <rect x="68" y="62" width="36" height="18" fill="none" stroke="#cfe8e3" stroke-width="1.5" stroke-dasharray="4 3"/>
+                    <text x="86" y="93" text-anchor="middle" font-size="9" font-weight="600" fill="#cfe8e3" font-family="Inter, sans-serif">Soil ROI</text>
+                  </svg>
+                </div>
+                <figcaption class="t-label"><span class="pp-step-tag">2</span>Soil Area Highlight</figcaption>
+              </figure>
+              <figure>
+                <div class="pp-frame pp-frame--crop"><div class="pp-soil" role="img" aria-label="잘라낸 토양 영역 예시"></div></div>
+                <figcaption class="t-label"><span class="pp-step-tag">3</span>Cropped Soil ROI</figcaption>
+              </figure>
+            </div>
+            <p class="pp-caption">※ 단순화한 개념 예시입니다.</p>
+
+            <div class="two-col pp-inner-two">
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">모델이 학습하지 않도록 제외하는 정보</span>
+                <div class="pp-params">
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>배경</span>
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>화분 형태</span>
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>식물 잎</span>
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>주변 사물</span>
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>촬영 위치</span>
+                </div>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">제품 적용 방식 · Fixed ROI Crop</span>
+                <p class="t-body-md muted">실제 제품에서는 카메라와 화분 위치를 가능한 한 고정하고 <strong class="c-on-surface fw-600">Fixed ROI Crop</strong> 방식을 우선 사용합니다. 복잡한 Object Detection이나 Segmentation을 추가하는 대신 Fixed ROI를 사용하면 Edge AI 환경에서 연산량과 메모리 사용량을 줄일 수 있습니다.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 06~08 Resize / RGB / Normalization -->
+        <div class="pp-block" id="pp-transform">
+          <div class="section-head">
+            <span class="eyebrow">Step 06 – 08 · Resize / RGB / Normalization</span>
+            <h3 class="t-headline-md">모든 이미지를 동일한 모델 입력 형식으로 맞춥니다</h3>
+          </div>
+
+          <dl class="pp-spec">
+            <div class="pp-spec__item"><dt class="t-label muted">Input Resolution</dt><dd class="t-headline-sm">160 × 160 × 3</dd></div>
+            <div class="pp-spec__item"><dt class="t-label muted">Color Space</dt><dd class="t-headline-sm">RGB</dd></div>
+            <div class="pp-spec__item"><dt class="t-label muted">Data Type</dt><dd class="t-headline-sm">float32</dd></div>
+            <div class="pp-spec__item"><dt class="t-label muted">Normalization</dt><dd class="t-headline-sm">0 ~ 255 → 0.0 ~ 1.0</dd></div>
+          </dl>
+
+          <div class="pp-grid-3">
+            <article class="card bg-lowest pp-card" id="pp-resize">
+              <div>
+                <span class="eyebrow">Step 06</span>
+                <h4 class="t-headline-sm">Resize 160 × 160</h4>
+              </div>
+              <div class="pp-visual pp-resize" aria-hidden="true">
+                <div class="pp-resize__col"><div class="pp-resize__src">ROI</div><span>가변 크기</span></div>
+                <span class="icon">arrow_forward</span>
+                <div class="pp-resize__col"><div class="pp-resize__dst pp-soil"></div><span>160 × 160</span></div>
+              </div>
+              <p class="t-body-md muted">ROI 이미지의 크기를 160 × 160으로 통일합니다.</p>
+              <pre class="pp-code"><code>cv2.resize(
+    image,
+    (160, 160),
+    interpolation=cv2.INTER_AREA
+)</code></pre>
+              <ul class="pp-list t-body-md">
+                <li><span class="icon" aria-hidden="true">check</span>Edge AI 연산량 감소</li>
+                <li><span class="icon" aria-hidden="true">check</span>메모리 사용량 감소</li>
+                <li><span class="icon" aria-hidden="true">check</span>모바일 추론 속도 개선</li>
+                <li><span class="icon" aria-hidden="true">check</span>토양의 색상 및 주요 Texture 정보 유지</li>
+                <li><span class="icon" aria-hidden="true">check</span>경량 CNN 모델과의 높은 호환성</li>
+              </ul>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">정확도가 부족할 경우 향후 비교 순서</span>
+                <ol class="pp-chain">
+                  <li class="pp-chain__item pp-chain__item--on">160 × 160</li>
+                  <li class="pp-chain__item">192 × 192</li>
+                  <li class="pp-chain__item">224 × 224</li>
+                </ol>
+              </div>
+            </article>
+
+            <article class="card bg-lowest pp-card" id="pp-rgb">
+              <div>
+                <span class="eyebrow">Step 07</span>
+                <h4 class="t-headline-sm">BGR → RGB</h4>
+              </div>
+              <div class="pp-visual pp-channels" role="img" aria-label="채널 순서 B, G, R이 R, G, B로 바뀌는 모습">
+                <div class="pp-ch-group"><span class="pp-ch pp-ch--b">B</span><span class="pp-ch pp-ch--g">G</span><span class="pp-ch pp-ch--r">R</span></div>
+                <span class="icon" aria-hidden="true">arrow_downward</span>
+                <div class="pp-ch-group"><span class="pp-ch pp-ch--r">R</span><span class="pp-ch pp-ch--g">G</span><span class="pp-ch pp-ch--b">B</span></div>
+              </div>
+              <p class="t-body-md muted">OpenCV는 기본적으로 이미지를 BGR 순서로 읽습니다. 하지만 학습 모델은 RGB 입력을 사용하므로 채널 순서를 변환합니다.</p>
+              <pre class="pp-code"><code>image_rgb = cv2.cvtColor(
+    image_bgr,
+    cv2.COLOR_BGR2RGB
+)</code></pre>
+            </article>
+
+            <article class="card bg-lowest pp-card" id="pp-norm">
+              <div>
+                <span class="eyebrow">Step 08</span>
+                <h4 class="t-headline-sm">Normalization [0, 1]</h4>
+              </div>
+              <div class="pp-visual pp-norm" role="img" aria-label="픽셀 값 범위 0~255가 0.0~1.0으로 변환되는 모습">
+                <div class="pp-norm__row">
+                  <span class="t-label muted">uint8</span>
+                  <div><div class="pp-norm__bar"></div><div class="pp-norm__ticks"><span>0</span><span>128</span><span>255</span></div></div>
+                </div>
+                <span class="icon" aria-hidden="true">arrow_downward</span>
+                <div class="pp-norm__row">
+                  <span class="t-label muted">float32</span>
+                  <div><div class="pp-norm__bar"></div><div class="pp-norm__ticks"><span>0.0</span><span>0.5</span><span>1.0</span></div></div>
+                </div>
+              </div>
+              <p class="t-body-md muted">이미지 Pixel 범위를 0 ~ 255에서 0.0 ~ 1.0으로 변환합니다.</p>
+              <pre class="pp-code"><code>image = image.astype("float32") / 255.0</code></pre>
+              <ul class="pp-list t-body-md">
+                <li><span class="icon" aria-hidden="true">check</span>모델 학습 안정화</li>
+                <li><span class="icon" aria-hidden="true">check</span>수치 범위 통일</li>
+                <li><span class="icon" aria-hidden="true">check</span>추론 입력 형식 일관성 유지</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <!-- 09 Augmentation -->
+        <div class="pp-block" id="pp-augment">
+          <div class="section-head">
+            <span class="eyebrow">Step 09 · Training-only Data Augmentation</span>
+            <h3 class="t-headline-md">Data Augmentation은 Training Dataset에만 적용합니다</h3>
+            <p class="t-body-lg muted">Validation과 Test에는 적용하지 않습니다. 현재 제품 환경을 고려해 변형 범위를 작게 설정했습니다.</p>
+          </div>
+          <div class="pp-scopes">
+            <span class="pp-scope pp-scope--on t-label"><span class="icon" aria-hidden="true">check_circle</span>Train · 적용</span>
+            <span class="pp-scope t-label"><span class="icon" aria-hidden="true">block</span>Validation · 미적용</span>
+            <span class="pp-scope t-label"><span class="icon" aria-hidden="true">block</span>Test · 미적용</span>
+          </div>
+          <ul class="pp-aug-grid">
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">flip</span>Horizontal Flip</span><span class="pp-aug__value t-label">약 p = 0.5</span></div>
+              <div class="pp-range" aria-hidden="true"><span class="pp-range__fill" style="--p:50%"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>0</span><span>p</span><span>1</span></div>
+            </li>
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">rotate_right</span>Rotation</span><span class="pp-aug__value t-label">±10°</span></div>
+              <div class="pp-range pp-range--sym" aria-hidden="true"><span class="pp-range__fill"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>-10°</span><span>0</span><span>+10°</span></div>
+            </li>
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">open_with</span>Translation</span><span class="pp-aug__value t-label">±5%</span></div>
+              <div class="pp-range pp-range--sym" aria-hidden="true"><span class="pp-range__fill"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>-5%</span><span>0</span><span>+5%</span></div>
+            </li>
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">zoom_in</span>Scale / Zoom</span><span class="pp-aug__value t-label">약 ±15%</span></div>
+              <div class="pp-range pp-range--sym" aria-hidden="true"><span class="pp-range__fill"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>0.85x</span><span>1.0x</span><span>1.15x</span></div>
+            </li>
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">brightness_6</span>Brightness</span><span class="pp-aug__value t-label">약 ±10~12%</span></div>
+              <div class="pp-range pp-range--sym" aria-hidden="true"><span class="pp-range__fill"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>-12%</span><span>0</span><span>+12%</span></div>
+            </li>
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">contrast</span>Contrast</span><span class="pp-aug__value t-label">±10%</span></div>
+              <div class="pp-range pp-range--sym" aria-hidden="true"><span class="pp-range__fill"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>-10%</span><span>0</span><span>+10%</span></div>
+            </li>
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">invert_colors</span>Saturation</span><span class="pp-aug__value t-label">약 ±10%</span></div>
+              <div class="pp-range pp-range--sym" aria-hidden="true"><span class="pp-range__fill"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>-10%</span><span>0</span><span>+10%</span></div>
+            </li>
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">colorize</span>Hue</span><span class="pp-aug__value t-label">약 ±3°</span></div>
+              <div class="pp-range pp-range--sym" aria-hidden="true"><span class="pp-range__fill"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>-3°</span><span>0</span><span>+3°</span></div>
+            </li>
+            <li class="pp-aug">
+              <div class="pp-aug__head"><span class="pp-aug__name"><span class="icon" aria-hidden="true">hide_image</span>Occlusion</span><span class="pp-aug__value t-label">약 p = 0.10</span></div>
+              <div class="pp-range" aria-hidden="true"><span class="pp-range__fill" style="--p:10%"></span></div>
+              <div class="pp-range__labels" aria-hidden="true"><span>0</span><span>p</span><span>1</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Preserve Signal, Remove Noise -->
+        <div class="pp-block" id="pp-preserve">
+          <div class="section-head">
+            <span class="eyebrow">Design Principle · Why We Preserve Soil Color</span>
+            <h3 class="t-headline-md">Preserve Signal, Remove Noise</h3>
+            <p class="t-body-lg muted">토양의 수분 상태에 따라 Color, Brightness, Saturation, Texture가 변할 수 있습니다. 이 특징을 강하게 제거하는 전처리는 기본 파이프라인에서 사용하지 않습니다.</p>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">visibility</span></span>
+                <h4 class="t-headline-sm">Preserve Signal · 보존해야 할 특징</h4>
+              </div>
+              <div class="pp-params">
+                <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">palette</span>Color</span>
+                <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">brightness_6</span>Brightness</span>
+                <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">invert_colors</span>Saturation</span>
+                <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">texture</span>Texture</span>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">원본 유지 시</span>
+                <div class="pp-swatches">
+                  <figure class="pp-sample">
+                    <div class="pp-sample__img"><div class="pp-soil pp-soil--dry"></div></div>
+                    <figcaption class="t-body-md"><strong class="fw-600">Dry Soil</strong><br><span class="muted">상대적으로 밝아질 수 있음</span></figcaption>
+                  </figure>
+                  <figure class="pp-sample">
+                    <div class="pp-sample__img"><div class="pp-soil pp-soil--wet"></div></div>
+                    <figcaption class="t-body-md"><strong class="fw-600">Wet Soil</strong><br><span class="muted">상대적으로 어두워질 수 있음</span></figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">강한 보정 적용 시 (Grayscale · Histogram Equalization 등)</span>
+                <div class="pp-swatches">
+                  <div class="pp-sample__img"><div class="pp-soil pp-soil--flat"></div></div>
+                  <div class="pp-sample__img"><div class="pp-soil pp-soil--flat"></div></div>
+                </div>
+                <p class="pp-caption">두 이미지의 밝기·색 차이가 줄어들어 수분 상태를 구분하는 Feature가 사라질 수 있습니다. (CSS 개념 예시)</p>
+              </div>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-highest c-error"><span class="icon" aria-hidden="true">block</span></span>
+                <h4 class="t-headline-sm">기본 파이프라인에서 사용하지 않는 전처리</h4>
+              </div>
+              <ul class="pp-list pp-list--x t-body-md">
+                <li><span class="icon" aria-hidden="true">close</span>Strong CLAHE</li>
+                <li><span class="icon" aria-hidden="true">close</span>Histogram Equalization</li>
+                <li><span class="icon" aria-hidden="true">close</span>Strong Gamma Correction</li>
+                <li><span class="icon" aria-hidden="true">close</span>Grayscale Conversion</li>
+                <li><span class="icon" aria-hidden="true">close</span>Heavy Blur</li>
+                <li><span class="icon" aria-hidden="true">close</span>Heavy Color Normalization</li>
+              </ul>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">Remove Noise · 대신 이렇게 변동을 줄입니다</span>
+                <ul class="pp-list t-body-md">
+                  <li><span class="icon" aria-hidden="true">crop</span><span><strong class="c-on-surface fw-600">Soil ROI Crop</strong> — 배경, 화분, 잎, 주변 사물 제외</span></li>
+                  <li><span class="icon" aria-hidden="true">fact_check</span><span><strong class="c-on-surface fw-600">Quality Check</strong> — 흐림·노출 불량 이미지 확인</span></li>
+                  <li><span class="icon" aria-hidden="true">aspect_ratio</span><span><strong class="c-on-surface fw-600">Resize · RGB · Normalization</strong> — 입력 형식 통일</span></li>
+                </ul>
+              </div>
+              <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">lightbulb</span><span>Wet Soil이 더 어둡고 Dry Soil이 더 밝게 보이는 차이 자체가 AI가 학습해야 할 중요한 Feature일 수 있습니다. <strong>과도한 이미지 보정으로 실제 수분 상태의 시각적 Feature를 제거하지 않는 것</strong>이 핵심입니다.</span></p>
+            </article>
+          </div>
+        </div>
+
+        <!-- 04 Dataset Split -->
+        <div class="pp-block" id="pp-split">
+          <div class="section-head">
+            <span class="eyebrow">Step 04 · Dataset Split &amp; Data Leakage Prevention</span>
+            <h3 class="t-headline-md">Augmentation보다 먼저 Dataset을 분리합니다</h3>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <span class="pp-sublabel t-label">Original Dataset</span>
+              <div class="pp-ratio" role="img" aria-label="Train 70%, Validation 15%, Test 15%">
+                <span class="pp-ratio__train">70%</span>
+                <span class="pp-ratio__val">15%</span>
+                <span class="pp-ratio__test">15%</span>
+              </div>
+              <div class="pp-flow__legend t-label">
+                <span class="pp-legend"><span class="pp-legend__swatch pp-legend__swatch--train-set" aria-hidden="true"></span>Train 70%</span>
+                <span class="pp-legend"><span class="pp-legend__swatch pp-legend__swatch--val" aria-hidden="true"></span>Validation 15%</span>
+                <span class="pp-legend"><span class="pp-legend__swatch pp-legend__swatch--test" aria-hidden="true"></span>Test 15%</span>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">처리 순서</span>
+                <ol class="pp-chain">
+                  <li class="pp-chain__item">Original Dataset</li>
+                  <li class="pp-chain__item pp-chain__item--on">Split</li>
+                  <li class="pp-chain__item">Train만 Augmentation</li>
+                </ol>
+              </div>
+              <p class="t-body-md muted">실제 제품 데이터에서는 동일 화분의 이미지가 Train과 Test에 동시에 들어가지 않도록 <code class="pp-inline-code">pot_id</code> 또는 <code class="pp-inline-code">pot_id + capture_session</code> 기준의 <strong class="c-on-surface fw-600">Group Split</strong>을 사용할 예정입니다.</p>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <div class="pp-groups">
+                <div class="pp-group">
+                  <span class="pp-group__title t-label"><span class="icon c-error" aria-hidden="true">cancel</span>Random Split · 같은 화분이 여러 Set에 섞임</span>
+                  <div class="pp-group__sets">
+                    <div class="pp-set"><span class="pp-set__label">Train</span><div class="pp-set__tiles"><span class="pp-tile pp-tile--leak">A</span><span class="pp-tile pp-tile--leak">A</span><span class="pp-tile">B</span><span class="pp-tile">B</span><span class="pp-tile">C</span><span class="pp-tile">C</span><span class="pp-tile pp-tile--leak">D</span></div></div>
+                    <div class="pp-set"><span class="pp-set__label">Val</span><div class="pp-set__tiles"><span class="pp-tile">E</span><span class="pp-tile">E</span></div></div>
+                    <div class="pp-set"><span class="pp-set__label">Test</span><div class="pp-set__tiles"><span class="pp-tile pp-tile--leak">A</span><span class="pp-tile pp-tile--leak">D</span></div></div>
+                  </div>
+                </div>
+                <div class="pp-group">
+                  <span class="pp-group__title t-label"><span class="icon c-tertiary" aria-hidden="true">check_circle</span>Group Split by pot_id · 화분 단위로 분리</span>
+                  <div class="pp-group__sets">
+                    <div class="pp-set"><span class="pp-set__label">Train</span><div class="pp-set__tiles"><span class="pp-tile">A</span><span class="pp-tile">A</span><span class="pp-tile">B</span><span class="pp-tile">B</span><span class="pp-tile">C</span><span class="pp-tile">C</span><span class="pp-tile">D</span><span class="pp-tile">D</span></div></div>
+                    <div class="pp-set"><span class="pp-set__label">Val</span><div class="pp-set__tiles"><span class="pp-tile">E</span><span class="pp-tile">E</span></div></div>
+                    <div class="pp-set"><span class="pp-set__label">Test</span><div class="pp-set__tiles"><span class="pp-tile">F</span><span class="pp-tile">F</span></div></div>
+                  </div>
+                </div>
+                <p class="pp-caption">알파벳 = pot_id (같은 화분에서 촬영한 이미지) · 개념 예시</p>
+              </div>
+              <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">warning</span><span><strong>같은 화분에서 연속 촬영한 거의 동일한 이미지가 Train과 Test에 동시에 포함되면 모델 성능이 실제보다 높게 측정될 수 있습니다.</strong></span></p>
+            </article>
+          </div>
+        </div>
+
+        <!-- 10 Model Training -->
+        <div class="pp-block" id="pp-training">
+          <div class="section-head">
+            <span class="eyebrow">Step 10 · Model Training</span>
+            <h3 class="t-headline-md">Lightweight CNN with Separable Convolutions (Pre-validation)</h3>
+            <p class="t-body-lg muted">전처리를 마친 이미지가 입력되는 현재 사전 검증용 경량 CNN입니다. 이 섹션의 중심은 전처리이므로 모델 구조는 요약해서 보여줍니다.</p>
+          </div>
+          <div class="card bg-lowest pp-card">
+            <ol class="pp-layers t-body-md">
+              <li class="pp-layer pp-layer--io">Input · 160 × 160 × 3</li>
+              <li class="pp-layer">Conv2D · 16</li>
+              <li class="pp-layer">Batch Normalization</li>
+              <li class="pp-layer">ReLU</li>
+              <li class="pp-layer">SeparableConv2D · 32</li>
+              <li class="pp-layer">Batch Normalization</li>
+              <li class="pp-layer">ReLU</li>
+              <li class="pp-layer">Max Pooling</li>
+              <li class="pp-layer">SeparableConv2D · 64</li>
+              <li class="pp-layer">Batch Normalization</li>
+              <li class="pp-layer">ReLU</li>
+              <li class="pp-layer">Max Pooling</li>
+              <li class="pp-layer">SeparableConv2D · 128</li>
+              <li class="pp-layer">Batch Normalization</li>
+              <li class="pp-layer">ReLU</li>
+              <li class="pp-layer">Global Average Pooling</li>
+              <li class="pp-layer">Dropout · 0.20</li>
+              <li class="pp-layer">Dense</li>
+              <li class="pp-layer">Softmax</li>
+              <li class="pp-layer pp-layer--io">Dry / Moderate / Wet</li>
+            </ol>
+            <p class="pp-caption">숫자: Conv 계층의 Filter 수 / Dropout 비율</p>
+          </div>
+        </div>
+
+        <!-- 11~12 ONNX Deployment -->
+        <div class="pp-block" id="pp-deploy">
+          <div class="section-head">
+            <span class="eyebrow">Step 11 – 12 · ONNX Deployment</span>
+            <h3 class="t-headline-md">학습된 모델을 변환해 Edge AI 추론을 테스트합니다</h3>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <span class="pp-sublabel t-label">Model Conversion</span>
+              <div class="pp-tree">
+                <div class="pp-tree__root"><span class="icon" aria-hidden="true">model_training</span><span><strong class="fw-600">Keras Model</strong><br><code class="pp-inline-code">best_model.keras</code></span></div>
+                <div class="pp-tree__branches pp-tree__branches--single">
+                  <div class="pp-tree__branch">
+                    <div class="pp-tree__node pp-tree__node--fmt">ONNX · <code>soil_moisture.onnx</code></div>
+                    <span class="icon" aria-hidden="true">arrow_downward</span>
+                    <div class="pp-tree__node">ONNX Runtime<br>Browser (Web) · Cross-platform</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">현재 테스트 형식</span>
+                <div class="pp-params">
+                  <span class="chip t-label"><code>.keras</code></span>
+                  <span class="chip t-label"><code>.onnx</code></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <span class="pp-sublabel t-label">Final Inference Pipeline · 최종 추론 구조</span>
+              <ol class="pp-vflow">
+                <li><span class="icon" aria-hidden="true">photo_camera</span>Camera Image</li>
+                <li><span class="icon" aria-hidden="true">crop</span>Fixed Soil ROI</li>
+                <li><span class="icon" aria-hidden="true">aspect_ratio</span>Resize 160 × 160</li>
+                <li><span class="icon" aria-hidden="true">swap_horiz</span>RGB</li>
+                <li><span class="icon" aria-hidden="true">linear_scale</span>Normalization</li>
+                <li><span class="icon" aria-hidden="true">deployed_code</span>ONNX Model · ONNX Runtime</li>
+                <li class="pp-vflow__out"><span class="icon" aria-hidden="true">output</span>Prediction</li>
+              </ol>
+              <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">info</span><span>실제 Edge AI 추론 시에는 Training 단계의 <strong>Augmentation을 사용하지 않습니다.</strong></span></p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Pre-validation vs Final Product -->
+        <div class="pp-block" id="pp-compare">
+          <div class="section-head">
+            <span class="eyebrow">Pre-validation vs Final Product Model</span>
+            <h3 class="t-headline-md">현재 공개 데이터셋 검증 모델 ≠ 최종 제품용 35% 기준 모델</h3>
+          </div>
+          <div class="pp-compare">
+            <article class="card bg-low panel">
+              <div>
+                <div class="panel__title">
+                  <span class="icon-tile bg-highest c-tertiary"><span class="icon" aria-hidden="true">science</span></span>
+                  <div>
+                    <span class="hypo__tag t-label c-tertiary">현재 · Pre-validation</span>
+                    <h4 class="t-headline-sm">공개 데이터셋 사전 검증</h4>
+                  </div>
+                </div>
+                <ol class="pp-vflow pp-vflow--on-low">
+                  <li>Public Dataset</li>
+                  <li>Dry / Moderate / Wet</li>
+                  <li>Preprocessing Validation</li>
+                  <li>Model Training</li>
+                  <li>ONNX Deployment Test</li>
+                </ol>
+              </div>
+              <div class="panel__foot panel__foot--neutral t-label">
+                <span>목적</span>
+                <span class="c-on-surface">전처리 · Edge AI 배포 가능성 검증</span>
+              </div>
+            </article>
+
+            <div class="pp-compare__vs" aria-hidden="true">≠</div>
+
+            <article class="card bg-lowest panel">
+              <div>
+                <div class="panel__title">
+                  <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">potted_plant</span></span>
+                  <div>
+                    <span class="hypo__tag t-label c-primary">최종 제품 · Production</span>
+                    <h4 class="t-headline-sm">실제 제품 환경 데이터 학습</h4>
+                  </div>
+                </div>
+                <ol class="pp-vflow">
+                  <li>Real Product Environment</li>
+                  <li>Camera + Soil Moisture Ground Truth</li>
+                  <li class="pp-vflow__rule"><span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>≤ 35% = Dry</span><span class="chip t-label"><span class="pp-dot pp-dot--wet" aria-hidden="true"></span>&gt; 35% = Wet</span></li>
+                  <li>Product-specific Training</li>
+                  <li>Edge AI Deployment</li>
+                </ol>
+              </div>
+              <div class="panel__foot panel__foot--mint t-label">
+                <span class="c-tertiary">Ground Truth</span>
+                <span class="c-on-surface">토양 수분율 35% 기준</span>
+              </div>
+            </article>
+          </div>
+          <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">sync</span><span>학습 환경과 실제 제품 환경의 차이를 줄이기 위해 <strong>최종 모델은 실제 제품 환경에서 수집한 데이터로 다시 학습 및 검증합니다.</strong></span></p>
+        </div>
+
+        <!-- Try the Model (브라우저 ONNX 추론) -->
+        <div class="pp-block" id="pp-try">
+          <div class="section-head">
+            <span class="eyebrow">Try the Model · ONNX Runtime Web</span>
+            <h3 class="t-headline-md">브라우저에서 직접 모델 테스트하기</h3>
+            <p class="t-body-lg muted">토양 이미지를 올리면 160 × 160 RGB · float32 [0, 1]로 전처리한 뒤 브라우저 안에서 ONNX 모델로 추론합니다. 이미지는 서버로 전송되지 않습니다.</p>
+            <div class="pp-chips">
+              <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">science</span>Pre-validation Model</span>
+              <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">model_training</span>Lightweight CNN · 160 × 160 RGB</span>
+              <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">lock</span>Image processing runs locally in your browser</span>
+            </div>
+          </div>
+
+          <article class="card bg-lowest pp-card" data-model-test data-model-url="models/soil_moisture.onnx">
+            <div class="pp-try">
+              <div class="pp-drop" data-drop>
+                <input class="sr-only" type="file" id="pp-file" accept="image/jpeg,image/png,image/webp" data-file tabindex="-1">
+                <div class="pp-drop__empty" data-drop-empty>
+                  <span class="icon-tile bg-tertiary-fixed c-tertiary pp-drop__icon"><span class="icon" aria-hidden="true">upload</span></span>
+                  <span class="t-headline-sm">Drag and drop an image here</span>
+                  <span class="t-body-md muted">or</span>
+                  <button class="btn btn--primary t-body-lg" type="button" data-pick>
+                    <span class="icon" aria-hidden="true">upload_file</span>
+                    <span>Upload</span>
+                  </button>
+                  <span class="t-label muted">JPG · JPEG · PNG · WEBP</span>
+                </div>
+                <figure class="pp-drop__preview" data-drop-preview hidden>
+                  <img alt="업로드한 토양 이미지 미리보기" data-preview>
+                  <button class="btn btn--secondary t-label pp-drop__change" type="button" data-pick>
+                    <span class="icon" aria-hidden="true">swap_horiz</span>
+                    <span>다른 이미지</span>
+                  </button>
+                </figure>
+              </div>
+
+              <div class="pp-result" data-state="initial" aria-live="polite">
+                <span class="pp-sublabel t-label">Prediction</span>
+                <div class="pp-result__body">
+                  <p class="pp-result__msg t-body-md muted" data-result-initial>이미지를 끌어다 놓거나 Upload를 눌러 테스트하세요.</p>
+                  <p class="pp-result__msg pp-result__loading t-body-md" data-result-loading hidden><span class="dot dot--pulse" aria-hidden="true"></span><span>Analyzing...</span></p>
+                  <div class="pp-result__success" data-result-success hidden>
+                    <span class="pp-result__class"><span class="pp-dot" data-result-dot aria-hidden="true"></span><span data-result-class></span></span>
+                    <span class="pp-result__conf t-metric" data-result-conf></span>
+                    <span class="t-label muted">Confidence</span>
+                  </div>
+                  <p class="pp-result__msg pp-result__error t-body-md" data-result-error hidden><span class="icon" aria-hidden="true">error</span><span data-result-error-text></span></p>
+                </div>
+                <span class="pp-result__model t-label muted" data-model-status><span class="dot" aria-hidden="true"></span><span data-model-status-text>모델 준비 전 · soil_moisture.onnx</span></span>
+              </div>
+            </div>
+            <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">info</span><span>공개 데이터셋으로 학습한 <strong>Pre-validation Model</strong>의 Dry / Moderate / Wet 3-Class 결과입니다. 최종 제품의 수분율 35% 기준 Dry / Wet 판정과는 다르며, 실제 토양 수분율을 측정한 값이 아닙니다.</span></p>
+          </article>
+        </div>
+
+        <!-- Dataset Attribution -->
+        <div class="pp-block" id="pp-dataset">
+          <article class="card bg-lowest bom">
+            <h3 class="arch__title t-headline-md">
+              <span class="icon c-tertiary" aria-hidden="true">dataset</span>
+              <span>Dataset Attribution · Pre-validation Dataset</span>
+            </h3>
+            <dl class="bom__rows">
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">description</span>Dataset</dt>
+                <dd class="bom__value">Soil Moisture Dataset for Image Based Soil Classification · Version 2</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">cloud</span>Source</dt>
+                <dd class="bom__value">Mendeley Data</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">link</span>DOI</dt>
+                <dd class="bom__value"><a class="pp-link" href="https://doi.org/10.17632/skcc44yvvg.2" target="_blank" rel="noopener noreferrer">10.17632/skcc44yvvg.2</a></dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">copyright</span>License</dt>
+                <dd class="bom__value">CC BY 4.0</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">category</span>Classes</dt>
+                <dd class="bom__value">Dry / Moderate / Wet</dd>
+              </div>
+            </dl>
+            <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">info</span><span>이 데이터셋은 전처리와 Edge AI 배포 가능성 검증에만 사용한 <strong>Pre-validation Dataset</strong>이며, 최종 제품 성능을 의미하지 않습니다. 원본 데이터셋은 본 웹사이트 및 GitHub 저장소에서 재배포하지 않습니다.</span></p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== 04 · 성능 지표 ===== -->
       <section class="section section--lg" id="performance-and-metrics" data-section>
         <div class="section-head">
-          <span class="eyebrow">03 · Quantitative Performance</span>
+          <span class="eyebrow">04 · Quantitative Performance</span>
           <h2 class="t-headline-lg">데이터로 입증하는 신뢰성 지표 (KPI)</h2>
           <p class="t-body-lg muted">실제 온실 및 주거 환경 2,400개 샘플을 대상으로 검증된 정밀도와 벤치마크 수치입니다.</p>
         </div>
@@ -330,7 +1098,7 @@
               <div class="metric__head t-label c-primary"><span>Response Latency</span><span class="icon" aria-hidden="true">speed</span></div>
               <div class="t-metric">7.4초</div>
               <span class="metric__sub t-headline-sm">전체 판단 · 급수 소요시간</span>
-              <p class="metric__desc t-body-md muted">기준 사양 10초 이내 완전 충족. 온디바이스 MobileNetV3 순수 추론 속도는 평균 1.8초를 기록.</p>
+              <p class="metric__desc t-body-md muted">기준 사양 10초 이내 완전 충족.</p>
             </div>
             <div class="bar" role="presentation"><div class="bar__fill bar__fill--primary" style="width:74%"></div></div>
           </article>
@@ -355,10 +1123,10 @@
         </div>
       </section>
 
-      <!-- ===== 04 · 하드웨어 & 소프트웨어 ===== -->
+      <!-- ===== 05 · 하드웨어 & 소프트웨어 ===== -->
       <section class="section section--md" id="hardware-specs" data-section>
         <div class="section-head">
-          <span class="eyebrow">04 · Engineering Architecture</span>
+          <span class="eyebrow">05 · Engineering Architecture</span>
           <h2 class="t-headline-lg">하드웨어 명세 및 소프트웨어 스택</h2>
           <p class="t-body-lg muted">가정용 인테리어와의 친화적인 조화와 엔지니어링 신뢰성을 모두 고려한 임베디드 부품 구성입니다.</p>
         </div>
@@ -407,8 +1175,8 @@
                 <div class="stack__item stack__item--mint">
                   <span class="icon c-tertiary" aria-hidden="true">model_training</span>
                   <div>
-                    <span class="t-headline-sm">MobileNetV3 경량 온디바이스</span>
-                    <p class="t-body-md muted">TensorFlow Lite 양자화(INT8) 적용으로 4.2MB의 초소형 풋프린트와 0.8W 이하의 저전력 연산을 구현했습니다.</p>
+                    <span class="t-headline-sm">Lightweight CNN · ONNX Runtime</span>
+                    <p class="t-body-md muted">Separable Convolution 기반 경량 CNN(160 × 160 RGB 입력, Dry / Moderate / Wet)을 ONNX로 변환해 ONNX Runtime으로 추론합니다. 모델 파일 약 60KB의 Pre-validation Model입니다.</p>
                   </div>
                 </div>
                 <div class="stack__item stack__item--peach">
@@ -435,7 +1203,7 @@
         </div>
       </section>
 
-      <!-- ===== 05 · MVP 검증 & CTA ===== -->
+      <!-- ===== 06 · MVP 검증 & CTA ===== -->
       <section class="validation" id="validation" aria-labelledby="validation-title">
         <div class="validation__head">
           <span class="eyebrow">Validation &amp; Road to Commercialization</span>
@@ -493,6 +1261,7 @@
           <a href="#product-overview">제품 개요 및 비전</a>
           <a href="#challenges-and-hypotheses">해결 과제 및 검증 가설</a>
           <a href="#operational-cycle">작동 사이클 시나리오</a>
+          <a href="#image-pipeline">이미지 전처리 파이프라인</a>
         </nav>
         <nav class="footer-col t-body-md" aria-label="엔지니어링 및 사양">
           <span class="footer-col__title t-label c-on-surface">엔지니어링 &amp; 사양</span>
