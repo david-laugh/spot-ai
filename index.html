@@ -195,7 +195,7 @@
                 <div class="hypo">
                   <span class="hypo__tag t-label c-tertiary">Core Hypothesis 01</span>
                   <span class="t-headline-sm">비전 이미지와 정전식 수분의 교차 융합</span>
-                  <p class="t-body-md muted">Separable Convolution 기반 Lightweight CNN으로 토양 이미지의 수분 상태(Dry·Moderate·Wet)를 분류하고, 정전식 수분 센서의 실시간 유전율 데이터를 곱연산하여 단일 결측 위험을 원천 제거합니다.</p>
+                  <p class="t-body-md muted">비전 AI로 토양 이미지의 수분 상태를 분류하고(공개 데이터 Lightweight CNN으로 사전 검증 → 최종 제품은 MobileNetV3-Small 기반 35% 기준 Dry·Wet), 정전식 수분 센서의 실시간 유전율 데이터를 곱연산하여 단일 결측 위험을 원천 제거합니다.</p>
                 </div>
                 <div class="hypo">
                   <span class="hypo__tag t-label c-primary">Core Hypothesis 02</span>
@@ -246,7 +246,7 @@
             <div class="step__body">
               <div class="step__top"><span class="step__num">03</span><span class="icon" aria-hidden="true">psychology</span></div>
               <h4 class="t-headline-sm">Lightweight CNN 토양 이미지 추론</h4>
-              <p class="t-body-md muted">Separable Convolution 기반 경량 CNN이 160 × 160 RGB 토양 이미지를 'Dry / Moderate / Wet' 3-Class로 분류합니다. 현재는 공개 데이터셋 기반 Pre-validation Model입니다.</p>
+              <p class="t-body-md muted">Separable Convolution 기반 경량 CNN이 160 × 160 RGB 토양 이미지를 'Dry / Moderate / Wet' 3-Class로 분류합니다. 현재는 공개 데이터셋 기반 Pre-validation Model이며, 최종 제품은 MobileNetV3-Small 기반 Dry / Wet 모델로 새로 학습합니다.</p>
             </div>
             <div class="step__meta">Inference Latency ≤ 2.4s</div>
           </li>
@@ -855,7 +855,7 @@ label</code></pre>
           <div class="section-head">
             <span class="eyebrow">Step 10 · Model Training</span>
             <h3 class="t-headline-md">Lightweight CNN with Separable Convolutions (Pre-validation)</h3>
-            <p class="t-body-lg muted">전처리를 마친 이미지가 입력되는 현재 사전 검증용 경량 CNN입니다. 이 섹션의 중심은 전처리이므로 모델 구조는 요약해서 보여줍니다.</p>
+            <p class="t-body-lg muted">전처리를 마친 이미지가 입력되는 현재 사전 검증용 경량 CNN입니다. 이 섹션의 중심은 전처리이므로 모델 구조는 요약해서 보여줍니다. 최종 제품 모델 구조는 <a class="pp-link" href="#ms-why">MobileNetV3-Small 기반</a>으로 별도 개발합니다.</p>
           </div>
           <div class="card bg-lowest pp-card">
             <ol class="pp-layers t-body-md">
@@ -940,16 +940,16 @@ label</code></pre>
                 <div class="panel__title">
                   <span class="icon-tile bg-highest c-tertiary"><span class="icon" aria-hidden="true">science</span></span>
                   <div>
-                    <span class="hypo__tag t-label c-tertiary">현재 · Pre-validation</span>
+                    <span class="hypo__tag t-label c-tertiary">현재 · Current Pre-validation</span>
                     <h4 class="t-headline-sm">공개 데이터셋 사전 검증</h4>
                   </div>
                 </div>
                 <ol class="pp-vflow pp-vflow--on-low">
                   <li>Public Dataset</li>
                   <li>Dry / Moderate / Wet</li>
-                  <li>Preprocessing Validation</li>
-                  <li>Model Training</li>
-                  <li>ONNX Deployment Test</li>
+                  <li>Lightweight CNN</li>
+                  <li>ONNX</li>
+                  <li>Pre-validation · Browser Inference</li>
                 </ol>
               </div>
               <div class="panel__foot panel__foot--neutral t-label">
@@ -965,16 +965,18 @@ label</code></pre>
                 <div class="panel__title">
                   <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">potted_plant</span></span>
                   <div>
-                    <span class="hypo__tag t-label c-primary">최종 제품 · Production</span>
-                    <h4 class="t-headline-sm">실제 제품 환경 데이터 학습</h4>
+                    <span class="hypo__tag t-label c-primary">최종 제품 · Selected Production Direction</span>
+                    <h4 class="t-headline-sm">실제 제품 데이터 + MobileNetV3-Small</h4>
                   </div>
                 </div>
                 <ol class="pp-vflow">
-                  <li>Real Product Environment</li>
-                  <li>Camera + Soil Moisture Ground Truth</li>
+                  <li>Real Product Dataset</li>
+                  <li>Measured Soil Moisture</li>
                   <li class="pp-vflow__rule"><span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>≤ 35% = Dry</span><span class="chip t-label"><span class="pp-dot pp-dot--wet" aria-hidden="true"></span>&gt; 35% = Wet</span></li>
-                  <li>Product-specific Training</li>
-                  <li>Edge AI Deployment</li>
+                  <li>MobileNetV3-Small Transfer Learning</li>
+                  <li>Validation</li>
+                  <li>ONNX</li>
+                  <li>Edge AI</li>
                 </ol>
               </div>
               <div class="panel__foot panel__foot--mint t-label">
@@ -983,7 +985,7 @@ label</code></pre>
               </div>
             </article>
           </div>
-          <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">sync</span><span>학습 환경과 실제 제품 환경의 차이를 줄이기 위해 <strong>최종 모델은 실제 제품 환경에서 수집한 데이터로 다시 학습 및 검증합니다.</strong></span></p>
+          <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">sync</span><span>학습 환경과 실제 제품 환경의 차이를 줄이기 위해 <strong>최종 모델은 실제 제품 환경에서 수집한 데이터로 다시 학습 및 검증합니다.</strong> 모델 선정 이유와 학습 · 검증 계획은 <a class="pp-link" href="#model-selection">Model Selection &amp; Validation</a>에서 이어집니다.</span></p>
         </div>
 
         <!-- Try the Model (브라우저 ONNX 추론) -->
@@ -1072,6 +1074,449 @@ label</code></pre>
             </dl>
             <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">info</span><span>이 데이터셋은 전처리와 Edge AI 배포 가능성 검증에만 사용한 <strong>Pre-validation Dataset</strong>이며, 최종 제품 성능을 의미하지 않습니다. 원본 데이터셋은 본 웹사이트 및 GitHub 저장소에서 재배포하지 않습니다.</span></p>
           </article>
+        </div>
+
+        <!-- ===== Model Selection & Validation · 최종 제품 모델 방향 ===== -->
+        <div class="pp-block" id="model-selection">
+          <div class="section-head">
+            <span class="eyebrow">Model Selection &amp; Validation · From Pre-validation to Production</span>
+            <h3 class="t-headline-md">최종 제품 모델은 MobileNetV3-Small 전이학습으로 개발합니다</h3>
+            <p class="t-body-lg muted">위에서 테스트한 Lightweight CNN은 공개 데이터셋으로 전처리와 ONNX 배포 가능성을 확인한 <strong class="c-on-surface fw-600">Pre-validation Model</strong>입니다. 최종 제품 모델은 실제 제품 환경에서 촬영한 이미지와 측정한 토양 수분율로 새로 학습하고, Accuracy뿐 아니라 35% 경계 성능과 Edge 배포 조건까지 검증합니다.</p>
+            <div class="pp-chips">
+              <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">science</span>Current · Lightweight CNN · Pre-validation</span>
+              <span class="chip t-label"><span class="icon c-primary" aria-hidden="true">flag</span>Selected · MobileNetV3-Small · Production Direction</span>
+              <span class="chip t-label"><span class="icon c-primary" aria-hidden="true">water_drop</span>Ground Truth · ≤ 35% Dry / &gt; 35% Wet</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 모델 후보 3가지 비교 -->
+        <div class="pp-block" id="ms-options">
+          <div class="section-head">
+            <span class="eyebrow">Model Candidates · 3 Options Compared</span>
+            <h3 class="t-headline-md">세 가지 후보를 Edge AI 제품 조건으로 비교했습니다</h3>
+          </div>
+          <div class="pp-card__col">
+            <span class="pp-sublabel t-label">선정 기준 · Accuracy 하나만 보지 않습니다</span>
+            <div class="pp-params">
+              <span class="chip t-label"><span class="icon" aria-hidden="true">target</span>Accuracy</span>
+              <span class="chip t-label"><span class="icon" aria-hidden="true">folder_zip</span>Model Size</span>
+              <span class="chip t-label"><span class="icon" aria-hidden="true">calculate</span>Computation Cost</span>
+              <span class="chip t-label"><span class="icon" aria-hidden="true">memory</span>Memory Usage</span>
+              <span class="chip t-label"><span class="icon" aria-hidden="true">speed</span>Inference Latency</span>
+              <span class="chip t-label"><span class="icon" aria-hidden="true">deployed_code</span>ONNX Compatibility</span>
+              <span class="chip t-label"><span class="icon" aria-hidden="true">developer_board</span>Edge Deployment</span>
+              <span class="chip t-label"><span class="icon" aria-hidden="true">dataset</span>Data Efficiency</span>
+            </div>
+          </div>
+
+          <div class="pp-grid-3">
+            <article class="card bg-lowest pp-card">
+              <div>
+                <span class="eyebrow">Option 1</span>
+                <h4 class="t-headline-sm">Existing Lightweight CNN Fine-tuning</h4>
+              </div>
+              <ol class="pp-chain">
+                <li class="pp-chain__item">Public-trained Lightweight CNN</li>
+                <li class="pp-chain__item">Product Data</li>
+                <li class="pp-chain__item">Fine-tuning</li>
+                <li class="pp-chain__item">Dry / Wet</li>
+              </ol>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">장점</span>
+                <ul class="pp-list t-body-md">
+                  <li><span class="icon" aria-hidden="true">check</span>기존 개발 결과 재사용 · 빠른 적용</li>
+                  <li><span class="icon" aria-hidden="true">check</span>기존 ONNX Pipeline 그대로 활용</li>
+                </ul>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">한계</span>
+                <ul class="pp-list pp-list--x t-body-md">
+                  <li><span class="icon" aria-hidden="true">remove</span>공개 데이터 ↔ 제품 환경 Domain Gap</li>
+                  <li><span class="icon" aria-hidden="true">remove</span>라벨 기준 불일치 (3-Class ≠ 35% Dry / Wet)</li>
+                  <li><span class="icon" aria-hidden="true">remove</span>기존 Weight가 제품 환경에 최적인지 보장 어려움</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="card bg-lowest pp-card pp-card--selected">
+              <div class="failsafe__head">
+                <span class="eyebrow">Option 2</span>
+                <span class="failsafe__badge t-label">Selected</span>
+              </div>
+              <h4 class="t-headline-sm">MobileNetV3-Small Transfer Learning</h4>
+              <ol class="pp-chain">
+                <li class="pp-chain__item pp-chain__item--on">ImageNet Pretrained MobileNetV3-Small</li>
+                <li class="pp-chain__item">Product Data</li>
+                <li class="pp-chain__item">Fine-tuning</li>
+                <li class="pp-chain__item">Dry / Wet</li>
+              </ol>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">장점</span>
+                <ul class="pp-list t-body-md">
+                  <li><span class="icon" aria-hidden="true">check</span>적은 데이터에서도 안정적인 학습</li>
+                  <li><span class="icon" aria-hidden="true">check</span>Depthwise Separable Conv · 연산량 · Parameter 감소</li>
+                  <li><span class="icon" aria-hidden="true">check</span>경량 구조 · ONNX 기반 Edge 배포에 적합</li>
+                </ul>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">한계</span>
+                <ul class="pp-list pp-list--x t-body-md">
+                  <li><span class="icon" aria-hidden="true">remove</span>Transfer Learning · Fine-tuning 전략 설계 필요</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <div>
+                <span class="eyebrow">Option 3</span>
+                <h4 class="t-headline-sm">Custom Depthwise CNN From Scratch</h4>
+              </div>
+              <ol class="pp-chain">
+                <li class="pp-chain__item">Random Init</li>
+                <li class="pp-chain__item">Product Data Only</li>
+                <li class="pp-chain__item">Custom CNN Training</li>
+                <li class="pp-chain__item">Dry / Wet</li>
+              </ol>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">장점</span>
+                <ul class="pp-list t-body-md">
+                  <li><span class="icon" aria-hidden="true">check</span>외부 데이터 의존성 감소</li>
+                  <li><span class="icon" aria-hidden="true">check</span>모델 구조를 완전히 직접 제어</li>
+                </ul>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">한계</span>
+                <ul class="pp-list pp-list--x t-body-md">
+                  <li><span class="icon" aria-hidden="true">remove</span>충분한 데이터 필요 · 적으면 Overfitting 위험</li>
+                  <li><span class="icon" aria-hidden="true">remove</span>초기 학습 안정성이 Transfer Learning보다 낮을 수 있음</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- 선정 이유 + 최종 모델 구조 -->
+        <div class="pp-block" id="ms-why">
+          <div class="section-head">
+            <span class="eyebrow">Why MobileNetV3-Small</span>
+            <h3 class="t-headline-md">적은 제품 데이터로도 학습하고, Edge에서 가볍게 동작합니다</h3>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">checklist</span></span>
+                <h4 class="t-headline-sm">Key Points · 선정 이유</h4>
+              </div>
+              <ul class="pp-list t-body-md">
+                <li><span class="icon" aria-hidden="true">school</span><span><strong class="c-on-surface fw-600">ImageNet Pretrained Weight</strong> — 사전학습된 시각 Feature에서 출발</span></li>
+                <li><span class="icon" aria-hidden="true">dataset</span><span><strong class="c-on-surface fw-600">Data Efficiency</strong> — 적은 제품 데이터로도 Transfer Learning 가능</span></li>
+                <li><span class="icon" aria-hidden="true">layers</span><span><strong class="c-on-surface fw-600">Depthwise Separable Convolution</strong> — 일반 CNN 대비 효율적인 연산</span></li>
+                <li><span class="icon" aria-hidden="true">aspect_ratio</span><span><strong class="c-on-surface fw-600">160 × 160 입력</strong> — 입력 해상도와 결합해 연산량 제한</span></li>
+                <li><span class="icon" aria-hidden="true">developer_board</span><span><strong class="c-on-surface fw-600">Mobile · Edge Device</strong> — 모바일 환경을 목표로 설계된 경량 구조</span></li>
+                <li><span class="icon" aria-hidden="true">deployed_code</span><span><strong class="c-on-surface fw-600">ONNX Compatibility</strong> — 검증된 ONNX 변환 · Edge 추론 경로에 적용</span></li>
+              </ul>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">account_tree</span></span>
+                <h4 class="t-headline-sm">Final Model Architecture · 최종 모델 구조</h4>
+              </div>
+              <ol class="pp-layers t-body-md">
+                <li class="pp-layer pp-layer--io">Input · 160 × 160 × 3 RGB</li>
+                <li class="pp-layer">MobileNetV3-Small · ImageNet Pretrained Backbone</li>
+                <li class="pp-layer">Global Average Pooling</li>
+                <li class="pp-layer">Dropout</li>
+                <li class="pp-layer">Dense</li>
+                <li class="pp-layer pp-layer--io">Dry / Wet</li>
+              </ol>
+              <p class="pp-caption">Dropout 비율과 Dense 구성은 실제 제품 데이터로 학습하며 결정합니다.</p>
+              <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">info</span><span>현재 브라우저에서 테스트하는 <code class="pp-inline-code">soil_moisture.onnx</code>는 이 구조가 아니라 <a class="pp-link" href="#pp-training">Step 10의 Lightweight CNN</a>입니다.</span></p>
+            </article>
+          </div>
+        </div>
+
+        <!-- 전체 개발 흐름 -->
+        <div class="card bg-low failsafe pp-flow" id="ms-roadmap" role="group" aria-labelledby="ms-roadmap-title">
+          <div class="failsafe__head">
+            <div class="failsafe__title">
+              <span class="icon-tile bg-tertiary-fixed"><span class="icon" aria-hidden="true">route</span></span>
+              <h3 class="t-headline-md" id="ms-roadmap-title">Production Model Roadmap</h3>
+            </div>
+            <span class="failsafe__badge t-label">10 Stages · Product Data → Edge AI</span>
+          </div>
+
+          <div class="pp-lane">
+            <div class="pp-lane__head t-label"><span class="pp-lane__idx">A</span>Product Data · 실제 제품 데이터</div>
+            <ol class="pp-lane__nodes">
+              <li><a class="pp-node" href="#ms-data"><span class="pp-node__num">01</span><span class="icon" aria-hidden="true">photo_camera</span><span class="pp-node__text"><span class="pp-node__title">Product Data Collection</span><span class="pp-node__meta">제품 카메라 · 화분 환경</span></span></a></li>
+              <li><a class="pp-node" href="#ms-data"><span class="pp-node__num">02</span><span class="icon" aria-hidden="true">sell</span><span class="pp-node__text"><span class="pp-node__title">35% Ground Truth Labeling</span><span class="pp-node__meta">≤ 35% Dry · &gt; 35% Wet</span></span></a></li>
+              <li><a class="pp-node" href="#ms-data"><span class="pp-node__num">03</span><span class="icon" aria-hidden="true">tune</span><span class="pp-node__text"><span class="pp-node__title">Image Preprocessing</span><span class="pp-node__meta">검증된 Pipeline 적용</span></span></a></li>
+            </ol>
+          </div>
+
+          <div class="pp-flow__link t-label"><span class="icon" aria-hidden="true">arrow_downward</span><span>pot_id 기준 Group Split 후 학습</span></div>
+
+          <div class="pp-lane pp-lane--b">
+            <div class="pp-lane__head t-label"><span class="pp-lane__idx">B</span>Train &amp; Evaluate · 학습 및 평가</div>
+            <ol class="pp-lane__nodes">
+              <li><a class="pp-node" href="#ms-training"><span class="pp-node__num">04</span><span class="icon" aria-hidden="true">model_training</span><span class="pp-node__text"><span class="pp-node__title">MobileNetV3-Small Transfer Learning</span><span class="pp-node__meta">Stage 1 · Backbone Freeze</span></span></a></li>
+              <li><a class="pp-node" href="#ms-training"><span class="pp-node__num">05</span><span class="icon" aria-hidden="true">tune</span><span class="pp-node__text"><span class="pp-node__title">Fine-tuning</span><span class="pp-node__meta">Stage 2 · Low Learning Rate</span></span></a></li>
+              <li><a class="pp-node" href="#ms-eval"><span class="pp-node__num">06</span><span class="icon" aria-hidden="true">call_split</span><span class="pp-node__text"><span class="pp-node__title">Pot-based Independent Test</span><span class="pp-node__meta">학습에 없던 화분</span></span></a></li>
+              <li><a class="pp-node" href="#ms-eval"><span class="pp-node__num">07</span><span class="icon" aria-hidden="true">analytics</span><span class="pp-node__text"><span class="pp-node__title">Accuracy / F1 / Boundary</span><span class="pp-node__meta">30 ~ 40% 별도 평가</span></span></a></li>
+            </ol>
+          </div>
+
+          <div class="pp-flow__link t-label"><span class="icon" aria-hidden="true">arrow_downward</span><span>독립 Test 통과 모델만 변환</span></div>
+
+          <div class="pp-lane pp-lane--c">
+            <div class="pp-lane__head t-label"><span class="pp-lane__idx">C</span>Deploy &amp; Verify · 배포 검증</div>
+            <ol class="pp-lane__nodes">
+              <li><a class="pp-node" href="#ms-edge"><span class="pp-node__num">08</span><span class="icon" aria-hidden="true">deployed_code</span><span class="pp-node__text"><span class="pp-node__title">ONNX Conversion</span><span class="pp-node__meta">Keras → ONNX</span></span></a></li>
+              <li><a class="pp-node" href="#ms-edge"><span class="pp-node__num">09</span><span class="icon" aria-hidden="true">compare_arrows</span><span class="pp-node__text"><span class="pp-node__title">Keras ↔ ONNX Validation</span><span class="pp-node__meta">출력 Probability 비교</span></span></a></li>
+              <li><a class="pp-node" href="#ms-edge"><span class="pp-node__num">10</span><span class="icon" aria-hidden="true">memory</span><span class="pp-node__text"><span class="pp-node__title">Edge AI Product Test</span><span class="pp-node__meta">Latency · Memory · Runtime</span></span></a></li>
+            </ol>
+          </div>
+
+          <div class="pp-flow__legend t-label">
+            <span class="pp-legend"><span class="icon" aria-hidden="true">touch_app</span>각 단계를 누르면 상세 설명으로 이동합니다</span>
+          </div>
+        </div>
+
+        <!-- 실제 제품 데이터 · 35% 경계 -->
+        <div class="pp-block" id="ms-data">
+          <div class="section-head">
+            <span class="eyebrow">Product Dataset · Focus on the Decision Boundary</span>
+            <h3 class="t-headline-md">실제 제품 환경에서 이미지와 토양 수분율을 함께 수집합니다</h3>
+            <p class="t-body-lg muted">제품에 실제로 사용할 카메라와 화분 환경에서 촬영하고, 각 이미지에 동시에 측정한 토양 수분율을 연결합니다. 메타데이터 구성은 <a class="pp-link" href="#pp-meta">Step 02</a>를 따릅니다.</p>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">straighten</span></span>
+                <h4 class="t-headline-sm">Focus on the Decision Boundary</h4>
+              </div>
+              <div class="ms-scale" role="img" aria-label="토양 수분율 0~100% 축에서 35% 이하는 Dry, 35% 초과는 Wet이며 30~40% 구간을 경계 구간으로 표시">
+                <span class="ms-scale__mark">35%</span>
+                <div class="ms-scale__bar"><span class="ms-scale__dry">Dry</span><span class="ms-scale__wet">Wet</span></div>
+                <span class="ms-scale__band" aria-hidden="true"></span>
+                <div class="ms-scale__ticks" aria-hidden="true"><span>0%</span><span>100%</span></div>
+              </div>
+              <div class="pp-flow__legend t-label">
+                <span class="pp-legend"><span class="pp-legend__swatch pp-legend__swatch--train" aria-hidden="true"></span>Boundary 30 ~ 40% · 별도 평가 구간</span>
+              </div>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">경계 주변 중점 확보 수분율 (예시)</span>
+                <div class="pp-params">
+                  <span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>30%</span>
+                  <span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>32%</span>
+                  <span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>34%</span>
+                  <span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>35%</span>
+                  <span class="chip t-label"><span class="pp-dot pp-dot--wet" aria-hidden="true"></span>36%</span>
+                  <span class="chip t-label"><span class="pp-dot pp-dot--wet" aria-hidden="true"></span>38%</span>
+                  <span class="chip t-label"><span class="pp-dot pp-dot--wet" aria-hidden="true"></span>40%</span>
+                </div>
+              </div>
+              <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">lightbulb</span><span>35%에서 라벨을 나누는 데 그치지 않고, <strong>모델이 가장 어려워할 35% 주변 데이터를 충분히 확보해 실제 경계 성능을 검증합니다.</strong></span></p>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">tune</span></span>
+                <h4 class="t-headline-sm">Same Preprocessing · Preserve Signal</h4>
+              </div>
+              <p class="t-body-md muted">사전 검증한 <a class="pp-link" href="#image-pipeline">전처리 파이프라인</a>을 그대로 기반으로 사용합니다.</p>
+              <ol class="pp-chain">
+                <li class="pp-chain__item">Raw RGB</li>
+                <li class="pp-chain__item">Quality Check</li>
+                <li class="pp-chain__item">Soil ROI Crop</li>
+                <li class="pp-chain__item">Resize 160 × 160</li>
+                <li class="pp-chain__item">RGB</li>
+                <li class="pp-chain__item">Normalization</li>
+                <li class="pp-chain__item">Train-only Augmentation</li>
+                <li class="pp-chain__item pp-chain__item--on">MobileNetV3-Small</li>
+              </ol>
+              <div class="pp-card__col">
+                <span class="pp-sublabel t-label">기본 Pipeline에서 사용하지 않는 보정</span>
+                <div class="pp-params">
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>Strong CLAHE</span>
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>Histogram Equalization</span>
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>Grayscale Conversion</span>
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>Heavy Color Correction</span>
+                  <span class="chip t-label"><span class="icon c-error" aria-hidden="true">block</span>Heavy Blur</span>
+                </div>
+              </div>
+              <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">palette</span><span>토양의 색상과 밝기는 Noise가 아니라 <strong>수분 상태와 연관된 주요 Feature</strong>일 수 있습니다. (<a class="pp-link" href="#pp-preserve">Preserve Signal, Remove Noise</a>)</span></p>
+            </article>
+          </div>
+        </div>
+
+        <!-- 2단계 학습 전략 -->
+        <div class="pp-block" id="ms-training">
+          <div class="section-head">
+            <span class="eyebrow">Training Strategy · 2-Stage Transfer Learning</span>
+            <h3 class="t-headline-md">Backbone을 먼저 고정하고, 이후 상위 Layer만 미세 조정합니다</h3>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">ac_unit</span></span>
+                <div>
+                  <span class="eyebrow">Stage 1</span>
+                  <h4 class="t-headline-sm">Feature Extraction</h4>
+                </div>
+              </div>
+              <ol class="pp-chain">
+                <li class="pp-chain__item">ImageNet Pretrained MobileNetV3-Small</li>
+                <li class="pp-chain__item pp-chain__item--on">Backbone Freeze</li>
+                <li class="pp-chain__item">Dry / Wet Head Training</li>
+              </ol>
+              <p class="t-body-md muted">사전학습된 Backbone Feature를 유지한 채 새로운 Dry / Wet Classifier를 먼저 학습합니다.</p>
+              <div class="pp-params">
+                <span class="pp-param"><span>Learning Rate</span><strong>≈ 1e-3</strong></span>
+                <span class="pp-param"><span>Epoch</span><strong>≈ 10 ~ 20</strong></span>
+              </div>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">tune</span></span>
+                <div>
+                  <span class="eyebrow">Stage 2</span>
+                  <h4 class="t-headline-sm">Fine-tuning</h4>
+                </div>
+              </div>
+              <ol class="pp-chain">
+                <li class="pp-chain__item pp-chain__item--on">Upper Backbone Unfreeze</li>
+                <li class="pp-chain__item">Low Learning Rate</li>
+                <li class="pp-chain__item">Fine-tuning</li>
+              </ol>
+              <p class="t-body-md muted">상위 Backbone Layer를 풀어 낮은 Learning Rate로 제품 토양 이미지에 맞게 조정합니다.</p>
+              <div class="pp-params">
+                <span class="pp-param"><span>Learning Rate</span><strong>≈ 1e-5 ~ 1e-4</strong></span>
+                <span class="pp-param"><span>Epoch</span><strong>≈ 10 ~ 30</strong></span>
+                <span class="pp-param"><span>Early Stopping</span><strong>Validation Loss</strong></span>
+              </div>
+            </article>
+          </div>
+          <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">info</span><span>위 Learning Rate와 Epoch는 <strong>확정값이 아닌 초기 계획값</strong>이며, 실제 제품 데이터에 따라 조정합니다.</span></p>
+        </div>
+
+        <!-- Data Leakage 방지 · 성능 평가 -->
+        <div class="pp-block" id="ms-eval">
+          <div class="section-head">
+            <span class="eyebrow">Evaluation · Beyond Accuracy</span>
+            <h3 class="t-headline-md">처음 보는 화분으로 평가하고, 35% 경계 구간은 따로 확인합니다</h3>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-highest c-error"><span class="icon" aria-hidden="true">shield</span></span>
+                <h4 class="t-headline-sm">Prevent Data Leakage</h4>
+              </div>
+              <ol class="pp-chain">
+                <li class="pp-chain__item">Actual Product Dataset</li>
+                <li class="pp-chain__item pp-chain__item--on">Group by pot_id</li>
+                <li class="pp-chain__item">Train / Validation / Test</li>
+              </ol>
+              <div class="pp-ratio" role="img" aria-label="Train 70%, Validation 15%, Test 15%">
+                <span class="pp-ratio__train">70%</span>
+                <span class="pp-ratio__val">15%</span>
+                <span class="pp-ratio__test">15%</span>
+              </div>
+              <p class="t-body-md muted">단순 Random Image Split을 쓰지 않습니다. 같은 화분의 연속 촬영 이미지가 Train과 Test에 함께 들어가면, 모델이 일반화한 것이 아니라 <strong class="c-on-surface fw-600">이미 본 화분을 기억해</strong> 성능이 높게 나올 수 있습니다. 필요하면 <code class="pp-inline-code">pot_id + capture_session</code>까지 함께 묶습니다. (<a class="pp-link" href="#pp-split">Group Split 예시</a>)</p>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">analytics</span></span>
+                <h4 class="t-headline-sm">Metrics · Confusion Matrix</h4>
+              </div>
+              <div class="pp-params">
+                <span class="chip t-label">Accuracy</span>
+                <span class="chip t-label">Precision</span>
+                <span class="chip t-label">Recall</span>
+                <span class="chip t-label">F1-score</span>
+                <span class="chip t-label">Confusion Matrix</span>
+                <span class="chip t-label"><span class="pp-dot pp-dot--dry" aria-hidden="true"></span>Dry Recall</span>
+                <span class="chip t-label"><span class="pp-dot pp-dot--wet" aria-hidden="true"></span>Wet Recall</span>
+              </div>
+              <div class="ms-cm" role="table" aria-label="Dry / Wet 오분류가 급수 동작에 주는 영향">
+                <div role="row" class="ms-cm__row">
+                  <span role="columnheader" class="ms-cm__h">Actual ＼ Pred</span>
+                  <span role="columnheader" class="ms-cm__h">Dry</span>
+                  <span role="columnheader" class="ms-cm__h">Wet</span>
+                </div>
+                <div role="row" class="ms-cm__row">
+                  <span role="rowheader" class="ms-cm__h">Dry</span>
+                  <span role="cell" class="ms-cm__cell ms-cm__cell--ok"><strong>정상</strong>급수 판단</span>
+                  <span role="cell" class="ms-cm__cell ms-cm__cell--miss"><strong>Dry → Wet</strong>급수 누락 · 건조 위험</span>
+                </div>
+                <div role="row" class="ms-cm__row">
+                  <span role="rowheader" class="ms-cm__h">Wet</span>
+                  <span role="cell" class="ms-cm__cell ms-cm__cell--over"><strong>Wet → Dry</strong>불필요한 급수 · 과습 위험</span>
+                  <span role="cell" class="ms-cm__cell ms-cm__cell--ok"><strong>정상</strong>급수 보류</span>
+                </div>
+              </div>
+              <p class="pp-caption">두 오분류는 급수 동작에 서로 다른 영향을 주므로 클래스별 Recall과 Confusion Matrix를 반드시 확인합니다.</p>
+              <div class="pp-params">
+                <span class="pp-param"><span>Overall</span><strong>전체 Test Set 성능</strong></span>
+                <span class="pp-param"><span>+ Boundary</span><strong>30 ~ 40% 구간 성능</strong></span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Edge AI · ONNX 검증 -->
+        <div class="pp-block" id="ms-edge">
+          <div class="section-head">
+            <span class="eyebrow">Edge AI Validation · Keras ↔ ONNX</span>
+            <h3 class="t-headline-md">ONNX로 변환한 뒤에도 예측 결과가 유지되는지 확인합니다</h3>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <span class="pp-sublabel t-label">Verification Flow · 검증 흐름</span>
+              <ol class="pp-vflow">
+                <li><span class="icon" aria-hidden="true">model_training</span>Trained Keras Model</li>
+                <li><span class="icon" aria-hidden="true">fact_check</span>Independent Test Evaluation</li>
+                <li><span class="icon" aria-hidden="true">deployed_code</span>ONNX Conversion</li>
+                <li><span class="icon" aria-hidden="true">compare_arrows</span>Keras vs ONNX Output Comparison</li>
+                <li class="pp-vflow__out"><span class="icon" aria-hidden="true">memory</span>Edge Device Test</li>
+              </ol>
+              <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">info</span><span>ONNX로 변환했다는 사실만으로는 검증 완료가 아닙니다. <strong>동일한 Test 이미지에서 Keras와 ONNX의 출력 Probability가 거의 동일한지</strong> 확인합니다.</span></p>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <span class="pp-sublabel t-label">Edge AI 최종 선정 조건</span>
+              <dl class="bom__rows">
+                <div class="bom__row t-body-md">
+                  <dt class="bom__label"><span class="icon" aria-hidden="true">folder_zip</span>Model File Size</dt>
+                  <dd class="bom__value">Edge Device 저장 · 배포 부담</dd>
+                </div>
+                <div class="bom__row t-body-md">
+                  <dt class="bom__label"><span class="icon" aria-hidden="true">speed</span>Inference Latency</dt>
+                  <dd class="bom__value">이미지 1장당 추론 시간</dd>
+                </div>
+                <div class="bom__row t-body-md">
+                  <dt class="bom__label"><span class="icon" aria-hidden="true">memory</span>Peak Memory</dt>
+                  <dd class="bom__value">추론 중 최대 메모리 사용량</dd>
+                </div>
+                <div class="bom__row t-body-md">
+                  <dt class="bom__label"><span class="icon" aria-hidden="true">deployed_code</span>ONNX Conversion</dt>
+                  <dd class="bom__value">변환 성공 · 연산자 호환성</dd>
+                </div>
+                <div class="bom__row t-body-md">
+                  <dt class="bom__label"><span class="icon" aria-hidden="true">compare_arrows</span>ONNX Accuracy</dt>
+                  <dd class="bom__value">Keras 대비 출력 · 정확도 유지</dd>
+                </div>
+                <div class="bom__row t-body-md">
+                  <dt class="bom__label"><span class="icon" aria-hidden="true">developer_board</span>Edge Device Runtime</dt>
+                  <dd class="bom__value">실제 Edge Device에서 동작 확인</dd>
+                </div>
+              </dl>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -1176,7 +1621,7 @@ label</code></pre>
                   <span class="icon c-tertiary" aria-hidden="true">model_training</span>
                   <div>
                     <span class="t-headline-sm">Lightweight CNN · ONNX Runtime</span>
-                    <p class="t-body-md muted">Separable Convolution 기반 경량 CNN(160 × 160 RGB 입력, Dry / Moderate / Wet)을 ONNX로 변환해 ONNX Runtime으로 추론합니다. 모델 파일 약 60KB의 Pre-validation Model입니다.</p>
+                    <p class="t-body-md muted">Separable Convolution 기반 경량 CNN(160 × 160 RGB 입력, Dry / Moderate / Wet)을 ONNX로 변환해 ONNX Runtime으로 추론합니다. 모델 파일 약 60KB의 Pre-validation Model이며, 최종 제품 모델은 MobileNetV3-Small 전이학습 방향으로 개발합니다.</p>
                   </div>
                 </div>
                 <div class="stack__item stack__item--peach">
