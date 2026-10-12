@@ -1376,3 +1376,64 @@ ol { padding: 0; list-style: none; }
 @media (max-width: 767px) {
   :root { --gutter: 1.25rem; }
 }
+
+/* ===== 범용 비전 AI 비교 페이지 (ai-models.html) ===== */
+.am-back { padding: 0.5rem 0.875rem; }
+.am-back .icon { font-size: 18px; }
+
+.am-table-wrap { padding: var(--space-sm); overflow: hidden; }
+.am-table { width: 100%; border-collapse: collapse; text-align: left; }
+.am-table th,
+.am-table td { padding: 0.75rem; vertical-align: top; color: var(--on-surface-variant); }
+.am-table thead th {
+  font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--on-surface);
+  background: var(--surface-container-low);
+}
+.am-table thead th:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+.am-table thead th:last-child { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+.am-table tbody tr + tr { border-top: 1px solid rgba(212, 195, 187, 0.4); }
+.am-table tbody th { color: var(--on-surface); font-weight: 600; white-space: nowrap; }
+.am-table em { font-style: normal; font-weight: 600; color: var(--on-surface); }
+.am-row--selected { background: rgba(255, 209, 184, 0.28); }
+.am-row--selected td { color: var(--on-surface); }
+
+.am-verdict {
+  display: inline-block; padding: 0.125rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: 12px; line-height: 18px; font-weight: 600; white-space: nowrap;
+}
+.am-verdict--no { background: var(--surface-container-high); color: var(--on-surface-variant); }
+.am-verdict--na { background: var(--surface-container); color: var(--on-surface-variant); }
+.am-verdict--yes { background: var(--secondary-container); color: var(--on-secondary-container); }
+
+/* 좁은 화면: 표를 행별 카드로 전환 */
+@media (max-width: 1023px) {
+  .am-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+  .am-table, .am-table tbody, .am-table tr, .am-table th, .am-table td { display: block; width: 100%; }
+  .am-table tbody tr { padding: var(--space-sm) 0; border-radius: var(--radius-xl); }
+  .am-table tbody tr + tr { border-top: 1px solid rgba(212, 195, 187, 0.4); }
+  .am-table tbody th { font-size: 16px; line-height: 24px; padding-bottom: 0.25rem; white-space: normal; }
+  .am-table td { position: relative; padding: 0.375rem 0.75rem 0.375rem 8.25rem; }
+  .am-table td::before {
+    content: attr(data-label);
+    position: absolute; left: 0.75rem; top: 0.375rem; width: 7rem;
+    font-size: 12px; line-height: 22px; font-weight: 600; color: var(--on-surface);
+  }
+}
+@media (max-width: 479px) {
+  .am-table td { padding-left: 0.75rem; }
+  .am-table td::before { position: static; display: block; width: auto; }
+}
+
+.am-card .am-why {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  margin-top: auto;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-xl);
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+}
+.am-card .am-why .icon { font-size: 18px; color: var(--secondary); margin-top: 0.125rem; }
+
+.am-refs { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-lg); }

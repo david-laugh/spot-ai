@@ -8,6 +8,7 @@ Stitch 디자인(「AI 화초 상태 인식 및 자동 급수 시스템 제품 �
 ```
 spot-ai/
 ├── index.html          ← 홈페이지 (GitHub Pages 시작 파일)
+├── ai-models.html      ← 범용 비전 AI(YOLOE·DINO-X·SAM 3 등) 대비 모델 선택 근거 비교 페이지
 ├── css/style.css       ← 디자인 토큰 및 반응형 스타일
 ├── js/main.js          ← 모바일 메뉴, 현재 섹션 표시, PDF 다운로드 안내
 ├── images/             ← 이미지 (hero-spot.jpg)
@@ -30,6 +31,8 @@ npx serve .
 4. 03 성능 지표 (KPI)
 5. 04 하드웨어 & 소프트웨어 스택
 6. 05 MVP 검증 기준 & 사양서 다운로드
+
+별도 페이지 `ai-models.html`: YOLOE · DINO-X · SAM 3 · SigLIP2 · OCR · MediaPipe를 쓰지 않고 실측 데이터 기반 MobileNetV3-Small을 선택한 이유와 비교표 (메인 「모델 선정」 섹션에서 이동)
 
 ## 참고
 

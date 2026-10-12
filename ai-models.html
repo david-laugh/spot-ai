@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>범용 비전 AI 비교 | SPOT AI</title>
+  <meta name="description" content="SPOT AI가 YOLOE, DINO-X, SAM 3, SigLIP2, OCR, MediaPipe 대신 실측 토양 수분 데이터로 학습한 경량 모델을 선택한 이유와 비교표.">
+
+  <!-- 글꼴: Inter + Pretendard(한글) / 아이콘: Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&display=block">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== 상단 헤더 ===== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="SPOT AI 홈">
+        <span class="brand__mark"><span class="icon" aria-hidden="true">potted_plant</span></span>
+        <span class="brand__text">
+          <span class="brand__name">SPOT AI</span>
+          <span class="brand__sub">스팟 AI · Smart Botanical System</span>
+        </span>
+      </a>
+
+      <nav class="main-nav t-body-md" aria-label="주요 메뉴">
+        <a href="index.html#product-overview">제품 개요</a>
+        <a href="index.html#image-pipeline">이미지 전처리</a>
+        <a href="index.html#model-selection">모델 선정</a>
+        <a href="ai-models.html" aria-current="true">범용 AI 비교</a>
+        <a href="index.html#hardware-specs">기술 스택 &amp; 하드웨어</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn--secondary am-back t-label" href="index.html#model-selection">
+          <span class="icon" aria-hidden="true">arrow_back</span><span>메인으로</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label="메뉴 열기">
+          <span class="icon" aria-hidden="true">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-nav" aria-label="모바일 메뉴" hidden>
+      <ul class="container">
+        <li><a href="index.html#product-overview">제품 개요</a></li>
+        <li><a href="index.html#image-pipeline">이미지 전처리</a></li>
+        <li><a href="index.html#model-selection">모델 선정</a></li>
+        <li><a href="ai-models.html" aria-current="true">범용 AI 비교</a></li>
+        <li><a href="index.html#hardware-specs">기술 스택 &amp; 하드웨어</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container page">
+
+      <!-- ===== 도입 ===== -->
+      <section class="section section--md" id="am-intro">
+        <div class="section-head">
+          <span class="eyebrow">Model Choice · Foundation Models vs. Data-driven Model</span>
+          <h1 class="t-display">범용 비전 AI 대신, 실측 데이터로 학습한 전용 모델을 씁니다</h1>
+          <p class="t-body-lg muted">YOLOE, DINO-X, SAM 3, SigLIP2, OCR, MediaPipe는 각자 분야에서 뛰어난 모델입니다. 하지만 SPOT AI가 풀어야 하는 문제는 <strong class="c-on-surface fw-600">“토양 사진 한 장으로 수분율이 35% 이하인지 판정하는 것”</strong>이고, 이 정답은 프롬프트가 아니라 <strong class="c-on-surface fw-600">센서로 측정한 실제 수분율</strong>에 있습니다. 그래서 제품 환경에서 이미지와 수분율을 직접 수집하고, 그 데이터로 MobileNetV3-Small을 학습합니다.</p>
+          <div class="pp-chips">
+            <span class="chip t-label"><span class="icon c-tertiary" aria-hidden="true">image_search</span>범용 모델 · 무엇이 어디에 있는가</span>
+            <span class="chip t-label"><span class="icon c-primary" aria-hidden="true">water_drop</span>SPOT AI · 이 흙은 얼마나 젖었는가</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 핵심 이유 3가지 ===== -->
+      <section class="section section--md" id="am-reasons">
+        <div class="section-head">
+          <span class="eyebrow">Why Not · 3 Key Reasons</span>
+          <h2 class="t-headline-lg">범용 모델을 쓰지 않는 세 가지 이유</h2>
+        </div>
+        <div class="pp-grid-3">
+          <article class="card bg-lowest pp-card">
+            <div class="panel__title">
+              <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">target</span></span>
+              <h3 class="t-headline-sm">1. 풀려는 문제가 다릅니다</h3>
+            </div>
+            <p class="t-body-md muted">범용 모델은 <strong class="c-on-surface fw-600">객체 탐지 · 분할 · 의미 비교 · 문자 · 동작</strong>을 다룹니다. SPOT AI는 고정된 화분 안의 흙이 <strong class="c-on-surface fw-600">Dry(≤ 35%)인지 Wet(&gt; 35%)인지</strong>를 가르는 이진 분류이며, 판단 근거는 흙의 미세한 색 · 질감 차이입니다. “흙이 어디 있는가”는 이미 카메라 위치로 정해져 있습니다.</p>
+          </article>
+          <article class="card bg-lowest pp-card">
+            <div class="panel__title">
+              <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">sensors</span></span>
+              <h3 class="t-headline-sm">2. 정답은 실측 데이터에 있습니다</h3>
+            </div>
+            <p class="t-body-md muted">“젖은 흙”이라는 텍스트와의 유사도는 수분율 35%라는 수치 기준을 알지 못합니다. SigLIP2의 유사도 점수는 정답 확률도 아닙니다. 수분 판정은 <strong class="c-on-surface fw-600">정전식 센서로 측정한 Ground Truth</strong>로 학습하고 검증해야 하며, 이는 어떤 범용 모델을 써도 피할 수 없는 과정입니다.</p>
+          </article>
+          <article class="card bg-lowest pp-card">
+            <div class="panel__title">
+              <span class="icon-tile bg-secondary-fixed c-on-secondary-fixed"><span class="icon" aria-hidden="true">developer_board</span></span>
+              <h3 class="t-headline-sm">3. Edge 기기에서 돌아가야 합니다</h3>
+            </div>
+            <p class="t-body-md muted">추론은 <strong class="c-on-surface fw-600">Raspberry Pi 4 (CPU · 4GB RAM)</strong>에서 오프라인으로 실행됩니다. 대형 Transformer 기반 모델이나 클라우드 API 의존 모델은 지연 · 메모리 · 네트워크 · 비용 면에서 상시 동작하는 급수 장치에 맞지 않습니다. 경량 CNN은 ONNX로 변환해 기기 안에서 바로 추론할 수 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== 비교표 ===== -->
+      <section class="section section--md" id="am-compare">
+        <div class="section-head">
+          <span class="eyebrow">Comparison Table · SPOT AI 관점</span>
+          <h2 class="t-headline-lg">모델별 기능과 SPOT AI 적합성 비교</h2>
+          <p class="t-body-md muted">“성능이 낮아서”가 아니라 “풀려는 문제와 동작 환경이 달라서” 채택하지 않았습니다. 마지막 행은 SPOT AI가 선택한 모델입니다.</p>
+        </div>
+
+        <div class="card bg-lowest am-table-wrap">
+          <table class="am-table t-body-md">
+            <caption class="sr-only">범용 비전 AI 모델과 SPOT AI 선택 모델 비교</caption>
+            <thead>
+              <tr>
+                <th scope="col">모델</th>
+                <th scope="col">핵심 목적</th>
+                <th scope="col">대표 출력</th>
+                <th scope="col">SPOT 과제(35% Dry / Wet)와의 관계</th>
+                <th scope="col">Raspberry Pi 4 Edge 적합성</th>
+                <th scope="col">판단</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" data-label="모델">YOLOE</th>
+                <td data-label="핵심 목적">오픈 보캐뷸러리 객체 탐지 · 분할</td>
+                <td data-label="대표 출력">Box, Mask</td>
+                <td data-label="과제 관계">화분 · 흙의 <em>위치</em>는 찾지만 수분 상태는 판단하지 않음. 흙 위치는 고정 카메라로 이미 결정됨</td>
+                <td data-label="Edge 적합성">소형 모델은 가능하나, 필요 없는 탐지 단계가 추가됨</td>
+                <td data-label="판단"><span class="am-verdict am-verdict--no">미채택</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="모델">DINO-X</th>
+                <td data-label="핵심 목적">범용 객체 인식 · 장면 분석</td>
+                <td data-label="대표 출력">Box, Mask 등</td>
+                <td data-label="과제 관계">복잡한 장면 분석용. 단일 화분 · 단일 클래스 판정에는 과한 기능</td>
+                <td data-label="Edge 적합성">주로 API로 제공 · 네트워크 · 호출 비용 의존</td>
+                <td data-label="판단"><span class="am-verdict am-verdict--no">미채택</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="모델">SAM 3</th>
+                <td data-label="핵심 목적">프롬프트 기반 개념 · 객체 분할 · 추적</td>
+                <td data-label="대표 출력">Mask, 추적 결과</td>
+                <td data-label="과제 관계">흙 영역을 정밀 분할할 수 있으나, 분할 결과에 수분 정보는 없음. 고정 ROI Crop으로 대체 가능</td>
+                <td data-label="Edge 적합성">대형 모델 · GPU 권장 · CPU 실시간 추론 부적합</td>
+                <td data-label="판단"><span class="am-verdict am-verdict--no">미채택</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="모델">SigLIP2</th>
+                <td data-label="핵심 목적">이미지 ↔ 텍스트 의미 유사도</td>
+                <td data-label="대표 출력">임베딩, 유사도</td>
+                <td data-label="과제 관계">“dry soil”과의 유사도는 35% 수치 기준과 무관하며, 점수가 정답 확률도 아님</td>
+                <td data-label="Edge 적합성">Transformer 인코더 · CPU 부담 큼</td>
+                <td data-label="판단"><span class="am-verdict am-verdict--no">미채택</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="모델">OCR</th>
+                <td data-label="핵심 목적">이미지 속 문자 인식</td>
+                <td data-label="대표 출력">텍스트, 문자 위치</td>
+                <td data-label="과제 관계">흙 사진에는 읽을 문자가 없음. 센서 값은 화면이 아닌 신호로 직접 수신</td>
+                <td data-label="Edge 적합성">경량 엔진도 있으나 쓰임새가 없음</td>
+                <td data-label="판단"><span class="am-verdict am-verdict--na">해당 없음</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="모델">MediaPipe</th>
+                <td data-label="핵심 목적">손 · 얼굴 · 자세 랜드마크 · 제스처</td>
+                <td data-label="대표 출력">랜드마크, 제스처</td>
+                <td data-label="과제 관계">사람 동작 인터페이스용. 자동 급수는 사용자 조작 없이 동작</td>
+                <td data-label="Edge 적합성">Edge 친화적이나 과제와 무관</td>
+                <td data-label="판단"><span class="am-verdict am-verdict--na">해당 없음</span></td>
+              </tr>
+              <tr class="am-row--selected">
+                <th scope="row" data-label="모델">MobileNetV3-Small<br><span class="t-label c-primary">SPOT AI 선택</span></th>
+                <td data-label="핵심 목적">실측 데이터 기반 토양 수분 이진 분류</td>
+                <td data-label="대표 출력">Dry / Wet 확률</td>
+                <td data-label="과제 관계">제품 환경 이미지 + 센서 실측 수분율로 학습 · 35% 경계 구간 별도 검증</td>
+                <td data-label="Edge 적합성">ImageNet 사전학습 경량 CNN · 160 × 160 입력 · ONNX로 기기 내 추론</td>
+                <td data-label="판단"><span class="am-verdict am-verdict--yes">채택</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="pp-caption">OCR과 MediaPipe는 단일 모델이 아닌 기술 분야 · 프레임워크이며, Edge 적합성은 모델 크기 · 버전 · 하드웨어에 따라 달라집니다.</p>
+      </section>
+
+      <!-- ===== 모델별 간단 설명 ===== -->
+      <section class="section section--md" id="am-models">
+        <div class="section-head">
+          <span class="eyebrow">Model Notes · 개발 목적과 미채택 이유</span>
+          <h2 class="t-headline-lg">모델별 한 줄 정리</h2>
+        </div>
+        <div class="pp-grid-3">
+          <article class="card bg-lowest pp-card am-card">
+            <div><span class="eyebrow">Open-Vocabulary Detection</span><h3 class="t-headline-sm">YOLOE</h3></div>
+            <p class="t-body-md muted">텍스트 · 시각 프롬프트로 탐지 대상을 바꿀 수 있는 실시간 탐지 · 분할 모델입니다.</p>
+            <p class="am-why t-body-md"><span class="icon" aria-hidden="true">block</span><span>SPOT은 “무엇이 있나”를 찾을 필요가 없습니다. 카메라와 화분 위치가 고정되어 있어 흙 영역은 ROI Crop으로 충분합니다.</span></p>
+          </article>
+          <article class="card bg-lowest pp-card am-card">
+            <div><span class="eyebrow">Universal Object Perception</span><h3 class="t-headline-sm">DINO-X</h3></div>
+            <p class="t-body-md muted">개방형 환경에서 다양한 객체를 탐지하고 수량 · 영역을 분석하는 범용 비전 모델입니다.</p>
+            <p class="am-why t-body-md"><span class="icon" aria-hidden="true">block</span><span>복잡한 장면 분석에 강점이 있지만 SPOT의 장면은 단순합니다. API 의존은 오프라인 상시 동작과 맞지 않습니다.</span></p>
+          </article>
+          <article class="card bg-lowest pp-card am-card">
+            <div><span class="eyebrow">Promptable Segmentation</span><h3 class="t-headline-sm">SAM 3</h3></div>
+            <p class="t-body-md muted">텍스트 · 점 · 박스 프롬프트로 이미지 · 영상의 개념을 픽셀 단위로 분할 · 추적합니다.</p>
+            <p class="am-why t-body-md"><span class="icon" aria-hidden="true">block</span><span>분할은 “흙이 어디인가”까지만 답합니다. 수분 판정은 결국 별도 분류 모델이 필요하고, 모델 크기는 Raspberry Pi에 부담입니다.</span></p>
+          </article>
+          <article class="card bg-lowest pp-card am-card">
+            <div><span class="eyebrow">Vision-Language Embedding</span><h3 class="t-headline-sm">SigLIP2</h3></div>
+            <p class="t-body-md muted">이미지와 텍스트를 같은 임베딩 공간에 두고 의미 유사도를 비교 · Zero-Shot 분류합니다.</p>
+            <p class="am-why t-body-md"><span class="icon" aria-hidden="true">block</span><span>언어로 표현된 “젖은 흙”과 수분율 35%라는 수치 경계는 다릅니다. 실측 라벨로 학습한 분류기가 더 직접적입니다.</span></p>
+          </article>
+          <article class="card bg-lowest pp-card am-card">
+            <div><span class="eyebrow">Text Recognition</span><h3 class="t-headline-sm">OCR</h3></div>
+            <p class="t-body-md muted">문서 · 사진 속 문자를 텍스트로 변환합니다 (PaddleOCR, EasyOCR, Tesseract 등).</p>
+            <p class="am-why t-body-md"><span class="icon" aria-hidden="true">block</span><span>흙 이미지에는 문자가 없고, 토양 수분 센서 값은 장치에서 직접 읽기 때문에 문자 인식 단계가 필요 없습니다.</span></p>
+          </article>
+          <article class="card bg-lowest pp-card am-card">
+            <div><span class="eyebrow">On-device Perception</span><h3 class="t-headline-sm">MediaPipe</h3></div>
+            <p class="t-body-md muted">손 21개 랜드마크 · 제스처 · 얼굴 · 자세를 실시간 추적하는 ML 솔루션 프레임워크입니다.</p>
+            <p class="am-why t-body-md"><span class="icon" aria-hidden="true">block</span><span>사람의 동작이 아니라 식물과 흙을 봅니다. SPOT은 사용자 조작 없이 자동으로 급수합니다.</span></p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== 그래도 쓸 수 있는 곳 ===== -->
+      <section class="section section--md" id="am-dev-tools">
+        <div class="two-col">
+          <article class="card bg-low panel">
+            <div>
+              <div class="panel__title">
+                <span class="icon-tile bg-tertiary-fixed c-tertiary"><span class="icon" aria-hidden="true">build</span></span>
+                <h2 class="t-headline-md">개발 단계 보조 도구로는 활용할 수 있습니다</h2>
+              </div>
+              <ul class="pp-list t-body-md">
+                <li><span class="icon" aria-hidden="true">check</span><span><strong class="c-on-surface fw-600">YOLOE · SAM 3</strong> — 수집 이미지에서 화분 · 흙 영역 Mask를 만들어 ROI 기준을 정하거나 라벨링을 보조</span></li>
+                <li><span class="icon" aria-hidden="true">check</span><span><strong class="c-on-surface fw-600">SigLIP2</strong> — 대량 수집 이미지에서 흔들림 · 이물질 등 이상 이미지를 검색해 데이터 정제</span></li>
+                <li><span class="icon" aria-hidden="true">check</span><span><strong class="c-on-surface fw-600">DINO-X</strong> — 다양한 화분 · 배경 조건의 데이터 분포 점검</span></li>
+              </ul>
+            </div>
+            <p class="panel__foot panel__foot--neutral t-label">PC · 서버에서 1회성으로 사용 · 제품 기기에는 탑재하지 않음</p>
+          </article>
+          <article class="card bg-lowest panel">
+            <div>
+              <div class="panel__title">
+                <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">flag</span></span>
+                <h2 class="t-headline-md">제품에는 실측 데이터로 학습한 경량 모델을 탑재합니다</h2>
+              </div>
+              <ol class="pp-layers t-body-md">
+                <li class="pp-layer pp-layer--io">제품 환경 토양 이미지 촬영</li>
+                <li class="pp-layer">정전식 센서로 같은 시점 수분율 측정 (Ground Truth)</li>
+                <li class="pp-layer">MobileNetV3-Small 전이학습 · Fine-tuning</li>
+                <li class="pp-layer">처음 보는 화분 · 35% 경계 구간 검증</li>
+                <li class="pp-layer pp-layer--io">ONNX 변환 · Raspberry Pi 4 기기 내 추론</li>
+              </ol>
+            </div>
+          </article>
+        </div>
+        <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">info</span><span>결론적으로 여섯 기술은 <strong>“무엇이 어디에 있는가”</strong>를 잘 푸는 상호 보완적 도구입니다. SPOT AI의 핵심 질문인 <strong>“이 흙의 수분율이 35% 이하인가”</strong>는 실측 데이터로 학습한 전용 모델이 가장 직접적이고 가볍게 답할 수 있습니다.</span></p>
+
+        <div class="cta">
+          <div class="cta__text">
+            <span class="t-headline-sm">선택한 모델의 학습 · 검증 계획 보기</span>
+            <span class="t-body-md muted">모델 후보 3가지 비교, MobileNetV3-Small 구조와 데이터 수집 · 검증 로드맵</span>
+          </div>
+          <a class="btn btn--primary t-body-md fw-600" href="index.html#model-selection">
+            <span class="icon" aria-hidden="true">arrow_back</span><span>모델 선정 섹션으로</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ===== 참고 자료 ===== -->
+      <section class="section section--md" id="am-refs">
+        <div class="section-head">
+          <span class="eyebrow">References</span>
+          <h2 class="t-headline-sm">참고 자료</h2>
+        </div>
+        <ul class="am-refs t-body-md">
+          <li><a class="pp-link" href="https://docs.ultralytics.com/models/yoloe/" target="_blank" rel="noopener noreferrer">Ultralytics YOLOE</a></li>
+          <li><a class="pp-link" href="https://github.com/IDEA-Research/DINO-X-API" target="_blank" rel="noopener noreferrer">DINO-X API</a></li>
+          <li><a class="pp-link" href="https://github.com/facebookresearch/sam3" target="_blank" rel="noopener noreferrer">Meta SAM 3</a></li>
+          <li><a class="pp-link" href="https://huggingface.co/docs/transformers/model_doc/siglip2" target="_blank" rel="noopener noreferrer">Hugging Face SigLIP2</a></li>
+          <li><a class="pp-link" href="https://www.paddleocr.ai/" target="_blank" rel="noopener noreferrer">PaddleOCR</a></li>
+          <li><a class="pp-link" href="https://ai.google.dev/edge/mediapipe/solutions/guide" target="_blank" rel="noopener noreferrer">Google MediaPipe</a></li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== 푸터 ===== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__name">
+            <span class="icon-tile bg-tertiary-fixed"><span class="icon" aria-hidden="true">eco</span></span>
+            <span class="t-headline-sm">SPOT AI Botanical Care System</span>
+          </div>
+          <p class="t-body-md muted">바이오필릭 홈 테크놀로지와 초정밀 인공지능이 융합된 화초 상태 진단 및 무소음 연동 자동 급수 아키텍처 솔루션 리포트.</p>
+        </div>
+        <nav class="footer-col t-body-md" aria-label="문서 아키텍처">
+          <span class="footer-col__title t-label c-on-surface">문서 아키텍처</span>
+          <a href="index.html#product-overview">제품 개요 및 비전</a>
+          <a href="index.html#challenges-and-hypotheses">해결 과제 및 검증 가설</a>
+          <a href="index.html#operational-cycle">작동 사이클 시나리오</a>
+          <a href="index.html#image-pipeline">이미지 전처리 파이프라인</a>
+        </nav>
+        <nav class="footer-col t-body-md" aria-label="엔지니어링 및 사양">
+          <span class="footer-col__title t-label c-on-surface">엔지니어링 &amp; 사양</span>
+          <a href="index.html#model-selection">모델 선정 및 검증</a>
+          <a href="ai-models.html">범용 비전 AI 비교</a>
+          <a href="index.html#hardware-specs">임베디드 하드웨어 스펙</a>
+        </nav>
+      </div>
+      <div class="footer-bottom t-label">
+        <span>© 2025 SPOT AI Engineering Team. All rights reserved.</span>
+        <span>Sub-GHz RF &amp; Vision Multi-Modal Telemetry v2.4</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
