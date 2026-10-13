@@ -1,0 +1,17 @@
+{
+  "name": "spot-ai",
+  "private": true,
+  "description": "SPOT AI 소개 페이지 — 정적 사이트(빌드 없음). 이 파일은 챗봇 지식 데이터 동기화 스크립트 전용입니다.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "sync:knowledge": "node --env-file-if-exists=.env scripts/sync-knowledge.mjs",
+    "sync:knowledge:dry": "node --env-file-if-exists=.env scripts/sync-knowledge.mjs --dry-run",
+    "knowledge:preview": "node scripts/sync-knowledge.mjs --preview"
+  },
+  "devDependencies": {
+    "node-html-parser": "9.0.4"
+  }
+}

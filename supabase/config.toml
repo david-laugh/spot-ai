@@ -1,0 +1,11 @@
+# Supabase CLI 설정 (Edge Functions 배포용 최소 구성)
+# 배포: npx supabase functions deploy --project-ref wwyshswirjwnsetltiqb --use-api
+project_id = "spot-ai"
+
+# 공개 웹사이트(GitHub Pages)에서 키 없이 호출합니다. 인증 대신 Origin 허용 목록 + 요청 제한으로 보호합니다.
+[functions.spot-ai-chat]
+verify_jwt = false
+
+# 동기화 토큰(x-sync-token)으로 자체 인증합니다.
+[functions.spot-ai-sync]
+verify_jwt = false
