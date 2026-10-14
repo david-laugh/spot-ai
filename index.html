@@ -1587,8 +1587,359 @@ label</code></pre>
       <section class="section section--md" id="hardware-specs" data-section>
         <div class="section-head">
           <span class="eyebrow">05 · Engineering Architecture</span>
-          <h2 class="t-headline-lg">하드웨어 명세 및 소프트웨어 스택</h2>
-          <p class="t-body-lg muted">가정용 인테리어와의 친화적인 조화와 엔지니어링 신뢰성을 모두 고려한 임베디드 부품 구성입니다.</p>
+          <h2 class="t-headline-lg">하드웨어 시스템 아키텍처 및 소프트웨어 스택</h2>
+          <p class="t-body-lg muted">카메라 촬영 → AI 분석 → 센서 교차 검증 → 자동 급수 과정을 담당하는 실제 선정 부품(BOM)과 부품 간 신호 · 전원 흐름, 그리고 소프트웨어 구성입니다.</p>
+        </div>
+
+        <!-- 하드웨어 시스템 구조도 (데스크톱: SVG 전체 구조도 / 태블릿·모바일: 영역별 세로 배치) -->
+        <div class="card bg-low failsafe hw" id="hw-architecture" role="group" aria-labelledby="hw-title">
+          <div class="failsafe__head">
+            <div class="failsafe__title">
+              <span class="icon-tile bg-tertiary-fixed"><span class="icon" aria-hidden="true">schema</span></span>
+              <h3 class="t-headline-md" id="hw-title">SPOT AI 하드웨어 시스템 아키텍처</h3>
+            </div>
+            <span class="failsafe__badge t-label">Dual Processor · 설계 단계 (Design Stage)</span>
+          </div>
+
+          <p class="t-body-md muted hw__lead">Raspberry Pi 4는 영상 처리와 AI 추론, Raspberry Pi Pico는 센서 측정과 급수 제어를 맡습니다. 12V 펌프와 조명은 MOSFET Driver가 스위칭하며, 전원은 12V 어댑터 하나에서 분배됩니다.</p>
+
+          <ol class="hw-flow">
+            <li class="hw-flow__step">
+              <span class="hw-flow__num" aria-hidden="true">1</span>
+              <div>
+                <h4 class="hw-flow__title">카메라 촬영</h4>
+                <p class="hw-flow__desc">Pico가 MOSFET Driver #2로 4000K 조명을 켜고, Camera Module 3 Wide가 MIPI CSI-2로 Pi 4에 영상을 전송합니다.</p>
+              </div>
+            </li>
+            <li class="hw-flow__step">
+              <span class="hw-flow__num" aria-hidden="true">2</span>
+              <div>
+                <h4 class="hw-flow__title">AI 분석</h4>
+                <p class="hw-flow__desc">Raspberry Pi 4가 ONNX Runtime으로 토양 이미지를 추론합니다.</p>
+              </div>
+            </li>
+            <li class="hw-flow__step">
+              <span class="hw-flow__num" aria-hidden="true">3</span>
+              <div>
+                <h4 class="hw-flow__title">센서 교차 검증</h4>
+                <p class="hw-flow__desc">Pi 4가 USB CDC Serial로 AI 결과를 보내면, Pico가 SEN0308(ADC) · 플로트 스위치(GPIO) 측정값과 함께 급수 여부를 판단합니다.</p>
+              </div>
+            </li>
+            <li class="hw-flow__step">
+              <span class="hw-flow__num" aria-hidden="true">4</span>
+              <div>
+                <h4 class="hw-flow__title">자동 급수</h4>
+                <p class="hw-flow__desc">Pico → MOSFET Driver #1 → 12V 펌프를 구동하고, 결과는 Pi 4의 Web Dashboard에 기록됩니다.</p>
+              </div>
+            </li>
+          </ol>
+
+          <!-- 데스크톱 전체 구조도 -->
+          <div class="hw-diagram">
+            <svg class="hw-svg" viewBox="0 0 1280 800" role="img" aria-labelledby="hw-svg-title hw-svg-desc">
+              <title id="hw-svg-title">SPOT AI 하드웨어 블록 다이어그램</title>
+              <desc id="hw-svg-desc">Camera Module 3 Wide가 MIPI CSI-2로 Raspberry Pi 4에 연결되고, Pi 4는 Wi-Fi/HTTP로 Web Dashboard, USB CDC Serial과 USB 5V로 Raspberry Pi Pico에 연결됩니다. Pico는 SEN0308을 ADC로, SW-FLOAT-LV를 GPIO로 읽고, GPIO/PWM으로 MOSFET Driver 2개를 제어해 12V 펌프와 LED 조명을 스위칭합니다. MEAN WELL 12V 어댑터가 MOSFET Driver 부하 전원과 Pololu 5V 강압 컨버터에 전원을 공급하고, Pololu가 Pi 4에 5V를 공급합니다.</desc>
+              <defs>
+                <marker id="hw-ah-data" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f8a86"/></marker>
+                <marker id="hw-ah-ctrl" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7b4fc4"/></marker>
+                <marker id="hw-ah-pwr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d06a12"/></marker>
+              </defs>
+
+              <!-- 영역 -->
+              <rect class="hw-z hw-z--ai" x="16" y="16" width="376" height="456" rx="16"/>
+              <rect class="hw-z hw-z--ctrl" x="456" y="16" width="344" height="456" rx="16"/>
+              <rect class="hw-z hw-z--out" x="880" y="16" width="384" height="456" rx="16"/>
+              <rect class="hw-z hw-z--pwr" x="16" y="504" width="1248" height="280" rx="16"/>
+              <text class="hw-zt hw-zt--ai" x="36" y="46">A · AI 영상 처리부</text>
+              <text class="hw-zt hw-zt--ctrl" x="476" y="46">B · 센서 및 제어부</text>
+              <text class="hw-zt hw-zt--out" x="900" y="46">C · 자동 급수 및 출력부</text>
+              <text class="hw-zt hw-zt--pwr" x="36" y="534">D · 전원 공급부</text>
+
+              <!-- 연결선: 데이터 -->
+              <path class="hw-ln hw-ln--data" d="M282 172 V236" marker-end="url(#hw-ah-data)"/>
+              <path class="hw-ln hw-ln--data" d="M102 172 V236" marker-start="url(#hw-ah-data)" marker-end="url(#hw-ah-data)"/>
+              <path class="hw-ln hw-ln--data" d="M376 268 H472" marker-start="url(#hw-ah-data)" marker-end="url(#hw-ah-data)"/>
+              <path class="hw-ln hw-ln--data" d="M512 172 V236" marker-end="url(#hw-ah-data)"/>
+              <!-- 연결선: GPIO · 제어 -->
+              <path class="hw-ln hw-ln--ctrl" d="M710 172 V236" marker-end="url(#hw-ah-ctrl)"/>
+              <path class="hw-ln hw-ln--ctrl" d="M784 274 H896" marker-end="url(#hw-ah-ctrl)"/>
+              <path class="hw-ln hw-ln--ctrl" d="M784 252 H824 V196 H1170 V228" marker-end="url(#hw-ah-ctrl)"/>
+              <!-- 연결선: 전원 -->
+              <path class="hw-ln hw-ln--pwr" d="M376 316 H472" marker-end="url(#hw-ah-pwr)"/>
+              <path class="hw-ln hw-ln--pwr" d="M590 236 V172" marker-end="url(#hw-ah-pwr)"/>
+              <path class="hw-ln hw-ln--pwr" d="M974 320 V368" marker-end="url(#hw-ah-pwr)"/>
+              <path class="hw-ln hw-ln--pwr" d="M1170 320 V368" marker-end="url(#hw-ah-pwr)"/>
+              <path class="hw-ln hw-ln--pwr" d="M550 700 V652" marker-end="url(#hw-ah-pwr)"/>
+              <path class="hw-ln hw-ln--pwr" d="M420 606 H286" marker-end="url(#hw-ah-pwr)"/>
+              <path class="hw-ln hw-ln--pwr" d="M196 560 V340" marker-end="url(#hw-ah-pwr)"/>
+              <path class="hw-ln hw-ln--pwr" d="M680 606 H1072 V274"/>
+              <path class="hw-ln hw-ln--pwr" d="M1072 274 H1052" marker-end="url(#hw-ah-pwr)"/>
+              <path class="hw-ln hw-ln--pwr" d="M1072 274 H1092" marker-end="url(#hw-ah-pwr)"/>
+              <circle cx="1072" cy="274" r="4" fill="#d06a12"/>
+
+              <!-- 연결선 라벨 -->
+              <text class="hw-lb hw-lb--data" x="282" y="204">MIPI CSI-2</text>
+              <text class="hw-lb hw-lb--data" x="102" y="204">Wi-Fi / HTTP</text>
+              <text class="hw-lb hw-lb--data" x="424" y="254">USB CDC Serial</text>
+              <text class="hw-lb hw-lb--data" x="512" y="204">Analog · ADC</text>
+              <text class="hw-lb hw-lb--ctrl" x="710" y="204">Digital GPIO</text>
+              <text class="hw-lb hw-lb--ctrl" x="840" y="274">GPIO / PWM</text>
+              <text class="hw-lb hw-lb--ctrl" x="1000" y="196">GPIO / PWM</text>
+              <text class="hw-lb hw-lb--pwr" x="424" y="330">USB 5V</text>
+              <text class="hw-lb hw-lb--pwr" x="590" y="204">3.3V</text>
+              <text class="hw-lb hw-lb--pwr" x="974" y="344">12V 스위칭</text>
+              <text class="hw-lb hw-lb--pwr" x="1170" y="344">12V 스위칭</text>
+              <text class="hw-lb hw-lb--pwr" x="1072" y="414">12V</text>
+              <text class="hw-lb hw-lb--pwr" x="550" y="676">AC 입력</text>
+              <text class="hw-lb hw-lb--pwr" x="353" y="606">DC 12V</text>
+              <text class="hw-lb hw-lb--pwr" x="196" y="488">DC 5V</text>
+              <text class="hw-lb hw-lb--pwr" x="870" y="606">DC 12V (부하 전원)</text>
+
+              <!-- A · AI 영상 처리부 -->
+              <g class="hw-n"><title>Web Dashboard — Pi 4의 Flask 웹 서버에 동일 Wi-Fi의 스마트폰 · PC 브라우저로 접속 (사진, 센서 기록, 급수 로그 확인)</title>
+                <rect class="hw-n__box" x="32" y="80" width="140" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--ai" x="40" y="94" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="52" y="110">Web Dashboard</text>
+                <text class="hw-n__role" x="52" y="130">(모니터링 / 수동 제어)</text>
+                <text class="hw-n__spec" x="52" y="150">스마트폰 · PC 브라우저</text>
+              </g>
+              <g class="hw-n"><title>Raspberry Pi Camera Module 3 Wide — 12MP Sony IMX708, 광각 · MIPI CSI-2 · 전원은 CSI 커넥터로 공급</title>
+                <rect class="hw-n__box" x="188" y="80" width="188" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--ai" x="196" y="94" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="208" y="110">Camera Module 3 Wide</text>
+                <text class="hw-n__role" x="208" y="130">(식물 · 토양 촬영)</text>
+                <text class="hw-n__spec" x="208" y="150">12MP IMX708 · CSI 전원</text>
+              </g>
+              <g class="hw-n"><title>Raspberry Pi 4 Model B (4GB) — 5V, 권장 전원 3A(정격) · CSI-2 · USB · Wi-Fi · 영상 처리, ONNX Runtime AI 추론, Flask 웹 서버. 내장 ADC 없음</title>
+                <rect class="hw-n__box hw-n__box--main" x="32" y="236" width="344" height="104" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--ai" x="40" y="250" width="3" height="76" rx="1.5"/>
+                <text class="hw-n__name" x="52" y="266">Raspberry Pi 4 Model B (4GB)</text>
+                <text class="hw-n__role" x="52" y="287">(영상 처리 · AI 추론 / 웹 서버)</text>
+                <text class="hw-n__spec" x="52" y="308">5V · 권장 전원 3A · CSI-2 · USB · Wi-Fi</text>
+                <text class="hw-n__spec" x="52" y="327">ONNX Runtime · Flask</text>
+                <rect class="hw-n__tag" x="316" y="248" width="48" height="20" rx="10"/>
+                <text class="hw-n__tagtext" x="340" y="258">MAIN</text>
+              </g>
+
+              <!-- B · 센서 및 제어부 -->
+              <g class="hw-n"><title>DFRobot SEN0308 — 정전용량식 방수 토양 수분 센서 · 3.3~5.5V · 아날로그 출력 0~2.9V · 함수율(%)은 교정 후에만 산출</title>
+                <rect class="hw-n__box" x="472" y="80" width="152" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--ctrl" x="480" y="94" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="492" y="110">DFRobot SEN0308</text>
+                <text class="hw-n__role" x="492" y="130">(토양 수분 측정)</text>
+                <text class="hw-n__spec" x="492" y="150">3.3V 구동 · 0–2.9V 출력</text>
+              </g>
+              <g class="hw-n"><title>SW-FLOAT-LV — 물통 수위 플로트 스위치 · 무전압 접점 · Pico Digital GPIO(풀업) 입력</title>
+                <rect class="hw-n__box" x="636" y="80" width="148" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--ctrl" x="644" y="94" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="656" y="110">SW-FLOAT-LV</text>
+                <text class="hw-n__role" x="656" y="130">(물통 고갈 감지)</text>
+                <text class="hw-n__spec" x="656" y="150">무전압 접점 스위치</text>
+              </g>
+              <g class="hw-n"><title>Raspberry Pi Pico (RP2040) — Pi 4 USB에서 5V 공급, GPIO 3.3V · ADC · GPIO/PWM · 센서 측정, 급수 판단, 펌프 안전 인터록</title>
+                <rect class="hw-n__box hw-n__box--main" x="472" y="236" width="312" height="104" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--ctrl" x="480" y="250" width="3" height="76" rx="1.5"/>
+                <text class="hw-n__name" x="492" y="266">Raspberry Pi Pico (RP2040)</text>
+                <text class="hw-n__role" x="492" y="287">(센서 측정 / 급수 제어)</text>
+                <text class="hw-n__spec" x="492" y="308">USB 5V 전원 · GPIO 3.3V</text>
+                <text class="hw-n__spec" x="492" y="327">ADC · GPIO/PWM · 안전 인터록</text>
+                <rect class="hw-n__tag" x="724" y="248" width="48" height="20" rx="10"/>
+                <text class="hw-n__tagtext" x="748" y="258">MCU</text>
+              </g>
+
+              <!-- C · 자동 급수 및 출력부 -->
+              <rect class="hw-note-box" x="896" y="68" width="352" height="104" rx="10"/>
+              <text class="hw-note-title" x="912" y="94">12V 부하 전류는 GPIO를 통과하지 않음</text>
+              <text class="hw-note-text" x="912" y="116">Pico는 3.3V 제어 신호만 출력하고,</text>
+              <text class="hw-note-text" x="912" y="136">MOSFET Driver가 12V 전원을 ON/OFF 합니다.</text>
+              <text class="hw-note-text" x="912" y="156">(드라이버 부하 전원은 12V 버스에서 직접 공급)</text>
+
+              <g class="hw-n"><title>Adafruit #5648 MOSFET Driver #1 — AO3406 N-MOSFET, 부하 전원 3~30V, 연속 1.5A, 3V 이상 로직 입력, 1N4007 플라이백 다이오드 내장</title>
+                <rect class="hw-n__box" x="896" y="228" width="156" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--out" x="904" y="242" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="916" y="258">Adafruit #5648</text>
+                <text class="hw-n__sub" x="916" y="278">MOSFET Driver #1</text>
+                <text class="hw-n__role" x="916" y="298">(펌프 전원 스위칭)</text>
+              </g>
+              <g class="hw-n"><title>Adafruit #5648 MOSFET Driver #2 — AO3406 N-MOSFET, 부하 전원 3~30V, 연속 1.5A, 3V 이상 로직 입력</title>
+                <rect class="hw-n__box" x="1092" y="228" width="156" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--out" x="1100" y="242" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="1112" y="258">Adafruit #5648</text>
+                <text class="hw-n__sub" x="1112" y="278">MOSFET Driver #2</text>
+                <text class="hw-n__role" x="1112" y="298">(조명 전원 스위칭)</text>
+              </g>
+              <g class="hw-n"><title>Adafruit #1150 Peristaltic Pump — 12V, 200~300mA, 최대 유량 100mL/min</title>
+                <rect class="hw-n__box" x="896" y="368" width="156" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--out" x="904" y="382" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="916" y="398">Adafruit #1150</text>
+                <text class="hw-n__role" x="916" y="418">(12V 정량 펌프)</text>
+                <text class="hw-n__spec" x="916" y="438">연동식 · 최대 100mL/min</text>
+              </g>
+              <g class="hw-n"><title>YUJILEDS CRI-MAX 4000K LED Strip — 12V, 18W/m (약 1.5A/m), 촬영 보조조명</title>
+                <rect class="hw-n__box" x="1092" y="368" width="156" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--out" x="1100" y="382" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="1112" y="398">YUJILEDS CRI-MAX</text>
+                <text class="hw-n__role" x="1112" y="418">(4000K 촬영 조명)</text>
+                <text class="hw-n__spec" x="1112" y="438">12V · 18W/m</text>
+              </g>
+
+              <!-- D · 전원 공급부 -->
+              <g class="hw-n"><title>Pololu D24V50F5 — DC 12V → DC 5V 강압 컨버터, 정격 5A (실소비 전류 아님)</title>
+                <rect class="hw-n__box" x="106" y="560" width="180" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--pwr" x="114" y="574" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="126" y="590">Pololu D24V50F5</text>
+                <text class="hw-n__role" x="126" y="610">(12V → 5V 변환)</text>
+                <text class="hw-n__spec" x="126" y="630">DC-DC 강압 · 정격 5A</text>
+              </g>
+              <g class="hw-n"><title>MEAN WELL GST60A12-P1J — AC 220V 입력, DC 12V 출력, 정격 5A (60W) · 주전원</title>
+                <rect class="hw-n__box" x="420" y="560" width="260" height="92" rx="12"/>
+                <rect class="hw-n__bar hw-n__bar--pwr" x="428" y="574" width="3" height="64" rx="1.5"/>
+                <text class="hw-n__name" x="440" y="590">MEAN WELL GST60A12-P1J</text>
+                <text class="hw-n__role" x="440" y="610">(AC 220V → DC 12V 주전원)</text>
+                <text class="hw-n__spec" x="440" y="630">12V · 정격 5A (60W)</text>
+              </g>
+              <g class="hw-n"><title>AC 220V 상용 전원</title>
+                <rect class="hw-n__box" x="490" y="700" width="120" height="56" rx="12"/>
+                <text class="hw-n__name hw-n__name--mid" x="550" y="724">AC 220V</text>
+                <text class="hw-n__role hw-n__role--mid" x="550" y="744">(상용 전원)</text>
+              </g>
+
+              <text class="hw-note-title" x="40" y="700">저전압 분배</text>
+              <text class="hw-note-text" x="40" y="722">Pi 4 → Pico : USB 5V (통신 USB 케이블과 동일)</text>
+              <text class="hw-note-text" x="40" y="742">Pico 3V3(OUT) → SEN0308 : 3.3V (권장 부하 ≤ 300mA)</text>
+              <text class="hw-note-text" x="40" y="762">SW-FLOAT-LV : 무전압 접점 → GPIO 내부 풀업</text>
+
+              <rect class="hw-note-box hw-note-box--gnd" x="720" y="640" width="528" height="128" rx="12"/>
+              <text class="hw-note-title" x="740" y="666">⏚ 공통 GND 필수</text>
+              <text class="hw-note-text" x="740" y="687">MEAN WELL 12V(−) · Pololu GND · Pi 4 · Pico · MOSFET Driver ×2의</text>
+              <text class="hw-note-text" x="740" y="706">GND를 하나의 기준점으로 연결 (제어 신호의 기준 전위 공유)</text>
+              <text class="hw-note-title" x="740" y="734">정격 ≠ 실소비 전류</text>
+              <text class="hw-note-text" x="740" y="755">어댑터 5A · DC-DC 5A · Pi 권장 3A는 공급 · 허용 정격이며 실소비 전류가 아닙니다.</text>
+
+              <!-- 동작 순서 배지 -->
+              <g class="hw-step"><circle cx="188" cy="80" r="11"/><text x="188" y="80">1</text></g>
+              <g class="hw-step"><circle cx="1092" cy="368" r="11"/><text x="1092" y="368">1</text></g>
+              <g class="hw-step"><circle cx="32" cy="236" r="11"/><text x="32" y="236">2</text></g>
+              <g class="hw-step"><circle cx="472" cy="236" r="11"/><text x="472" y="236">3</text></g>
+              <g class="hw-step"><circle cx="896" cy="368" r="11"/><text x="896" y="368">4</text></g>
+            </svg>
+          </div>
+
+          <!-- 태블릿 · 모바일: 영역별 세로 배치 (챗봇 지식 데이터의 원본 텍스트이기도 합니다) -->
+          <div class="hw-stack">
+            <article class="hw-zone hw-zone--ai" id="hw-zone-ai">
+              <h4 class="hw-zone__title"><span class="hw-zone__idx" aria-hidden="true">A</span>AI 영상 처리부</h4>
+              <ul class="hw-parts">
+                <li class="hw-part"><span class="icon" aria-hidden="true">photo_camera</span><span class="hw-part__name">Raspberry Pi Camera Module 3 Wide</span><span class="hw-part__role">(식물 및 토양 촬영)</span><span class="hw-part__spec">12MP Sony IMX708 · MIPI CSI-2 · CSI 커넥터를 통한 전원</span></li>
+                <li class="hw-part hw-part--main"><span class="icon" aria-hidden="true">memory</span><span class="hw-part__name">Raspberry Pi 4 Model B (4GB) <span class="hw-part__tag" aria-hidden="true">MAIN</span></span><span class="hw-part__role">(영상 처리 · AI 추론 / 웹 서버)</span><span class="hw-part__spec">5V · 권장 전원 3A · CSI-2 · USB · Wi-Fi · 내장 ADC 없음</span></li>
+                <li class="hw-part"><span class="icon" aria-hidden="true">monitoring</span><span class="hw-part__name">Web Dashboard</span><span class="hw-part__role">(모니터링 / 수동 제어)</span><span class="hw-part__spec">동일 Wi-Fi의 스마트폰 · PC 브라우저로 접속</span></li>
+              </ul>
+              <ul class="hw-links">
+                <li class="hw-link hw-link--data"><span class="hw-link__type">데이터 · 단방향</span><span class="hw-link__path">Camera Module 3 Wide → Raspberry Pi 4</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>MIPI CSI-2</span></li>
+                <li class="hw-link hw-link--data"><span class="hw-link__type">데이터 · 양방향</span><span class="hw-link__path">Raspberry Pi 4 ↔ Web Dashboard</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>Wi-Fi / HTTP</span></li>
+                <li class="hw-link hw-link--data"><span class="hw-link__type">데이터 · 양방향</span><span class="hw-link__path">Raspberry Pi 4 ↔ Raspberry Pi Pico</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>USB CDC Serial (급수 제어 명령 · AI 결과 → Pico, 센서값 → Pi 4)</span></li>
+              </ul>
+            </article>
+
+            <article class="hw-zone hw-zone--ctrl" id="hw-zone-control">
+              <h4 class="hw-zone__title"><span class="hw-zone__idx" aria-hidden="true">B</span>센서 및 제어부</h4>
+              <ul class="hw-parts">
+                <li class="hw-part hw-part--main"><span class="icon" aria-hidden="true">developer_board</span><span class="hw-part__name">Raspberry Pi Pico (RP2040) <span class="hw-part__tag" aria-hidden="true">MCU</span></span><span class="hw-part__role">(센서 측정 / 급수 제어)</span><span class="hw-part__spec">USB 5V 전원 · GPIO 3.3V · ADC · GPIO/PWM · USB CDC Serial</span></li>
+                <li class="hw-part"><span class="icon" aria-hidden="true">sensors</span><span class="hw-part__name">DFRobot SEN0308</span><span class="hw-part__role">(토양 수분 측정)</span><span class="hw-part__spec">정전용량식 · 3.3~5.5V · 아날로그 출력 0~2.9V · 교정 전 출력은 전압값이며 함수율(%)이 아님</span></li>
+                <li class="hw-part"><span class="icon" aria-hidden="true">waves</span><span class="hw-part__name">SW-FLOAT-LV</span><span class="hw-part__role">(물통 고갈 감지)</span><span class="hw-part__spec">플로트 스위치 · 무전압 접점 · Digital GPIO</span></li>
+              </ul>
+              <ul class="hw-links">
+                <li class="hw-link hw-link--data"><span class="hw-link__type">데이터 · 단방향</span><span class="hw-link__path">SEN0308 → Raspberry Pi Pico</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>Analog Voltage / ADC</span></li>
+                <li class="hw-link hw-link--ctrl"><span class="hw-link__type">GPIO · 단방향</span><span class="hw-link__path">SW-FLOAT-LV → Raspberry Pi Pico</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>Digital GPIO (내부 풀업)</span></li>
+                <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">Pico 3V3(OUT) → SEN0308</span><span class="hw-link__via"><span class="sr-only">전압: </span>3.3V</span></li>
+              </ul>
+              <p class="hw-zone__note">Raspberry Pi 4에는 내장 ADC가 없으므로 아날로그 수분 센서는 Pico ADC에 연결합니다. Pico는 센서를 측정하고, Pi 4가 전달한 AI 분석 결과를 함께 이용해 급수 여부를 판단합니다.</p>
+            </article>
+
+            <article class="hw-zone hw-zone--out" id="hw-zone-output">
+              <h4 class="hw-zone__title"><span class="hw-zone__idx" aria-hidden="true">C</span>자동 급수 및 출력부</h4>
+              <ul class="hw-parts">
+                <li class="hw-part"><span class="icon" aria-hidden="true">toggle_on</span><span class="hw-part__name">Adafruit #5648 MOSFET Driver × 2</span><span class="hw-part__role">(#1 펌프 / #2 조명 전원 스위칭)</span><span class="hw-part__spec">부하 전원 3~30V · 연속 1.5A · 3V 이상 로직 입력 · 플라이백 다이오드 내장</span></li>
+                <li class="hw-part"><span class="icon" aria-hidden="true">water_drop</span><span class="hw-part__name">Adafruit #1150 Peristaltic Pump</span><span class="hw-part__role">(12V 정량 펌프)</span><span class="hw-part__spec">12V · 200~300mA · 최대 유량 100mL/min</span></li>
+                <li class="hw-part"><span class="icon" aria-hidden="true">wb_incandescent</span><span class="hw-part__name">YUJILEDS CRI-MAX 4000K LED Strip</span><span class="hw-part__role">(촬영 보조조명)</span><span class="hw-part__spec">12V · 18W/m</span></li>
+              </ul>
+              <ul class="hw-links">
+                <li class="hw-link hw-link--ctrl"><span class="hw-link__type">제어 · 단방향</span><span class="hw-link__path">Raspberry Pi Pico → MOSFET Driver #1</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>GPIO / PWM</span></li>
+                <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">MOSFET Driver #1 → Adafruit #1150 Pump</span><span class="hw-link__via"><span class="sr-only">전압: </span>12V Power Switching</span></li>
+                <li class="hw-link hw-link--ctrl"><span class="hw-link__type">제어 · 단방향</span><span class="hw-link__path">Raspberry Pi Pico → MOSFET Driver #2</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>GPIO / PWM</span></li>
+                <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">MOSFET Driver #2 → YUJILEDS LED Strip</span><span class="hw-link__via"><span class="sr-only">전압: </span>12V Power Switching</span></li>
+              </ul>
+              <p class="hw-zone__note">12V 펌프와 조명의 전류는 Pico GPIO를 통과하지 않습니다. Pico는 3.3V 제어 신호만 출력하고, MOSFET Driver가 12V 부하 전원을 ON/OFF 합니다.</p>
+            </article>
+
+            <article class="hw-zone hw-zone--pwr" id="hw-zone-power">
+              <h4 class="hw-zone__title"><span class="hw-zone__idx" aria-hidden="true">D</span>전원 공급부</h4>
+              <ul class="hw-parts">
+                <li class="hw-part"><span class="icon" aria-hidden="true">power</span><span class="hw-part__name">MEAN WELL GST60A12-P1J</span><span class="hw-part__role">(AC 220V → DC 12V 주전원)</span><span class="hw-part__spec">DC 12V · 정격 5A (60W)</span></li>
+                <li class="hw-part"><span class="icon" aria-hidden="true">bolt</span><span class="hw-part__name">Pololu D24V50F5</span><span class="hw-part__role">(12V → 5V 변환)</span><span class="hw-part__spec">DC-DC 강압 컨버터 · 정격 5A · Raspberry Pi 4 전원 공급</span></li>
+              </ul>
+              <ul class="hw-links">
+                <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">AC 220V → MEAN WELL</span><span class="hw-link__via"><span class="sr-only">전압: </span>AC Input</span></li>
+                <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">MEAN WELL → Pololu DC-DC Converter</span><span class="hw-link__via"><span class="sr-only">전압: </span>DC 12V</span></li>
+                <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">Pololu DC-DC Converter → Raspberry Pi 4</span><span class="hw-link__via"><span class="sr-only">전압: </span>DC 5V</span></li>
+                <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">Raspberry Pi 4 → Raspberry Pi Pico</span><span class="hw-link__via"><span class="sr-only">전압: </span>USB 5V Power (통신 USB 케이블과 동일)</span></li>
+                <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">MEAN WELL → MOSFET Driver #1 · #2 부하 전원</span><span class="hw-link__via"><span class="sr-only">전압: </span>DC 12V</span></li>
+              </ul>
+              <p class="hw-zone__note">공통 GND 필수: MEAN WELL 12V(−), Pololu GND, Pi 4, Pico, MOSFET Driver 2개의 GND를 하나의 기준점으로 연결합니다. 어댑터 5A · DC-DC 5A · Pi 권장 3A는 공급 · 허용 정격 전류이며 실소비 전류가 아닙니다.</p>
+            </article>
+          </div>
+
+          <div class="pp-flow__legend hw-legend t-label">
+            <span class="pp-legend"><span class="hw-swatch hw-swatch--data" aria-hidden="true"></span>데이터 통신</span>
+            <span class="pp-legend"><span class="hw-swatch hw-swatch--ctrl" aria-hidden="true"></span>GPIO · 제어 신호</span>
+            <span class="pp-legend"><span class="hw-swatch hw-swatch--pwr" aria-hidden="true"></span>전원 공급</span>
+            <span class="pp-legend"><span class="icon" aria-hidden="true">sync_alt</span>양방향 통신</span>
+            <span class="pp-legend"><span class="hw-swatch hw-swatch--main" aria-hidden="true"></span>메인 보드 (Pi 4 · Pico)</span>
+            <span class="pp-legend"><span class="hw-swatch hw-swatch--step" aria-hidden="true">1</span>동작 순서</span>
+            <span class="pp-legend hw-legend__desktop"><span class="icon" aria-hidden="true">mouse</span>부품에 마우스를 올리면 상세 사양이 표시됩니다</span>
+          </div>
+        </div>
+
+        <!-- 하드웨어 설계 요점 -->
+        <div class="hw-notes">
+          <article class="card bg-lowest hw-note" id="hw-dual">
+            <h3 class="hw-note__title t-headline-sm"><span class="icon c-tertiary" aria-hidden="true">developer_board</span><span>이중 프로세서 구조</span></h3>
+            <p class="t-body-md muted">SPOT AI는 Raspberry Pi 4에서 영상 분석과 AI 추론을 수행하고, Raspberry Pi Pico에서 토양 수분 측정 및 자동 급수를 제어하는 이중 프로세서 구조입니다. 영상 처리와 하드웨어 제어를 분리하여 각 기능이 독립적으로 동작하고 안전성을 확보하도록 설계했습니다.</p>
+            <p class="t-body-md muted">두 보드는 USB 케이블 하나로 연결되며, 이 케이블이 USB CDC Serial 통신과 Pico의 5V 전원을 함께 담당합니다. 별도의 GPIO UART 배선은 필요하지 않습니다.</p>
+          </article>
+
+          <article class="card bg-lowest hw-note" id="hw-safety">
+            <h3 class="hw-note__title t-headline-sm"><span class="icon c-secondary" aria-hidden="true">security</span><span>펌프 안전 제어 구조 (설계)</span></h3>
+            <ul class="hw-list t-body-md">
+              <li><strong>통신 단절 → 펌프 OFF</strong> · Pico가 Pi 4의 주기 신호(Heartbeat)를 정해진 시간 안에 받지 못하면 펌프를 끕니다.</li>
+              <li><strong>물통 고갈 → 펌프 OFF</strong> · 플로트 스위치가 '물 없음'이면 Pi 4의 명령과 관계없이 펌프를 구동하지 않습니다.</li>
+              <li><strong>연속 구동 상한</strong> · 1회 연속 동작을 최대 12초로 Pico 펌웨어 타이머가 제한합니다.</li>
+              <li><strong>기본 OFF</strong> · Pico 리셋 · 부팅 중에는 제어 핀이 LOW로 유지되어 MOSFET이 꺼진 상태가 되도록 구성합니다.</li>
+            </ul>
+            <p class="t-label muted">설계 목표이며, 펌웨어 구현 후 결함 주입 시험으로 검증할 예정입니다.</p>
+          </article>
+
+          <article class="card bg-lowest hw-note" id="hw-power">
+            <h3 class="hw-note__title t-headline-sm"><span class="icon c-primary" aria-hidden="true">bolt</span><span>전원 · 전압 설계 검토</span></h3>
+            <ul class="hw-list t-body-md">
+              <li>12V 단일 주전원에서 펌프 · 조명(MOSFET Driver 경유)에 직접 공급하고, Pi 4는 Pololu D24V50F5로 5V 강압해 공급합니다.</li>
+              <li>SEN0308은 Pico 3V3(OUT)의 3.3V로 구동해 센서 출력(0~2.9V)이 Pico ADC 입력 범위(0~3.3V)를 넘지 않게 합니다.</li>
+              <li>Pico 3V3(OUT)의 권장 외부 부하는 300mA 이하입니다. 3.3V에 연결되는 부품은 SEN0308 하나뿐이므로(플로트 스위치는 무전압 접점, MOSFET Driver는 신호 입력만 사용) 별도 3.3V 레귤레이터는 두지 않았습니다.</li>
+              <li>MOSFET Driver의 입력 커넥터 V+ 핀은 12V 부하 전원용입니다. Pico와는 신호선과 GND만 연결합니다.</li>
+            </ul>
+          </article>
+
+          <article class="card bg-lowest hw-note hw-note--wide" id="hw-open-items">
+            <h3 class="hw-note__title t-headline-sm"><span class="icon c-error" aria-hidden="true">pending_actions</span><span>추가 검증이 필요한 설계 조건</span></h3>
+            <ul class="hw-list hw-list--cols t-body-md">
+              <li><strong>급수량과 12초 제한</strong> · #1150의 최대 유량 100mL/min 기준으로 12초 연속 동작 시 최대 약 20mL입니다. 1회 80mL 급수는 4회 이상 나눠 동작(누적 48초 이상)해야 하므로, 실제 유량 측정 후 급수 시퀀스를 확정해야 합니다.</li>
+              <li><strong>조명 전류</strong> · 18W/m는 12V 기준 약 1.5A/m로, 1m 사용 시 #5648의 연속 정격 1.5A에 도달합니다. 조명 길이를 확정한 뒤 드라이버 여유를 재확인해야 합니다.</li>
+              <li><strong>토양 수분 교정</strong> · SEN0308의 출력은 전압(ADC 값)입니다. 토양 함수율(%)은 토양별 교정 곡선을 적용한 뒤에만 사용합니다.</li>
+              <li><strong>플로트 스위치 배선</strong> · 접점 방식(NO/NC)을 확인하고, 단선 시 '물 없음'으로 판정되도록 배선 방향을 정해야 합니다.</li>
+              <li><strong>Pi 4 5V 입력 방식</strong> · GPIO 5V 핀으로 직접 공급하면 보드의 입력 보호 회로를 거치지 않으므로, USB-C 입력 사용 여부를 결정해야 합니다.</li>
+              <li><strong>실소비 전력</strong> · 정격이 아닌 실제 동작 전류(펌프 · 조명 · Pi 4 추론 부하)를 측정해 어댑터 여유를 확인해야 합니다.</li>
+            </ul>
+          </article>
         </div>
 
         <div class="arch">
@@ -1599,24 +1950,44 @@ label</code></pre>
             </h3>
             <dl class="bom__rows">
               <div class="bom__row t-body-md">
-                <dt class="bom__label"><span class="icon" aria-hidden="true">memory</span>메인 프로세서</dt>
-                <dd class="bom__value">Raspberry Pi 4 Model B (Quad-core 1.5GHz / 4GB RAM)</dd>
+                <dt class="bom__label"><span class="icon" aria-hidden="true">memory</span>메인 컴퓨터</dt>
+                <dd class="bom__value">Raspberry Pi 4 Model B (4GB) · 5V / 권장 전원 3A</dd>
               </div>
               <div class="bom__row t-body-md">
-                <dt class="bom__label"><span class="icon" aria-hidden="true">photo_camera</span>비전 카메라</dt>
-                <dd class="bom__value">RPi Camera Module 3 (12MP Sony IMX708, 와이드 120° FoV)</dd>
+                <dt class="bom__label"><span class="icon" aria-hidden="true">photo_camera</span>카메라</dt>
+                <dd class="bom__value">Raspberry Pi Camera Module 3 Wide (12MP Sony IMX708, MIPI CSI-2)</dd>
               </div>
               <div class="bom__row t-body-md">
-                <dt class="bom__label"><span class="icon" aria-hidden="true">wb_incandescent</span>표준 조명 장치</dt>
-                <dd class="bom__value">High-CRI Warm White LED 바 (CRI &gt; 92, 4000K 고정 펄스 제어)</dd>
+                <dt class="bom__label"><span class="icon" aria-hidden="true">developer_board</span>제어 MCU</dt>
+                <dd class="bom__value">Raspberry Pi Pico (RP2040) · ADC / GPIO / PWM</dd>
               </div>
               <div class="bom__row t-body-md">
                 <dt class="bom__label"><span class="icon" aria-hidden="true">sensors</span>토양 수분 센서</dt>
-                <dd class="bom__value">정전용량식(Capacitive v2.0) 아날로그 프로브 (부식 0%, 방수 코팅)</dd>
+                <dd class="bom__value">DFRobot SEN0308 정전용량식 방수 프로브 (3.3~5.5V, 아날로그)</dd>
               </div>
               <div class="bom__row t-body-md">
-                <dt class="bom__label"><span class="icon" aria-hidden="true">water</span>유체 분사 펌프</dt>
-                <dd class="bom__value">12V 저소음 정량 펌프 (≤ 28dB, 역류 방지 밸브 내장)</dd>
+                <dt class="bom__label"><span class="icon" aria-hidden="true">waves</span>물통 수위 센서</dt>
+                <dd class="bom__value">SW-FLOAT-LV 플로트 스위치 (무전압 접점, Digital GPIO)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">water</span>급수 펌프</dt>
+                <dd class="bom__value">Adafruit #1150 연동식(Peristaltic) 펌프 (12V, 200~300mA)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">toggle_on</span>부하 드라이버</dt>
+                <dd class="bom__value">Adafruit #5648 MOSFET Driver × 2 (펌프 · 조명)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">wb_incandescent</span>촬영 조명</dt>
+                <dd class="bom__value">YUJILEDS CRI-MAX 4000K LED 스트립 (12V, 18W/m)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">power</span>전원 어댑터</dt>
+                <dd class="bom__value">MEAN WELL GST60A12-P1J (AC 220V → DC 12V, 정격 5A)</dd>
+              </div>
+              <div class="bom__row t-body-md">
+                <dt class="bom__label"><span class="icon" aria-hidden="true">bolt</span>강압 컨버터</dt>
+                <dd class="bom__value">Pololu D24V50F5 (DC 12V → DC 5V, 정격 5A)</dd>
               </div>
               <div class="bom__row t-body-md">
                 <dt class="bom__label"><span class="icon" aria-hidden="true">crop_free</span>클램프 &amp; 인클로저</dt>
