@@ -1533,6 +1533,75 @@ label</code></pre>
             </article>
           </div>
         </div>
+
+        <!-- 추론 엔진 선정 · 샘플 벤치마크 -->
+        <div class="pp-block" id="ms-engine">
+          <div class="section-head">
+            <span class="eyebrow">Inference Engine Selection</span>
+            <h3 class="t-headline-md">가장 빠른 엔진이 아니라, 제품 파이프라인에 맞는 엔진을 선택했습니다</h3>
+          </div>
+          <div class="two-col">
+            <article class="card bg-lowest pp-card">
+              <span class="pp-sublabel t-label" data-chatbot-ignore>Sample Benchmark · 추론 지연시간 (ms)</span>
+              <div class="pp-params" data-chatbot-ignore>
+                <span class="chip t-label"><span class="icon" aria-hidden="true">memory</span>x86 CPU · 4 Cores · 4 Threads</span>
+                <span class="chip t-label"><span class="icon" aria-hidden="true">photo_library</span>Images 100</span>
+                <span class="chip t-label"><span class="icon" aria-hidden="true">center_focus_strong</span>Object Detection Model</span>
+              </div>
+              <table class="am-table eng-table t-body-md" aria-describedby="ms-engine-note">
+                <thead>
+                  <tr>
+                    <th scope="col">엔진</th>
+                    <th scope="col">P50</th>
+                    <th scope="col">P95</th>
+                    <th scope="col">mAP50</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="am-row--selected">
+                    <th scope="row" data-label="엔진">ONNX Runtime <span class="am-verdict am-verdict--yes">Selected</span></th>
+                    <td data-label="P50"><span class="eng-val">20.55</span><span class="eng-bar eng-bar--on" aria-hidden="true"><span style="width:62.5%"></span></span></td>
+                    <td data-label="P95">22.75</td>
+                    <td data-label="mAP50">0.6190</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-label="엔진">OpenVINO (FP32)</th>
+                    <td data-label="P50"><span class="eng-val">15.90</span><span class="eng-bar" aria-hidden="true"><span style="width:48.4%"></span></span></td>
+                    <td data-label="P95">17.96</td>
+                    <td data-label="mAP50">0.6190</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-label="엔진">LiteRT (XNNPACK)</th>
+                    <td data-label="P50"><span class="eng-val">16.22</span><span class="eng-bar" aria-hidden="true"><span style="width:49.3%"></span></span></td>
+                    <td data-label="P95">17.53</td>
+                    <td data-label="mAP50">0.6190</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-label="엔진">NCNN (FP16)</th>
+                    <td data-label="P50"><span class="eng-val">32.88</span><span class="eng-bar" aria-hidden="true"><span style="width:100%"></span></span></td>
+                    <td data-label="P95">35.06</td>
+                    <td data-label="mAP50">0.6190</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="pp-caption" id="ms-engine-note">측정 조건: x86 CPU · 4코어 · 스레드 4개 · 이미지 100장, 객체 검출 모델 샘플 (SPOT AI 분류 모델 · Raspberry Pi 4 측정값 아님). 낮을수록 빠르며, 4개 엔진의 mAP50 · mAP50-95는 소수점 넷째 자리까지 동일했습니다.</p>
+            </article>
+
+            <article class="card bg-lowest pp-card">
+              <div class="panel__title">
+                <span class="icon-tile bg-primary-container c-on-primary-container"><span class="icon" aria-hidden="true">deployed_code</span></span>
+                <h4 class="t-headline-sm">Why ONNX Runtime · 선정 근거</h4>
+              </div>
+              <p class="t-body-md muted">샘플 벤치마크에서 OpenVINO와 LiteRT는 ONNX Runtime보다 빠른 추론 속도를 보였으며, 네 엔진 모두 동일한 수준의 검출 정확도를 기록했습니다. 그러나 SPOT AI는 최고 추론 속도보다 아래 세 가지를 우선하여 <strong class="c-on-surface fw-600">ONNX Runtime</strong>을 선정했습니다.</p>
+              <ul class="pp-list t-body-md">
+                <li><span class="icon" aria-hidden="true">account_tree</span><span><strong class="c-on-surface fw-600">기존 ONNX 모델 파이프라인</strong> — 변환 · 출력 검증 · 브라우저 테스트와 같은 모델 유지</span></li>
+                <li><span class="icon" aria-hidden="true">developer_board</span><span><strong class="c-on-surface fw-600">Raspberry Pi ARM64 지원</strong> — 같은 ONNX 모델을 Edge Device에 배포</span></li>
+                <li><span class="icon" aria-hidden="true">integration_instructions</span><span><strong class="c-on-surface fw-600">Python 기반 시스템 통합</strong> — 전처리 · Flask 서버와 같은 런타임에서 연동</span></li>
+              </ul>
+              <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">info</span><span>추후 <strong>Raspberry Pi 4 ARM64 환경에서 실제 Dry / Wet 분류 모델</strong>로 엔진별 벤치마크가 필요합니다.</span></p>
+            </article>
+          </div>
+        </div>
       </section>
 
       <!-- ===== 04 · 성능 지표 ===== -->

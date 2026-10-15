@@ -1611,3 +1611,14 @@ ol { padding: 0; list-style: none; }
 .am-card .am-why .icon { font-size: 18px; color: var(--secondary); margin-top: 0.125rem; }
 
 .am-refs { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-lg); }
+
+/* 추론 엔진 샘플 벤치마크 (index.html #ms-engine) */
+.eng-table td .eng-val { display: block; font-variant-numeric: tabular-nums; }
+.eng-table td { font-variant-numeric: tabular-nums; }
+.eng-table .am-verdict { margin-left: 0.25rem; vertical-align: middle; }
+.eng-bar {
+  display: block; height: 6px; margin-top: 0.375rem; min-width: 4.5rem;
+  border-radius: var(--radius-full); background: var(--surface-container-high); overflow: hidden;
+}
+.eng-bar > span { display: block; height: 100%; border-radius: inherit; background: var(--outline-variant, #d4c3bb); }
+.eng-bar--on > span { background: var(--primary); }
