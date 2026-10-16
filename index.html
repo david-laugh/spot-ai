@@ -1657,7 +1657,7 @@ label</code></pre>
         <div class="section-head">
           <span class="eyebrow">05 · Engineering Architecture</span>
           <h2 class="t-headline-lg">하드웨어 시스템 아키텍처 및 소프트웨어 스택</h2>
-          <p class="t-body-lg muted">카메라 촬영 → AI 분석 → 센서 교차 검증 → 자동 급수 과정을 담당하는 실제 선정 부품(BOM)과 부품 간 신호 · 전원 흐름, 그리고 소프트웨어 구성입니다.</p>
+          <p class="t-body-lg muted">카메라 촬영 → AI 분석 → 센서 교차 검증 → 자동 급수 과정을 담당하는 실제 선정 부품(BOM)과 부품 간 신호 · 전원 흐름, 제어 보드 선정 근거, 그리고 Raspberry Pi 4 내부 소프트웨어 구조입니다.</p>
         </div>
 
         <!-- 하드웨어 시스템 구조도 (데스크톱: SVG 전체 구조도 / 태블릿·모바일: 영역별 세로 배치) -->
@@ -1691,14 +1691,14 @@ label</code></pre>
               <span class="hw-flow__num" aria-hidden="true">3</span>
               <div>
                 <h4 class="hw-flow__title">센서 교차 검증</h4>
-                <p class="hw-flow__desc">Pi 4가 USB CDC Serial로 AI 결과를 보내면, Pico가 SEN0308(ADC) · 플로트 스위치(GPIO) 측정값과 함께 급수 여부를 판단합니다.</p>
+                <p class="hw-flow__desc">Pico가 SEN0308(ADC) · 플로트 스위치(GPIO) 측정값을 USB CDC Serial로 보내면, Pi 4가 AI 결과와 교차 검증해 급수 여부를 판단합니다.</p>
               </div>
             </li>
             <li class="hw-flow__step">
               <span class="hw-flow__num" aria-hidden="true">4</span>
               <div>
                 <h4 class="hw-flow__title">자동 급수</h4>
-                <p class="hw-flow__desc">Pico → MOSFET Driver #1 → 12V 펌프를 구동하고, 결과는 Pi 4의 Web Dashboard에 기록됩니다.</p>
+                <p class="hw-flow__desc">급수 명령을 받은 Pico가 안전 조건을 재확인한 뒤 MOSFET Driver #1 → 12V 펌프를 구동하고, 결과는 Pi 4의 Web Dashboard에 기록됩니다.</p>
               </div>
             </li>
           </ol>
@@ -1805,7 +1805,7 @@ label</code></pre>
                 <text class="hw-n__role" x="656" y="130">(물통 고갈 감지)</text>
                 <text class="hw-n__spec" x="656" y="150">무전압 접점 스위치</text>
               </g>
-              <g class="hw-n"><title>Raspberry Pi Pico (RP2040) — Pi 4 USB에서 5V 공급, GPIO 3.3V · ADC · GPIO/PWM · 센서 측정, 급수 판단, 펌프 안전 인터록</title>
+              <g class="hw-n"><title>Raspberry Pi Pico (RP2040) — Pi 4 USB에서 5V 공급, GPIO 3.3V · ADC · GPIO/PWM · 센서 측정, 펌프 구동, 펌프 안전 인터록</title>
                 <rect class="hw-n__box hw-n__box--main" x="472" y="236" width="312" height="104" rx="12"/>
                 <rect class="hw-n__bar hw-n__bar--ctrl" x="480" y="250" width="3" height="76" rx="1.5"/>
                 <text class="hw-n__name" x="492" y="266">Raspberry Pi Pico (RP2040)</text>
@@ -1906,7 +1906,7 @@ label</code></pre>
               <ul class="hw-links">
                 <li class="hw-link hw-link--data"><span class="hw-link__type">데이터 · 단방향</span><span class="hw-link__path">Camera Module 3 Wide → Raspberry Pi 4</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>MIPI CSI-2</span></li>
                 <li class="hw-link hw-link--data"><span class="hw-link__type">데이터 · 양방향</span><span class="hw-link__path">Raspberry Pi 4 ↔ Web Dashboard</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>Wi-Fi / HTTP</span></li>
-                <li class="hw-link hw-link--data"><span class="hw-link__type">데이터 · 양방향</span><span class="hw-link__path">Raspberry Pi 4 ↔ Raspberry Pi Pico</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>USB CDC Serial (급수 제어 명령 · AI 결과 → Pico, 센서값 → Pi 4)</span></li>
+                <li class="hw-link hw-link--data"><span class="hw-link__type">데이터 · 양방향</span><span class="hw-link__path">Raspberry Pi 4 ↔ Raspberry Pi Pico</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>USB CDC Serial (급수 명령 → Pico, 센서값 · 펌프 상태 → Pi 4)</span></li>
               </ul>
             </article>
 
@@ -1922,7 +1922,7 @@ label</code></pre>
                 <li class="hw-link hw-link--ctrl"><span class="hw-link__type">GPIO · 단방향</span><span class="hw-link__path">SW-FLOAT-LV → Raspberry Pi Pico</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>Digital GPIO (내부 풀업)</span></li>
                 <li class="hw-link hw-link--pwr"><span class="hw-link__type">전원</span><span class="hw-link__path">Pico 3V3(OUT) → SEN0308</span><span class="hw-link__via"><span class="sr-only">전압: </span>3.3V</span></li>
               </ul>
-              <p class="hw-zone__note">Raspberry Pi 4에는 내장 ADC가 없으므로 아날로그 수분 센서는 Pico ADC에 연결합니다. Pico는 센서를 측정하고, Pi 4가 전달한 AI 분석 결과를 함께 이용해 급수 여부를 판단합니다.</p>
+              <p class="hw-zone__note">Raspberry Pi 4에는 내장 ADC가 없으므로 아날로그 수분 센서는 Pico ADC에 연결합니다. Pico는 센서를 측정해 Pi 4로 보내고, 급수 판단은 Pi 4가 맡습니다. Pico는 급수 명령을 받은 뒤에도 안전 조건을 다시 확인합니다.</p>
             </article>
 
             <article class="hw-zone hw-zone--out" id="hw-zone-output">
@@ -1973,7 +1973,7 @@ label</code></pre>
         <div class="hw-notes">
           <article class="card bg-lowest hw-note" id="hw-dual">
             <h3 class="hw-note__title t-headline-sm"><span class="icon c-tertiary" aria-hidden="true">developer_board</span><span>이중 프로세서 구조</span></h3>
-            <p class="t-body-md muted">SPOT AI는 Raspberry Pi 4에서 영상 분석과 AI 추론을 수행하고, Raspberry Pi Pico에서 토양 수분 측정 및 자동 급수를 제어하는 이중 프로세서 구조입니다. 영상 처리와 하드웨어 제어를 분리하여 각 기능이 독립적으로 동작하고 안전성을 확보하도록 설계했습니다.</p>
+            <p class="t-body-md muted">Raspberry Pi 4가 영상 분석 · AI 추론 · 급수 판단을, Raspberry Pi Pico가 센서 측정과 펌프 구동 · 안전 차단을 맡는 이중 프로세서 구조입니다. (<a class="pp-link" href="#board-selection">보드 선정 근거</a>)</p>
             <p class="t-body-md muted">두 보드는 USB 케이블 하나로 연결되며, 이 케이블이 USB CDC Serial 통신과 Pico의 5V 전원을 함께 담당합니다. 별도의 GPIO UART 배선은 필요하지 않습니다.</p>
           </article>
 
@@ -2087,10 +2087,10 @@ label</code></pre>
                   </div>
                 </div>
                 <div class="stack__item stack__item--coral">
-                  <span class="icon c-secondary" aria-hidden="true">schema</span>
+                  <span class="icon c-secondary" aria-hidden="true">hub</span>
                   <div>
-                    <span class="t-headline-sm">듀얼 스레드 센서 폴링</span>
-                    <p class="t-body-md muted">10분 단위의 백그라운드 수분 로깅 스레드와 트리거 기반 고해상도 비전 추론 프로세스를 분리 설계하여 무응답 현상을 방지합니다.</p>
+                    <span class="t-headline-sm">Docker Compose · MQTT 서비스 분리</span>
+                    <p class="t-body-md muted">AI 추론 · 제어 판단 · 웹을 독립 컨테이너로 나누고, 서비스 간 데이터는 Mosquitto Broker를 통한 Pub/Sub으로 주고받습니다. (<a class="pp-link" href="#sbc-architecture">SBC Software Architecture</a>)</p>
                   </div>
                 </div>
               </div>
@@ -2099,6 +2099,319 @@ label</code></pre>
               <span>라이선스: Apache 2.0 Open Core</span>
               <span>OTA 펌웨어 업데이트 지원</span>
             </div>
+          </article>
+        </div>
+
+        <!-- ===== MCU & SBC Selection · 제어 보드 선정 근거 ===== -->
+        <div class="pp-block" id="board-selection">
+          <div class="section-head">
+            <span class="eyebrow">MCU &amp; SBC Selection · Control Board Rationale</span>
+            <h3 class="t-headline-md">AI는 Raspberry Pi 4, 실시간 제어는 Raspberry Pi Pico가 맡습니다</h3>
+            <p class="t-body-lg muted">AI 추론과 하드웨어 제어의 책임을 분리하기 위해 SBC와 MCU를 함께 사용합니다. 각각 세 후보를 SPOT AI의 1차 MVP 조건으로 비교했습니다.</p>
+          </div>
+
+          <div class="sel-grid">
+            <article class="card bg-lowest sel-card" id="sel-sbc">
+              <h4 class="arch__title t-headline-sm"><span class="icon c-tertiary" aria-hidden="true">memory</span><span>SBC · 메인 컴퓨터</span></h4>
+              <table class="am-table t-body-md">
+                <caption class="sr-only">SBC 후보 비교</caption>
+                <thead>
+                  <tr><th scope="col">SBC</th><th scope="col">주요 사양</th><th scope="col">권장 전원</th><th scope="col">SPOT AI 적용 평가</th></tr>
+                </thead>
+                <tbody>
+                  <tr class="am-row--selected">
+                    <th scope="row" data-label="SBC">Raspberry Pi 4 Model B (4GB)</th>
+                    <td data-label="주요 사양">Cortex-A72 1.8GHz · RAM 4GB</td>
+                    <td data-label="권장 전원">5V / 3A</td>
+                    <td data-label="적용 평가"><span class="am-verdict am-verdict--yes">최종 선정</span> 기존 개발 환경과 높은 호환성</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-label="SBC">Raspberry Pi 5 (4GB)</th>
+                    <td data-label="주요 사양">Cortex-A76 2.4GHz · RAM 4GB</td>
+                    <td data-label="권장 전원">5V / 5A</td>
+                    <td data-label="적용 평가">연산 성능은 높지만 전원 · 발열 부담 증가</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-label="SBC">Compute Module 4 (4GB)</th>
+                    <td data-label="주요 사양">Cortex-A72 1.5GHz · RAM 4GB</td>
+                    <td data-label="권장 전원">캐리어 보드 전원 필요</td>
+                    <td data-label="적용 평가"><span class="am-verdict am-verdict--na">향후 검토</span> 소형화 · 양산 단계에 적합</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">check_circle</span><span><strong>선정 이유</strong> · Linux ARM64에서 ONNX Runtime 추론이 가능하고, MIPI CSI-2로 Camera Module 3 Wide를 직접 연결하며, Docker Compose로 기능별 컨테이너를 분리할 수 있습니다. Python · OpenCV · Flask 기반 기존 개발 환경을 그대로 이어갈 수 있어 경량 분류 모델 MVP에 적합합니다. 실제 추론 속도와 컨테이너 동시 운영 성능은 실물 벤치마크로 검증할 예정입니다.</span></p>
+            </article>
+
+            <article class="card bg-lowest sel-card" id="sel-mcu">
+              <h4 class="arch__title t-headline-sm"><span class="icon c-primary" aria-hidden="true">developer_board</span><span>MCU · 센서 및 급수 제어</span></h4>
+              <table class="am-table t-body-md">
+                <caption class="sr-only">MCU 후보 비교</caption>
+                <thead>
+                  <tr><th scope="col">MCU</th><th scope="col">주요 사양</th><th scope="col">주요 특징</th><th scope="col">SPOT AI 적용 평가</th></tr>
+                </thead>
+                <tbody>
+                  <tr class="am-row--selected">
+                    <th scope="row" data-label="MCU">Raspberry Pi Pico (RP2040)</th>
+                    <td data-label="주요 사양">Dual Cortex-M0+ 133MHz · 12-bit ADC</td>
+                    <td data-label="주요 특징">GPIO / PWM · USB Serial</td>
+                    <td data-label="적용 평가"><span class="am-verdict am-verdict--yes">최종 선정</span> 센서 및 펌프 제어에 적합</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-label="MCU">Raspberry Pi Pico 2 (RP2350)</th>
+                    <td data-label="주요 사양">Dual Cortex-M33 150MHz · 12-bit ADC</td>
+                    <td data-label="주요 특징">성능 · 메모리 확장</td>
+                    <td data-label="적용 평가">추가 제어 성능이 필요할 때 대안</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-label="MCU">Seeed XIAO ESP32-S3</th>
+                    <td data-label="주요 사양">Dual Xtensa LX7 240MHz · ADC</td>
+                    <td data-label="주요 특징">Wi-Fi · BLE</td>
+                    <td data-label="적용 평가">무선 독립 제어가 필요한 경우 적합</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">check_circle</span><span><strong>선정 이유</strong> · 내장 ADC로 토양 수분 센서의 아날로그 전압을 읽고, GPIO/PWM으로 MOSFET Driver를 거쳐 펌프와 LED를 제어합니다. Pi 4와는 USB CDC Serial로 연결되며, 무선 기능 없이 Watchdog · 타임아웃 기반 안전 로직을 단순하고 안정적인 구조로 구현할 수 있습니다.</span></p>
+              <p class="pp-caption">XIAO ESP32-S3는 Wokwi 시뮬레이션 실습에 사용한 보드이며, 실제 제품 MCU는 Raspberry Pi Pico입니다.</p>
+            </article>
+          </div>
+
+          <p class="pp-note pp-note--warn t-body-md"><span class="icon" aria-hidden="true">join_inner</span><span><strong>최종 조합: Raspberry Pi 4 (SBC) + Raspberry Pi Pico (MCU)</strong> · SBC는 카메라 촬영 · AI 추론 · Docker · MQTT · 웹 대시보드를, MCU는 센서 측정 · 펌프/LED 제어 · 안전 차단을 맡습니다. 1차 MVP 기준 조합이며, 소형화 · 양산 단계에서는 Compute Module 4 기반 설계를 추가 검토합니다.</span></p>
+        </div>
+
+        <!-- ===== SBC Software Architecture · Docker + MQTT ===== -->
+        <div class="pp-block" id="sbc-architecture">
+          <div class="section-head">
+            <span class="eyebrow">SBC Software Architecture · Docker Compose + MQTT</span>
+            <h3 class="t-headline-md">Raspberry Pi 4 내부 기능을 컨테이너로 나누고 MQTT로 연결합니다</h3>
+            <p class="t-body-lg muted">AI 추론 · 제어 판단 · 웹 서비스는 Docker 컨테이너로, 카메라와 Pico처럼 장치에 직접 접근하는 기능은 systemd Host Service로 분리합니다. 모든 서비스는 Mosquitto Broker를 거쳐 Publish/Subscribe 방식으로 데이터를 주고받아 서로 직접 의존하지 않습니다.</p>
+          </div>
+
+          <div class="card bg-low failsafe hw" id="sa-diagram" role="group" aria-labelledby="sa-title">
+            <div class="failsafe__head">
+              <div class="failsafe__title">
+                <span class="icon-tile bg-tertiary-fixed"><span class="icon" aria-hidden="true">hub</span></span>
+                <h3 class="t-headline-md" id="sa-title">SBC 내부 소프트웨어 구조</h3>
+              </div>
+              <span class="failsafe__badge t-label">Raspberry Pi OS 64-bit · MVP 설계</span>
+            </div>
+
+            <ol class="hw-flow">
+              <li class="hw-flow__step">
+                <span class="hw-flow__num" aria-hidden="true">1</span>
+                <div>
+                  <h4 class="hw-flow__title">촬영 · 추론</h4>
+                  <p class="hw-flow__desc">camera-agent가 이미지를 공유 볼륨에 저장하고 경로 · 촬영 시각 · 이미지 ID만 발행하면, ai-inference가 ONNX Runtime으로 Dry/Wet을 추론합니다.</p>
+                </div>
+              </li>
+              <li class="hw-flow__step">
+                <span class="hw-flow__num" aria-hidden="true">2</span>
+                <div>
+                  <h4 class="hw-flow__title">센서 수집</h4>
+                  <p class="hw-flow__desc">pico-bridge가 Pico의 토양 수분 · 물통 수위 값을 USB Serial로 받아 MQTT로 발행합니다.</p>
+                </div>
+              </li>
+              <li class="hw-flow__step">
+                <span class="hw-flow__num" aria-hidden="true">3</span>
+                <div>
+                  <h4 class="hw-flow__title">교차 검증 · 명령</h4>
+                  <p class="hw-flow__desc">control-orchestrator가 AI 결과와 센서값을 교차 검증하고, 급수 조건을 만족하면 pump/cmd를 발행합니다.</p>
+                </div>
+              </li>
+              <li class="hw-flow__step">
+                <span class="hw-flow__num" aria-hidden="true">4</span>
+                <div>
+                  <h4 class="hw-flow__title">구동 · 확인</h4>
+                  <p class="hw-flow__desc">pico-bridge가 명령을 Serial로 전달하면 Pico가 안전 조건을 재확인한 뒤 펌프를 구동하고, 실제 상태(pump/state)가 웹에 표시됩니다.</p>
+                </div>
+              </li>
+            </ol>
+
+            <!-- 데스크톱 구조도 (1200px 이상) -->
+            <div class="hw-diagram">
+              <svg class="hw-svg sa-svg" viewBox="0 0 1240 640" role="img" aria-labelledby="sa-svg-title sa-svg-desc">
+                <title id="sa-svg-title">SPOT AI SBC 소프트웨어 블록 다이어그램</title>
+                <desc id="sa-svg-desc">Raspberry Pi 4 내부는 Host Services(camera-agent, pico-bridge)와 Docker Compose(mosquitto, ai-inference, control-orchestrator, web-api)로 나뉩니다. 중앙의 MQTT Broker를 통해 camera-agent는 camera/frame을, ai-inference는 ai/soil을, pico-bridge는 sensor와 pump/state를, control-orchestrator는 pump/cmd와 system/state를, web-api는 ui/request를 발행합니다. Camera Module 3 Wide는 MIPI CSI-2로 camera-agent에, Raspberry Pi Pico는 USB CDC Serial로 pico-bridge에 연결됩니다.</desc>
+                <defs>
+                  <marker id="sa-ah-pub" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f8a86"/></marker>
+                  <marker id="sa-ah-sub" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3d63b8"/></marker>
+                  <marker id="sa-ah-usb" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d06a12"/></marker>
+                  <marker id="sa-ah-hw" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7d716a"/></marker>
+                </defs>
+
+                <!-- 영역 -->
+                <rect class="sa-pi" x="250" y="16" width="974" height="608" rx="16"/>
+                <text class="sa-pi__title" x="270" y="44">Raspberry Pi 4 — Raspberry Pi OS 64-bit</text>
+                <text class="sa-zt sa-zt--ext" x="20" y="44">외부 하드웨어</text>
+                <rect class="sa-z sa-z--host" x="266" y="64" width="220" height="544" rx="12"/>
+                <text class="sa-zt sa-zt--host" x="282" y="90">① Host Services</text>
+                <text class="sa-zs" x="282" y="108">systemd · 장치 직접 접근</text>
+                <rect class="sa-z sa-z--docker" x="516" y="64" width="692" height="544" rx="12"/>
+                <text class="sa-zt sa-zt--docker" x="532" y="90">② Docker Compose</text>
+                <text class="sa-zs" x="532" y="108">컨테이너별 독립 실행 · 재시작</text>
+
+                <!-- 공유 볼륨 (이미지 원본은 MQTT로 보내지 않음) -->
+                <rect class="sa-vol" x="600" y="124" width="300" height="36" rx="8"/>
+                <text class="sa-vol__text" x="750" y="146">공유 볼륨 · 이미지 파일 (원본은 MQTT 미전송)</text>
+                <path class="sa-ln sa-ln--file" d="M376 196 V142 H600" marker-end="url(#sa-ah-hw)"/>
+                <path class="sa-ln sa-ln--file" d="M900 142 H1098 V196" marker-end="url(#sa-ah-hw)"/>
+                <text class="sa-lb sa-lb--file" x="488" y="134">write</text>
+                <text class="sa-lb sa-lb--file" x="1000" y="134">read</text>
+
+                <!-- MQTT Broker (중앙) -->
+                <g class="hw-n"><title>Eclipse Mosquitto — MQTT Broker 컨테이너. Host Service는 localhost:1883으로 접속</title>
+                  <rect class="sa-broker" x="690" y="180" width="120" height="412" rx="14"/>
+                  <text class="sa-broker__name" x="750" y="364">mosquitto</text>
+                  <text class="sa-broker__role" x="750" y="384">MQTT Broker</text>
+                  <text class="sa-broker__role" x="750" y="402">:1883</text>
+                </g>
+
+                <!-- 하드웨어 연결 (MQTT 아님) -->
+                <path class="sa-ln sa-ln--hw" d="M180 240 H282" marker-end="url(#sa-ah-hw)"/>
+                <text class="sa-lb sa-lb--hw" x="231" y="232">MIPI CSI-2</text>
+                <path class="sa-ln sa-ln--usb" d="M180 484 H282" marker-start="url(#sa-ah-usb)" marker-end="url(#sa-ah-usb)"/>
+                <text class="sa-lb sa-lb--usb" x="231" y="474">USB CDC Serial</text>
+                <text class="sa-lb sa-lb--usb sa-lb--thin" x="231" y="504">(MQTT 아님)</text>
+
+                <!-- MQTT: Host Services ↔ Broker -->
+                <path class="sa-ln sa-ln--pub" d="M470 240 H690" marker-end="url(#sa-ah-pub)"/>
+                <text class="sa-lb sa-lb--pub" x="580" y="232">pub: camera/frame</text>
+                <path class="sa-ln sa-ln--pub" d="M470 458 H690" marker-end="url(#sa-ah-pub)"/>
+                <text class="sa-lb sa-lb--pub" x="580" y="434">pub: sensor/soil · sensor/tank</text>
+                <text class="sa-lb sa-lb--pub" x="580" y="450">pub: pump/state</text>
+                <path class="sa-ln sa-ln--sub" d="M690 510 H470" marker-end="url(#sa-ah-sub)"/>
+                <text class="sa-lb sa-lb--sub" x="580" y="502">sub: pump/cmd</text>
+
+                <!-- MQTT: Broker ↔ Docker 컨테이너 -->
+                <path class="sa-ln sa-ln--sub" d="M810 224 H1004" marker-end="url(#sa-ah-sub)"/>
+                <text class="sa-lb sa-lb--sub" x="907" y="216">sub: camera/frame</text>
+                <path class="sa-ln sa-ln--pub" d="M1004 262 H810" marker-end="url(#sa-ah-pub)"/>
+                <text class="sa-lb sa-lb--pub" x="907" y="254">pub: ai/soil</text>
+                <path class="sa-ln sa-ln--sub" d="M810 372 H1004" marker-end="url(#sa-ah-sub)"/>
+                <text class="sa-lb sa-lb--sub" x="907" y="348">sub: ai/soil, sensor/+</text>
+                <text class="sa-lb sa-lb--sub" x="907" y="364">pump/state, ui/request</text>
+                <path class="sa-ln sa-ln--pub" d="M1004 422 H810" marker-end="url(#sa-ah-pub)"/>
+                <text class="sa-lb sa-lb--pub" x="907" y="414">pub: pump/cmd, system/state</text>
+                <path class="sa-ln sa-ln--sub" d="M810 526 H1004" marker-end="url(#sa-ah-sub)"/>
+                <text class="sa-lb sa-lb--sub" x="907" y="518">sub: sensor/+, system/state</text>
+                <path class="sa-ln sa-ln--pub" d="M1004 566 H810" marker-end="url(#sa-ah-pub)"/>
+                <text class="sa-lb sa-lb--pub" x="907" y="558">pub: ui/request</text>
+
+                <!-- 외부 하드웨어 -->
+                <g class="hw-n"><title>Raspberry Pi Camera Module 3 Wide — 12MP Sony IMX708, MIPI CSI-2</title>
+                  <rect class="hw-n__box" x="20" y="196" width="160" height="88" rx="12"/>
+                  <rect class="sa-bar sa-bar--ext" x="28" y="210" width="3" height="60" rx="1.5"/>
+                  <text class="hw-n__name" x="40" y="228">Camera Module 3</text>
+                  <text class="hw-n__name" x="40" y="246">Wide</text>
+                  <text class="hw-n__spec" x="40" y="266">12MP IMX708</text>
+                </g>
+                <g class="hw-n"><title>Raspberry Pi Pico (RP2040) — 센서 측정, 펌프/LED 구동, 독립 안전 인터록</title>
+                  <rect class="hw-n__box hw-n__box--main" x="20" y="430" width="160" height="104" rx="12"/>
+                  <rect class="sa-bar sa-bar--ext" x="28" y="444" width="3" height="76" rx="1.5"/>
+                  <text class="hw-n__name" x="40" y="462">Raspberry Pi Pico</text>
+                  <text class="hw-n__role" x="40" y="482">RP2040 MCU</text>
+                  <text class="hw-n__spec" x="40" y="502">센서 · 펌프 · LED</text>
+                  <text class="hw-n__spec" x="40" y="520">독립 안전 인터록</text>
+                </g>
+
+                <!-- Host Services -->
+                <g class="hw-n"><title>camera-agent — Picamera2 / libcamera로 Camera Module 3 Wide 이미지 촬영, 공유 볼륨에 저장 후 메타데이터 발행</title>
+                  <rect class="hw-n__box" x="282" y="196" width="188" height="88" rx="12"/>
+                  <rect class="sa-bar sa-bar--host" x="290" y="210" width="3" height="60" rx="1.5"/>
+                  <text class="hw-n__name" x="302" y="226">camera-agent</text>
+                  <text class="hw-n__role" x="302" y="246">이미지 촬영</text>
+                  <text class="hw-n__spec" x="302" y="266">Picamera2 / libcamera</text>
+                </g>
+                <g class="hw-n"><title>pico-bridge — USB CDC Serial ↔ MQTT 변환, Pico 통신 담당</title>
+                  <rect class="hw-n__box" x="282" y="430" width="188" height="104" rx="12"/>
+                  <rect class="sa-bar sa-bar--host" x="290" y="444" width="3" height="76" rx="1.5"/>
+                  <text class="hw-n__name" x="302" y="462">pico-bridge</text>
+                  <text class="hw-n__role" x="302" y="482">Pico 통신 중계</text>
+                  <text class="hw-n__spec" x="302" y="502">USB Serial ↔ MQTT</text>
+                  <text class="hw-n__spec" x="302" y="520">Heartbeat 전달</text>
+                </g>
+
+                <!-- Docker 컨테이너 -->
+                <g class="hw-n"><title>ai-inference — Python + ONNX Runtime, Dry/Wet 이미지 분류</title>
+                  <rect class="hw-n__box" x="1004" y="196" width="188" height="88" rx="12"/>
+                  <rect class="sa-bar sa-bar--docker" x="1012" y="210" width="3" height="60" rx="1.5"/>
+                  <text class="hw-n__name" x="1024" y="226">ai-inference</text>
+                  <text class="hw-n__role" x="1024" y="246">Dry / Wet 추론</text>
+                  <text class="hw-n__spec" x="1024" y="266">Python · ONNX Runtime</text>
+                </g>
+                <g class="hw-n"><title>control-orchestrator — AI 결과와 센서값 교차 검증, 급수 판단, command_id · 만료 시각이 포함된 급수 명령 발행</title>
+                  <rect class="hw-n__box hw-n__box--main" x="1004" y="342" width="188" height="104" rx="12"/>
+                  <rect class="sa-bar sa-bar--docker" x="1012" y="356" width="3" height="76" rx="1.5"/>
+                  <text class="hw-n__name" x="1024" y="374">control-orchestrator</text>
+                  <text class="hw-n__role" x="1024" y="394">교차 검증 · 급수 판단</text>
+                  <text class="hw-n__spec" x="1024" y="414">Python</text>
+                  <text class="hw-n__spec" x="1024" y="432">command_id · 만료 시각</text>
+                </g>
+                <g class="hw-n"><title>web-api — Flask 웹 대시보드, 동일 Wi-Fi 브라우저에서 HTTP로 접속, 사용자 제어 요청 처리</title>
+                  <rect class="hw-n__box" x="1004" y="500" width="188" height="88" rx="12"/>
+                  <rect class="sa-bar sa-bar--docker" x="1012" y="514" width="3" height="60" rx="1.5"/>
+                  <text class="hw-n__name" x="1024" y="530">web-api</text>
+                  <text class="hw-n__role" x="1024" y="550">대시보드 · 사용자 요청</text>
+                  <text class="hw-n__spec" x="1024" y="570">Flask · HTTP / Wi-Fi</text>
+                </g>
+              </svg>
+            </div>
+
+            <!-- 태블릿 · 모바일: 영역별 세로 배치 (챗봇 지식 데이터의 원본 텍스트이기도 합니다) -->
+            <div class="hw-stack">
+              <article class="hw-zone hw-zone--ctrl" id="sa-host">
+                <h4 class="hw-zone__title"><span class="hw-zone__idx" aria-hidden="true">1</span>Host Services (systemd)</h4>
+                <ul class="hw-parts">
+                  <li class="hw-part"><span class="icon" aria-hidden="true">photo_camera</span><span class="hw-part__name">camera-agent</span><span class="hw-part__role">이미지 촬영 · 공유 볼륨 저장</span><span class="hw-part__spec">Picamera2 / libcamera</span><span class="sa-topics"><span class="sa-topic sa-topic--pub">pub: camera/frame</span></span></li>
+                  <li class="hw-part"><span class="icon" aria-hidden="true">usb</span><span class="hw-part__name">pico-bridge</span><span class="hw-part__role">Pico 통신 중계 (USB Serial ↔ MQTT)</span><span class="hw-part__spec">Heartbeat 전달</span><span class="sa-topics"><span class="sa-topic sa-topic--pub">pub: sensor/soil · sensor/tank · pump/state</span><span class="sa-topic sa-topic--sub">sub: pump/cmd</span></span></li>
+                </ul>
+                <ul class="hw-links">
+                  <li class="hw-link sa-link--hw"><span class="hw-link__type">하드웨어 연결</span><span class="hw-link__path">Camera Module 3 Wide → camera-agent</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>MIPI CSI-2</span></li>
+                  <li class="hw-link sa-link--usb"><span class="hw-link__type">하드웨어 연결 · MQTT 아님</span><span class="hw-link__path">Raspberry Pi Pico ↔ pico-bridge</span><span class="hw-link__via"><span class="sr-only">연결 방식: </span>USB CDC Serial</span></li>
+                </ul>
+              </article>
+
+              <article class="hw-zone hw-zone--ai" id="sa-docker">
+                <h4 class="hw-zone__title"><span class="hw-zone__idx" aria-hidden="true">2</span>Docker Compose</h4>
+                <ul class="hw-parts">
+                  <li class="hw-part hw-part--main"><span class="icon" aria-hidden="true">hub</span><span class="hw-part__name">mosquitto <span class="hw-part__tag" aria-hidden="true">BROKER</span></span><span class="hw-part__role">MQTT 메시지 중계</span><span class="hw-part__spec">Eclipse Mosquitto · Host Service는 localhost:1883으로 접속</span></li>
+                  <li class="hw-part"><span class="icon" aria-hidden="true">psychology</span><span class="hw-part__name">ai-inference</span><span class="hw-part__role">Dry / Wet 추론</span><span class="hw-part__spec">Python · ONNX Runtime</span><span class="sa-topics"><span class="sa-topic sa-topic--sub">sub: camera/frame</span><span class="sa-topic sa-topic--pub">pub: ai/soil</span></span></li>
+                  <li class="hw-part"><span class="icon" aria-hidden="true">rule</span><span class="hw-part__name">control-orchestrator</span><span class="hw-part__role">AI · 센서 교차 검증 및 급수 판단</span><span class="hw-part__spec">Python</span><span class="sa-topics"><span class="sa-topic sa-topic--sub">sub: ai/soil · sensor/+ · pump/state · ui/request</span><span class="sa-topic sa-topic--pub">pub: pump/cmd · system/state</span></span></li>
+                  <li class="hw-part"><span class="icon" aria-hidden="true">web</span><span class="hw-part__name">web-api</span><span class="hw-part__role">웹 대시보드 · 사용자 요청 처리</span><span class="hw-part__spec">Flask · HTTP / Wi-Fi</span><span class="sa-topics"><span class="sa-topic sa-topic--sub">sub: sensor/+ · system/state</span><span class="sa-topic sa-topic--pub">pub: ui/request</span></span></li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="pp-flow__legend hw-legend t-label">
+              <span class="pp-legend"><span class="hw-swatch sa-swatch--pub" aria-hidden="true"></span>MQTT Publish → Broker</span>
+              <span class="pp-legend"><span class="hw-swatch sa-swatch--sub" aria-hidden="true"></span>MQTT Subscribe ← Broker</span>
+              <span class="pp-legend"><span class="hw-swatch sa-swatch--usb" aria-hidden="true"></span>USB CDC Serial</span>
+              <span class="pp-legend"><span class="hw-swatch sa-swatch--hw" aria-hidden="true"></span>MIPI CSI-2 · 파일 접근</span>
+              <span class="pp-legend"><span class="icon" aria-hidden="true">info</span>실제 토픽에는 spot/ 접두사가 붙습니다</span>
+            </div>
+          </div>
+
+          <!-- 장애 격리 및 안전 제어 -->
+          <article class="card bg-lowest hw-note" id="sa-safety">
+            <h3 class="hw-note__title t-headline-sm"><span class="icon c-secondary" aria-hidden="true">shield</span><span>장애 격리 · Fail-Safe 설계 (구현 예정)</span></h3>
+            <ul class="hw-list t-body-md">
+              <li><strong>서비스 분리</strong> · AI 추론 · 제어 판단 · 웹을 독립 컨테이너로 나눠 한 서비스의 오류가 다른 기능으로 번지지 않게 합니다. 각 컨테이너에는 재시작 정책과 Healthcheck를 적용합니다.</li>
+              <li><strong>급수 명령 중복 방지</strong> · pump/cmd에는 <code class="pp-inline-code">command_id</code>와 만료 시각을 넣고 Retained Message로 저장하지 않아, 재접속 · 재시작 후 오래된 명령이 다시 실행되지 않게 합니다.</li>
+              <li><strong>최종 차단은 Pico</strong> · 통신 타임아웃 · 물통 고갈 · 연속 구동 상한은 SBC 상태와 관계없이 Pico 펌웨어가 판단합니다. (<a class="pp-link" href="#hw-safety">펌프 안전 제어 구조</a>)</li>
+            </ul>
+            <table class="am-table t-body-md">
+              <caption class="sr-only">장애 상황별 예상 동작</caption>
+              <thead>
+                <tr><th scope="col">장애 상황</th><th scope="col">예상 동작 (설계)</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row" data-label="장애 상황">AI 추론 오류</th><td data-label="예상 동작">AI 기반 자동 급수 보류 · ai-inference 재시작</td></tr>
+                <tr><th scope="row" data-label="장애 상황">웹 서버 오류</th><td data-label="예상 동작">web-api 재시작 · 센서 감시와 급수 제어는 유지</td></tr>
+                <tr><th scope="row" data-label="장애 상황">MQTT Broker 오류</th><td data-label="예상 동작">신규 급수 명령 중단 · pico-bridge가 Heartbeat를 멈춰 Pico가 펌프 정지</td></tr>
+                <tr><th scope="row" data-label="장애 상황">SBC 전체 장애</th><td data-label="예상 동작">Pico가 통신 타임아웃을 감지해 펌프 OFF</td></tr>
+                <tr><th scope="row" data-label="장애 상황">물통 고갈</th><td data-label="예상 동작">Pico가 플로트 스위치 입력으로 펌프 구동 차단</td></tr>
+              </tbody>
+            </table>
+            <p class="t-label muted">MVP 설계 기준의 목표 동작이며, 컨테이너 장애 복구와 안전 차단은 구현 후 결함 주입 시험으로 검증할 예정입니다.</p>
           </article>
         </div>
       </section>

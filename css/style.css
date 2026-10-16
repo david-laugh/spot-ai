@@ -1622,3 +1622,62 @@ ol { padding: 0; list-style: none; }
 }
 .eng-bar > span { display: block; height: 100%; border-radius: inherit; background: var(--outline-variant, #d4c3bb); }
 .eng-bar--on > span { background: var(--primary); }
+
+/* --- MCU & SBC Selection (index.html #board-selection) --- */
+.sel-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-md); }
+@media (min-width: 1280px) { .sel-grid { grid-template-columns: repeat(2, 1fr); } }
+.sel-card { display: flex; flex-direction: column; gap: var(--space-md); padding: var(--space-lg); }
+.sel-card .am-verdict { margin-right: 0.25rem; }
+
+/* --- SBC Software Architecture (index.html #sbc-architecture) --- */
+.sa-svg { max-width: 1240px; }
+.sa-pi { fill: rgba(255, 255, 255, 0.55); stroke: var(--on-surface-variant); stroke-width: 1.5; }
+.sa-pi__title { font-size: 14px; font-weight: 700; fill: var(--on-surface); }
+.sa-z { stroke-width: 1; stroke-dasharray: 5 4; }
+.sa-z--host { fill: rgba(255, 209, 184, 0.3); stroke: rgba(121, 87, 67, 0.45); }
+.sa-z--docker { fill: rgba(207, 232, 227, 0.4); stroke: rgba(76, 99, 95, 0.45); }
+.sa-zt { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; }
+.sa-zt--ext { fill: var(--on-surface-variant); }
+.sa-zt--host { fill: var(--hw-ctrl-zone); }
+.sa-zt--docker { fill: var(--hw-ai); }
+.sa-zs { font-size: 11.5px; fill: var(--on-surface-variant); }
+.sa-bar--ext { fill: #7d716a; }
+.sa-bar--host { fill: var(--hw-ctrl-zone); }
+.sa-bar--docker { fill: var(--hw-ai); }
+.sa-broker { fill: var(--primary-container); stroke: var(--primary); stroke-width: 2.5; }
+.sa-broker__name { font-size: 15px; font-weight: 700; fill: var(--on-primary-container); text-anchor: middle; }
+.sa-broker__role { font-size: 12px; fill: var(--on-primary-container); text-anchor: middle; }
+.sa-vol { fill: rgba(255, 255, 255, 0.7); stroke: #7d716a; stroke-dasharray: 4 3; }
+.sa-vol__text { font-size: 11.5px; font-weight: 600; fill: var(--on-surface-variant); text-anchor: middle; }
+
+.sa-ln { fill: none; stroke-width: 2.25; stroke-linejoin: round; }
+.sa-ln--pub { stroke: #0f8a86; }
+.sa-ln--sub { stroke: #3d63b8; }
+.sa-ln--usb { stroke: #d06a12; stroke-width: 3.5; }
+.sa-ln--hw { stroke: #7d716a; }
+.sa-ln--file { stroke: #7d716a; stroke-width: 1.5; stroke-dasharray: 5 4; }
+.sa-lb {
+  font-size: 11.5px; font-weight: 600; text-anchor: middle;
+  paint-order: stroke; stroke: #f3f5f3; stroke-width: 4px; stroke-linejoin: round;
+}
+.sa-lb--pub { fill: #0b6b68; }
+.sa-lb--sub { fill: #2c4e94; }
+.sa-lb--usb { fill: #a8530a; font-weight: 700; }
+.sa-lb--hw, .sa-lb--file { fill: #5f544e; }
+.sa-lb--thin { font-weight: 500; }
+
+/* 모바일 · 태블릿 카드의 토픽 표시 */
+.sa-topics { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.375rem; }
+.sa-topic {
+  padding: 0.0625rem 0.5rem; border-radius: var(--radius-full);
+  font-size: 12px; line-height: 18px; font-weight: 600;
+}
+.sa-topic--pub { background: rgba(15, 138, 134, 0.12); color: #0b6b68; }
+.sa-topic--sub { background: rgba(61, 99, 184, 0.12); color: #2c4e94; }
+.sa-link--usb { --line: #d06a12; --line-text: #a8530a; }
+.sa-link--hw { --line: #7d716a; --line-text: #5f544e; }
+.sa-swatch--pub { background: #0f8a86; }
+.sa-swatch--sub { background: #3d63b8; }
+.sa-swatch--usb { background: #d06a12; height: 4px; }
+.sa-swatch--hw { background: #7d716a; }
+
