@@ -44,6 +44,7 @@ export const CATEGORY_RULES = [
   [/^(model-selection|ms-)/, "ai_models"],
   [/^performance-and-metrics$/, "performance"],
   [/^hardware-specs$/, "system_architecture"],
+  [/^mobile-dashboard$/, "dashboard"],
   [/^validation$/, "roadmap"],
   [/^am-refs$/, "references"],
   [/^am-/, "model_comparison"],

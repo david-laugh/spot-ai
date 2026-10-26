@@ -38,6 +38,7 @@
         <a href="#image-pipeline" data-nav="image-pipeline">이미지 전처리</a>
         <a href="#performance-and-metrics" data-nav="performance-and-metrics">성능 및 신뢰성 지표</a>
         <a href="#hardware-specs" data-nav="hardware-specs">기술 스택 &amp; 하드웨어</a>
+        <a href="#mobile-dashboard" data-nav="mobile-dashboard">모바일 대시보드</a>
       </nav>
 
       <div class="header-actions">
@@ -60,6 +61,7 @@
         <li><a href="#image-pipeline" data-nav="image-pipeline">이미지 전처리</a></li>
         <li><a href="#performance-and-metrics" data-nav="performance-and-metrics">성능 및 신뢰성 지표</a></li>
         <li><a href="#hardware-specs" data-nav="hardware-specs">기술 스택 &amp; 하드웨어</a></li>
+        <li><a href="#mobile-dashboard" data-nav="mobile-dashboard">모바일 대시보드</a></li>
       </ul>
     </nav>
   </header>
@@ -2416,7 +2418,94 @@ label</code></pre>
         </div>
       </section>
 
-      <!-- ===== 06 · MVP 검증 & CTA ===== -->
+      <!-- ===== 06 · 관리자 모바일 대시보드 ===== -->
+      <section class="section section--lg" id="mobile-dashboard" data-section>
+        <div class="section-head">
+          <span class="eyebrow">06 · Admin Mobile Dashboard</span>
+          <h2 class="t-headline-lg">관리자 모바일 대시보드는 이렇게 제공됩니다</h2>
+          <p class="t-body-lg muted">여러 대의 SPOT AI를 관리하는 운영자가 휴대폰 하나로 모든 화분의 안전 여부, 급수 · 보류 이유, Fail-Safe 작동 여부를 확인하는 홈 화면입니다. 왼쪽 휴대폰 화면 안에서 스크롤하면 홈 화면 전체를 볼 수 있습니다.</p>
+        </div>
+
+        <div class="md-showcase">
+          <!-- 휴대폰 목업: 390 × 844 화면 안에 Stitch 홈 화면을 iframe으로 표시 -->
+          <figure class="md-device" data-md-device>
+            <div class="md-device__stage">
+              <div class="md-phone">
+                <div class="md-phone__screen">
+                  <div class="md-phone__status" aria-hidden="true">
+                    <span class="md-phone__time">9:41</span>
+                    <span class="md-phone__island"></span>
+                    <span class="md-phone__sys"><span class="icon">signal_cellular_alt</span><span class="icon">wifi</span><span class="icon">battery_full</span></span>
+                  </div>
+                  <iframe class="md-phone__frame" src="dashboard/home.html" title="SPOT AI 관리자 모바일 대시보드 — 홈 전체 현황 화면" loading="lazy" data-md-frame></iframe>
+                  <div class="md-phone__home" aria-hidden="true"><span></span></div>
+                </div>
+              </div>
+            </div>
+            <figcaption class="md-device__caption t-label muted">
+              <span class="icon" aria-hidden="true">swipe_vertical</span>
+              <span>화면 안에서 스크롤해 전체 보기</span>
+              <span class="md-progress" role="presentation"><span class="md-progress__fill" data-md-progress></span></span>
+            </figcaption>
+          </figure>
+
+          <!-- 화면 영역별 제공 정보 요약 -->
+          <div class="md-summary">
+            <div class="md-summary__head">
+              <h3 class="t-headline-sm">홈 화면이 제공하는 정보</h3>
+              <span class="md-summary__meta t-label">390 × 844 · iPhone 기준 · 데모 데이터</span>
+            </div>
+            <div class="card bg-lowest am-table-wrap">
+              <table class="am-table md-table t-body-md">
+                <caption class="sr-only">관리자 모바일 대시보드 홈 화면의 영역별 제공 정보와 관리자 활용</caption>
+                <thead>
+                  <tr><th scope="col">화면 영역</th><th scope="col">제공 정보</th><th scope="col">관리자가 판단하는 것</th></tr>
+                </thead>
+                <tbody>
+                  <tr data-md-target="0">
+                    <th scope="row" data-label="화면 영역"><button class="md-jump" type="button" data-md-jump><span class="md-jump__num">01</span><span>상단 바 · 인사말</span><span class="icon" aria-hidden="true">my_location</span></button></th>
+                    <td data-label="제공 정보">Wi-Fi 연결 상태, 미확인 알림 수, 마지막 동기화 시각, 정상 화분 수 요약</td>
+                    <td data-label="관리자 활용">앱이 디바이스와 실시간으로 연결되어 있는지</td>
+                  </tr>
+                  <tr data-md-target="1">
+                    <th scope="row" data-label="화면 영역"><button class="md-jump" type="button" data-md-jump><span class="md-jump__num">02</span><span>시스템 상태 요약</span><span class="icon" aria-hidden="true">my_location</span></button></th>
+                    <td data-label="제공 정보">정상 가동률 도넛, 상태별 화분 수 (정상 · 주의 · 위험 · 오프라인), 14일 무인 검증 진행률 (D+N)</td>
+                    <td data-label="관리자 활용">전체 화분이 안전한지 한눈에 · 무인 검증 일정</td>
+                  </tr>
+                  <tr data-md-target="2">
+                    <th scope="row" data-label="화면 영역"><button class="md-jump" type="button" data-md-jump><span class="md-jump__num">03</span><span>핵심 KPI 4종</span><span class="icon" aria-hidden="true">my_location</span></button></th>
+                    <td data-label="제공 정보">AI · 센서 판정 일치율 (목표 &gt; 90%), 평균 사이클 시간 (목표 ≤ 10초), 오늘 급수량 · 펄스 횟수, Fail-Open 건수</td>
+                    <td data-label="관리자 활용">MVP 검증 기준을 지금 충족하고 있는지</td>
+                  </tr>
+                  <tr data-md-target="3">
+                    <th scope="row" data-label="화면 영역"><button class="md-jump" type="button" data-md-jump><span class="md-jump__num">04</span><span>주의 알림</span><span class="icon" aria-hidden="true">my_location</span></button></th>
+                    <td data-label="제공 정보">대응이 필요한 화분과 원인 (물통 수위 낮음, 급수 후 수분 변화 없음 등), 조치 확인 버튼</td>
+                    <td data-label="관리자 활용">지금 직접 조치해야 할 화분이 있는지</td>
+                  </tr>
+                  <tr data-md-target="4">
+                    <th scope="row" data-label="화면 영역"><button class="md-jump" type="button" data-md-jump><span class="md-jump__num">05</span><span>내 화분 디바이스</span><span class="icon" aria-hidden="true">my_location</span></button></th>
+                    <td data-label="제공 정보">화분 이름 · 디바이스 ID, AI 판정 (Dry / Wet · 신뢰도), 토양 수분 (%), 물통 상태, 마지막 급수 시각 · 급수량</td>
+                    <td data-label="관리자 활용">화분별 AI 판정과 센서값이 서로 맞는지</td>
+                  </tr>
+                  <tr data-md-target="5">
+                    <th scope="row" data-label="화면 영역"><button class="md-jump" type="button" data-md-jump><span class="md-jump__num">06</span><span>최근 활동</span><span class="icon" aria-hidden="true">my_location</span></button></th>
+                    <td data-label="제공 정보">급수 완료 · 급수 보류 · 신뢰도 저하 모드 전환 이벤트와 판단 근거 (교차 판정, 과습 인터록)</td>
+                    <td data-label="관리자 활용">시스템이 왜 급수했는지, 왜 보류했는지</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-label="화면 영역"><span class="md-jump md-jump--static"><span class="md-jump__num">07</span><span>하단 탭 메뉴</span></span></th>
+                    <td data-label="제공 정보">홈 · 디바이스 · 로그 · 알림 · 설정 (항상 화면 하단에 고정)</td>
+                    <td data-label="관리자 활용">상세 화면으로 바로 이동</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="pp-note t-body-md"><span class="icon" aria-hidden="true">info</span><span>화면 속 화분 6대 · 수치는 <strong>14일 무인 검증 D+9 시점을 가정한 데모 데이터</strong>입니다. 표의 영역 이름을 누르면 휴대폰 화면이 해당 위치로 이동합니다.</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 07 · MVP 검증 & CTA ===== -->
       <section class="validation" id="validation" aria-labelledby="validation-title">
         <div class="validation__head">
           <span class="eyebrow">Validation &amp; Road to Commercialization</span>
@@ -2481,6 +2570,7 @@ label</code></pre>
           <a href="#performance-and-metrics">정밀도 및 신뢰성 지표</a>
           <a href="ai-models.html">범용 비전 AI 비교</a>
           <a href="#hardware-specs">임베디드 하드웨어 스펙</a>
+          <a href="#mobile-dashboard">관리자 모바일 대시보드</a>
           <a href="docs/spot-ai-tech-spec.pdf" download data-spec-pdf>기술 사양서 다운로드</a>
         </nav>
       </div>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<!-- Stitch "SPOT AI Mobile Dashboard" · SPOT AI - 홈 전체 현황 (projects/6556017670395036737) 내보내기 원본. 이미지만 로컬 경로로 교체. index.html #mobile-dashboard의 휴대폰 목업 안에 iframe으로 표시됩니다. -->
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#fff8f6;color:#231a15;font-family:'Inter',sans-serif;-webkit-tap-highlight-color:transparent;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.material-symbols-rounded{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'surface-container-low': '#fff1eb', 'on-error': '#ffffff', 'on-tertiary-fixed-variant': '#344b47', 'secondary-container': '#fdbea1', 'primary-fixed-dim': '#eabda5', 'inverse-primary': '#eabda5', 'on-tertiary-container': '#c5ded9', 'on-primary-fixed': '#2d1606', 'error-container': '#ffdad6', 'on-tertiary-fixed': '#081f1c', 'on-background': '#231a15', 'surface-tint': '#795743', 'tertiary-fixed-dim': '#b3ccc7', 'surface-dim': '#e9d6ce', 'on-surface': '#231a15', 'outline': '#82746d', 'tertiary': '#354b47', 'surface': '#fff8f6', 'surface-container-highest': '#f1dfd6', 'inverse-surface': '#392e29', 'primary-fixed': '#ffdbc8', 'secondary-fixed-dim': '#f7b89c', 'surface-container-lowest': '#ffffff', 'on-primary-fixed-variant': '#5f402d', 'on-primary-container': '#fdcfb6', 'on-error-container': '#93000a', 'secondary-fixed': '#ffdbcc', 'inverse-on-surface': '#ffede5', 'background': '#fff8f6', 'on-secondary-fixed-variant': '#673c26', 'on-primary': '#ffffff', 'primary-container': '#795743', 'outline-variant': '#d4c3bb', 'on-surface-variant': '#50443e', 'surface-variant': '#f1dfd6', 'on-tertiary': '#ffffff', 'surface-container-high': '#f7e4dc', 'error': '#ba1a1a', 'on-secondary-fixed': '#331202', 'on-secondary': '#ffffff', 'on-secondary-container': '#794b34', 'tertiary-fixed': '#cee8e2', 'tertiary-container': '#4c635f', 'surface-bright': '#fff8f6', 'secondary': '#83533c', 'primary': '#5f402d', 'surface-container': '#fdeae2' }, borderRadius: { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }, spacing: { 'space-lg': '1rem', 'space-md': '0.75rem', 'margin': '1rem', 'space-sm': '0.5rem', 'space-xl': '1.5rem', 'space-xs': '0.25rem', 'gutter': '0.75rem' }, fontFamily: { 'body-md': ['Inter'], 'display-lg': ['Inter'], 'body-sm': ['Inter'], 'label-md': ['Inter'], 'headline-md': ['Inter'], 'headline-lg': ['Inter'], 'label-lg': ['Inter'], 'title-md': ['Inter'], 'label-sm': ['Inter'], 'display-kpi': ['Inter'], 'body-lg': ['Inter'] }, fontSize: { 'body-md': ['14px', { lineHeight: '20px', fontWeight: '400' }], 'display-lg': ['36px', { lineHeight: '44px', letterSpacing: '-0.03em', fontWeight: '700' }], 'body-sm': ['13px', { lineHeight: '18px', fontWeight: '400' }], 'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.01em', fontWeight: '500' }], 'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.015em', fontWeight: '600' }], 'headline-lg': ['24px', { lineHeight: '32px', letterSpacing: '-0.02em', fontWeight: '600' }], 'label-lg': ['14px', { lineHeight: '20px', fontWeight: '500' }], 'title-md': ['16px', { lineHeight: '24px', letterSpacing: '-0.01em', fontWeight: '600' }], 'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.02em', fontWeight: '600' }], 'display-kpi': ['32px', { lineHeight: '38px', letterSpacing: '-0.02em', fontWeight: '700' }], 'body-lg': ['15px', { lineHeight: '22px', fontWeight: '400' }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(80,68,62,0.04)] pt-safe"><div class="h-16 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="SPOT AI Logo" class="h-8 w-auto object-contain" src="images/spot-ai-logo.png"/><div class="flex flex-col"><span class="font-title-md text-title-md text-on-surface tracking-tight leading-tight">SPOT AI</span><div class="flex items-center gap-1.5 mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium">로컬 Wi-Fi 연결됨</span></div></div></div><div class="flex items-center gap-space-xs"><button aria-label="알림" class="relative w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40 transition-colors active:scale-95" type="button"><span class="material-symbols-rounded text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 min-w-[16px] h-4 px-1 rounded-full bg-error text-on-error font-label-sm text-[10px] leading-4 flex items-center justify-center font-bold">2</span></button><div class="w-11 h-11 flex items-center justify-center pl-1"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-fixed-dim/40" src="images/admin-profile.jpg"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin pb-space-xl space-y-space-lg">
+<!-- Greeting Header -->
+<div class="flex flex-col space-y-1 mt-2">
+<div class="flex items-center justify-between">
+<h1 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">
+        관리자님, 오늘 식물 6개 중 5개가 정상이에요
+      </h1>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-rounded text-[15px] text-tertiary-container animate-spin" style="animation-duration: 6s;">autorenew</span>
+        방금 전 동기화
+      </span>
+<span>·</span>
+<span class="font-medium text-secondary">D+9 14일 무인 검증 중</span>
+</div>
+</div>
+<!-- Section 1: System Health Hero Card -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between gap-space-md">
+<!-- Mini Donut SVG Graphic -->
+<div class="relative w-20 h-20 flex-shrink-0 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<!-- Background track -->
+<circle cx="18" cy="18" fill="none" r="14" stroke="#f1dfd6" stroke-width="3.5"></circle>
+<!-- Normal Segment (5/6 = 83.33%) -->
+<circle cx="18" cy="18" fill="none" r="14" stroke="#4c635f" stroke-dasharray="73.3 100" stroke-linecap="round" stroke-width="3.5"></circle>
+<!-- Caution Segment (1/6 = 16.67%) -->
+<circle cx="18" cy="18" fill="none" r="14" stroke="#fdbea1" stroke-dasharray="14.6 100" stroke-dashoffset="-73.3" stroke-linecap="round" stroke-width="3.5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-kpi text-[18px] leading-tight font-bold text-on-surface">83%</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">정상 가동</span>
+</div>
+</div>
+<!-- Breakdown Chips Grid -->
+<div class="grid grid-cols-2 gap-1.5 flex-1 min-w-0">
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="truncate">정상 5</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="truncate">주의 1</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="truncate">위험 0</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="truncate">오프라인 0</span>
+</div>
+</div>
+</div>
+<!-- 14-day Unattended Verification Progress -->
+<div class="mt-space-md pt-space-sm">
+<div class="flex items-center justify-between text-label-md font-label-md mb-1.5">
+<span class="text-on-surface font-semibold flex items-center gap-1">
+<span class="material-symbols-rounded text-[16px] text-primary">verified</span>
+          14일 무인 검증
+        </span>
+<span class="text-primary font-bold">D+9 진행 중 (64%)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
+<div class="h-full bg-primary-container rounded-full transition-all duration-500" style="width: 64%;"></div>
+</div>
+</div>
+</div>
+<!-- Section 2: 2x2 KPI Grid -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Tile 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">일치율</span>
+<span class="material-symbols-rounded text-[18px] text-on-surface-variant">psychology</span>
+</div>
+<div class="flex items-baseline gap-1 my-1">
+<span class="font-display-kpi text-[26px] leading-tight font-bold text-on-surface">93.4</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">%</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-[10px] font-bold">
+          +1.2%
+        </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">목표 &gt;90%</span>
+</div>
+</div>
+<!-- Tile 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">평균 사이클</span>
+<span class="material-symbols-rounded text-[18px] text-on-surface-variant">timer</span>
+</div>
+<div class="flex items-line gap-1 my-1">
+<span class="font-display-kpi text-[26px] leading-tight font-bold text-on-surface">7.4</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium self-end mb-1">초</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-[10px] font-bold">
+          안정
+        </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">목표 ≤10s</span>
+</div>
+</div>
+<!-- Tile 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">오늘 급수량</span>
+<span class="material-symbols-rounded text-[18px] text-tertiary">water_drop</span>
+</div>
+<div class="flex items-baseline gap-1 my-1">
+<span class="font-display-kpi text-[26px] leading-tight font-bold text-on-surface">640</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">ml</span>
+</div>
+<div class="pt-1">
+<span class="font-label-sm text-[11px] text-on-surface-variant">총 8회 펄스 급수</span>
+</div>
+</div>
+<!-- Tile 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Fail-Open</span>
+<span class="material-symbols-rounded text-[18px] text-tertiary">security</span>
+</div>
+<div class="flex items-baseline gap-1 my-1">
+<span class="font-display-kpi text-[26px] leading-tight font-bold text-tertiary">0</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">건</span>
+</div>
+<div class="pt-1">
+<span class="font-label-sm text-[11px] text-tertiary font-medium">100% 안전 차단</span>
+</div>
+</div>
+</div>
+<!-- Section 3: Alert Card -->
+<div class="w-full bg-secondary-container/40 rounded-xl p-space-lg shadow-sm flex flex-col space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-rounded text-[20px] text-secondary">warning</span>
+<span class="font-title-md text-title-md text-on-secondary-container font-bold">주의 화분 발생 (1건)</span>
+</div>
+<span class="font-label-sm text-[11px] font-semibold text-secondary px-2 py-0.5 rounded-full bg-secondary-container">즉시 대응</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+<span class="font-semibold text-secondary">거실 몬스테라</span> · 물통 수위 낮음 — 급수 후 10분간 수분 변화 없음
+    </p>
+<div class="pt-1 flex justify-end">
+<button class="h-9 px-4 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-semibold flex items-center gap-1 shadow-sm active:scale-95 transition-transform" type="button">
+<span>조치 확인</span>
+<span class="material-symbols-rounded text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Section 4: Device List -->
+<div class="flex flex-col space-y-space-sm">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<h2 class="font-title-md text-title-md text-on-surface font-bold">내 화분 디바이스</h2>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">6대</span>
+</div>
+<button class="text-primary font-label-md text-label-md font-semibold flex items-center" type="button">
+        전체보기
+        <span class="material-symbols-rounded text-[18px]">chevron_right</span>
+</button>
+</div>
+<!-- Device 1: Monstera (Caution) -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-10 h-10 rounded-lg bg-secondary-container/30 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-rounded text-secondary text-[24px]">potted_plant</span>
+<span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-secondary"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold">거실 몬스테라</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">SPOT-01</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">마지막 급수: 3시간 전 · 80ml</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-bold">
+            Wet 94%
+          </span>
+<span class="font-label-sm text-[11px] text-error flex items-center gap-0.5">
+<span class="material-symbols-rounded text-[14px]">opacity</span>
+            물통 부족
+          </span>
+</div>
+</div>
+<!-- Moisture bar -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>토양 수분</span>
+<span class="font-semibold text-on-surface">42%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 42%;"></div>
+</div>
+</div>
+</div>
+<!-- Device 2: Scindapsus (Normal) -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-10 h-10 rounded-lg bg-tertiary-fixed/40 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-rounded text-tertiary text-[24px]">eco</span>
+<span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold">침실 스킨답서스</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">SPOT-02</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">마지막 급수: 14:02 · 80ml</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-[11px] font-bold">
+            Dry 91%
+          </span>
+<span class="font-label-sm text-[11px] text-tertiary flex items-center gap-0.5">
+<span class="material-symbols-rounded text-[14px]">water</span>
+            물통 충분
+          </span>
+</div>
+</div>
+<!-- Moisture bar -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>토양 수분</span>
+<span class="font-semibold text-on-surface">28%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 28%;"></div>
+</div>
+</div>
+</div>
+<!-- Device 3: Rubber Tree (Normal) -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-10 h-10 rounded-lg bg-tertiary-fixed/40 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-rounded text-tertiary text-[24px]">nest_eco_leaf</span>
+<span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold">베란다 고무나무</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">SPOT-03</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">마지막 급수: 어제 19:30</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-[11px] font-bold">
+            Wet 96%
+          </span>
+<span class="font-label-sm text-[11px] text-tertiary flex items-center gap-0.5">
+<span class="material-symbols-rounded text-[14px]">water</span>
+            물통 충분
+          </span>
+</div>
+</div>
+<!-- Moisture bar -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>토양 수분</span>
+<span class="font-semibold text-on-surface">51%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 51%;"></div>
+</div>
+</div>
+</div>
+<!-- Device 4: Parlor Palm (Normal) -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-10 h-10 rounded-lg bg-tertiary-fixed/40 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-rounded text-tertiary text-[24px]">forest</span>
+<span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface font-semibold">서재 테이블야자</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">SPOT-04</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">마지막 급수: 5시간 전</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-[11px] font-bold">
+            Dry 72%
+          </span>
+<span class="font-label-sm text-[11px] text-tertiary flex items-center gap-0.5">
+<span class="material-symbols-rounded text-[14px]">water</span>
+            물통 충분
+          </span>
+</div>
+</div>
+<!-- Moisture bar -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>토양 수분</span>
+<span class="font-semibold text-on-surface">35%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 35%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 5: Recent Activity Mini Timeline -->
+<div class="flex flex-col space-y-space-sm">
+<div class="flex items-center justify-between px-1">
+<h2 class="font-title-md text-title-md text-on-surface font-bold">최근 활동</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">실시간 텔레메트리</span>
+</div>
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<!-- Item 1 -->
+<div class="flex gap-space-sm items-start">
+<div class="w-7 h-7 rounded-full bg-tertiary-fixed flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-rounded text-tertiary text-[16px]">water_drop</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">침실 스킨답서스 급수 80ml 완료</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">14:02</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            AI Dry 91% + 센서 28% 일치 확인 후 정상 투출
+          </p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-space-sm items-start">
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-rounded text-secondary text-[16px]">block</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">거실 몬스테라 급수 보류</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">13:40</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            과습 60%↑ 감지 인터록 발동, 펌프 동작 차단
+          </p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex gap-space-sm items-start">
+<div class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-rounded text-on-surface-variant text-[16px]">tune</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">AI 신뢰도 저하 모드 전환</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">12:15</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            AI 신뢰도 68% (&lt;70%) 감지되어 하드웨어 센서값 강제 추종
+          </p>
+</div>
+</div>
+</div>
+</div>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(80,68,62,0.05)]" data-active-classes="text-primary font-semibold"><div class="flex justify-around items-center h-16 px-space-xs"><a aria-current="page" class="flex-1 h-full flex flex-col items-center justify-center gap-0.5 transition-colors text-primary font-semibold" data-path="dashboard-home" href="#"><span class="material-symbols-rounded text-[22px]">potted_plant</span><span class="font-label-sm text-label-sm">홈</span></a><a class="flex-1 h-full flex flex-col items-center justify-center gap-0.5 text-on-surface-variant transition-colors" data-path="device-list" href="#"><span class="material-symbols-rounded text-[22px]">sensors</span><span class="font-label-sm text-label-sm">디바이스</span></a><a class="flex-1 h-full flex flex-col items-center justify-center gap-0.5 text-on-surface-variant transition-colors" data-path="telemetry-logs" href="#"><span class="material-symbols-rounded text-[22px]">water_drop</span><span class="font-label-sm text-label-sm">로그</span></a><a class="flex-1 h-full flex flex-col items-center justify-center gap-0.5 text-on-surface-variant transition-colors" data-path="system-alerts" href="#"><span class="material-symbols-rounded text-[22px]">notifications</span><span class="font-label-sm text-label-sm">알림</span></a><a class="flex-1 h-full flex flex-col items-center justify-center gap-0.5 text-on-surface-variant transition-colors" data-path="admin-settings" href="#"><span class="material-symbols-rounded text-[22px]">tune</span><span class="font-label-sm text-label-sm">설정</span></a></div></nav></body></html>
